@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.UI;
 
 
-namespace ArmaduraLosaRevit.Model.BarraV.Desglose.WPF
+namespace Desglose.WPF
 {
     /// <summary>
     /// Class for creating Argument (Wrapped) External Events

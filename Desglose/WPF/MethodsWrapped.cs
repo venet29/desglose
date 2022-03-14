@@ -3,7 +3,7 @@ using Autodesk.Revit.UI;
 using Desglose;
 using Desglose.Ayuda;
 
-namespace ArmaduraLosaRevit.Model.BarraV.Desglose.WPF
+namespace Desglose.WPF
 {
     /// <summary>
     /// This is an example of of wrapping a method with an ExternalEventHandler using a string argument.

@@ -1,9 +1,9 @@
 ﻿using Autodesk.Revit.UI;
-using Desglose;
+
 using Desglose.Ayuda;
 using Desglose.DTO;
 
-namespace ArmaduraLosaRevit.Model.BarraV.Desglose.WPF
+namespace Desglose.WPF
 {
     /// <summary>
     /// Create methods here that need to be wrapped in a valid Revit Api context.

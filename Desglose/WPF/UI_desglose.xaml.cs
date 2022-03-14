@@ -10,7 +10,7 @@ using Desglose.Ayuda;
 using Desglose.DTO;
 using Desglose.enumNh;
 
-namespace ArmaduraLosaRevit.Model.BarraV.Desglose.WPF
+namespace Desglose.WPF
 {
     /// <summary>
     /// Interaction logic for UI.xaml

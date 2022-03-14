@@ -8,7 +8,7 @@ using Desglose.Ayuda;
 #endregion
 
 
-namespace ArmaduraLosaRevit.Model.BarraV.Desglose.WPF
+namespace Desglose.WPF
 {
 
     public class ManejadorWPFDesglose 

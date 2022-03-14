@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ArmaduraLosaRevit.Model.BarraV.Desglose.WPF;
+using Desglose.WPF;
 
 namespace Desglose
 {

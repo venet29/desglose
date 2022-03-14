@@ -1,4 +1,4 @@
-﻿using ArmaduraLosaRevit.Model.BarraV.Desglose.WPF;
+﻿using Desglose.WPF;
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
