@@ -1,0 +1,12 @@
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\bin\Release\InhDeslose.dll
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\bin\Release\InhDeslose.pdb
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\bin\Release\Newtonsoft.Json.dll
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\obj\Release\WPF\UI_desglose.g.cs
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\obj\Release\InhDeslose_MarkupCompile.cache
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\obj\Release\InhDeslose_MarkupCompile.lref
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\obj\Release\WPF\UI_desglose.baml
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\obj\Release\InhDeslose.g.resources
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\obj\Release\Desglose.csproj.CoreCompileInputs.cache
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\obj\Release\Desglose.csproj.CopyComplete
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\obj\Release\InhDeslose.dll
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\obj\Release\InhDeslose.pdb
