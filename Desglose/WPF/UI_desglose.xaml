@@ -24,23 +24,23 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="281*" />
+            <ColumnDefinition Width="91*"/>
 
             <!--  cambiar este parametro a 1*  para ver columna  y volver Width="700"   -->
         </Grid.ColumnDefinitions>
         <!-- MAIN TAB CONTROLS-->
-        <Border BorderBrush="#FFACACAC" BorderThickness="1" Height="32" VerticalAlignment="Top" Margin="0,0,0,0" />
+        <Border BorderBrush="#FFACACAC" BorderThickness="1" Height="32" VerticalAlignment="Top" Margin="0,0,0,0" Grid.ColumnSpan="2" />
 
 
         <TabControl x:Name="tabnh" HorizontalAlignment="Left" BorderBrush="{x:Null}" Background="{x:Null}"
-                   Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,0,0,0" Width="352">
+                   Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,0,0,0" Width="352" Grid.ColumnSpan="2">
 
             <TabItem x:Name="tbDatos" IsSelected="True" BorderBrush="{x:Null}" Background="{x:Null}"  Margin="0,-2,-4,-2"  Padding="5,0,5,0">
 
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Desglose;component/Resources/Flecha-icon_DESG.png" VerticalAlignment="Center"
-                               HorizontalAlignment="Center" Height="14" />
+
                         <Label Content="Crear Barras" />
                     </StackPanel>
                 </TabItem.Header>
@@ -70,9 +70,9 @@
                             </Grid.ColumnDefinitions>
 
                             <Label Grid.Row="1" Grid.Column="1">Caso</Label>
-                            <ComboBox Name="cbx_CasoElev" Grid.Row="1"  Grid.Column="2" Height="20" Width="90" HorizontalContentAlignment="Center" DropDownClosed="Cbx_TipoLargo_DropDownClosed" >
-                                <ComboBoxItem IsSelected="True" >Vertical</ComboBoxItem>
-                                <ComboBoxItem>Horizontal</ComboBoxItem>
+                            <ComboBox Name="cbx_CasoElev" Grid.Row="1"  Grid.Column="2"  Grid.ColumnSpan="3" Height="20" Width="186" HorizontalContentAlignment="Center" HorizontalAlignment="Left" DropDownClosed="Cbx_TipoLargo_DropDownClosed" >
+                                <ComboBoxItem IsSelected="True" >Elemento Vertical</ComboBoxItem>
+                                <ComboBoxItem>Elemento Horizontal</ComboBoxItem>
 
                             </ComboBox>
 
@@ -97,11 +97,11 @@
             <TabItem x:Name="Editconfig"   BorderBrush="{x:Null}" Background="{x:Null}" Margin="0,-2,-4,-2"    Padding="5,0,5,0">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Desglose;component/Resources/Flecha-icon_DESG.png" VerticalAlignment="Center" HorizontalAlignment="Center"
-                               Height="13" />
+
                         <Label Content="Generar corte" />
                     </StackPanel>
                 </TabItem.Header>
+
 
                 <GroupBox x:Name="pathpTH" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Header="Datos"  Margin="10,5,9,5" >
 
@@ -126,15 +126,15 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="1" Grid.Column="0">Caso</Label>
-                        <ComboBox Name="cbx_CasoCorte" Grid.Row="1"  Grid.Column="1" Height="20" Width="90" HorizontalContentAlignment="Center" DropDownClosed="Cbx_TipoLargo_DropDownClosed" >
-                            <ComboBoxItem IsSelected="True" >Vertical</ComboBoxItem>
-                            <ComboBoxItem>Horizontal</ComboBoxItem>
-                           
+                        <ComboBox Name="cbx_CasoCorte" Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="3" Height="20"  Width="213" HorizontalContentAlignment="Center" HorizontalAlignment="Left" DropDownClosed="Cbx_TipoLargo_DropDownClosed" >
+                            <ComboBoxItem IsSelected="True" >Elemento Vertical</ComboBoxItem>
+                            <ComboBoxItem>Elemento Horizontal</ComboBoxItem>
+
                         </ComboBox>
                         <Label Grid.Row="2" Grid.Column="0">Nombre</Label>
-                        <TextBox x:Name="dtnameCorte" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"  Text="Seccion" TextAlignment="Center" Margin="0,1,0,5"  VerticalContentAlignment="Center" ></TextBox>
+                        <TextBox x:Name="dtnameCorte" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"  Text="Seccion" TextAlignment="Center" Margin="0,1,1,5"  VerticalContentAlignment="Center" ></TextBox>
                         <Button Name="GenCorteV" Grid.Row="5" Grid.Column="3"   Height="25" Click="BExternalMethod1_Click" Width="100"  HorizontalAlignment="Right" Content="Generar Corte" ></Button>
-                        
+
                         <Label Content="Largo" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" />
                         <ComboBox Name="cbx_TipoLargo" Grid.Row="3"  Grid.Column="1" Height="20" Width="90" HorizontalContentAlignment="Center" DropDownClosed="Cbx_TipoLargo_DropDownClosed" >
                             <ComboBoxItem IsSelected="True" >Normal</ComboBoxItem>
@@ -143,7 +143,7 @@
                         </ComboBox>
 
                         <StackPanel Orientation="Horizontal" Grid.Column="3"  Grid.Row="3" Visibility="{Binding IsVisibleTolerancia, UpdateSourceTrigger=PropertyChanged}">
-            
+
                             <Label Content="tolerancia" />
                             <TextBox x:Name="dtTole"  Width="51" Height="20" Text="50" TextAlignment="Center"    VerticalContentAlignment="Center" ></TextBox>
                         </StackPanel>
@@ -153,7 +153,7 @@
                         <ComboBox Name="cbx_tipocuantia" Grid.Row="4"  Grid.Column="1" Height="20" Width="90" HorizontalContentAlignment="Center" DropDownClosed="Cbx_tipocuantia_DropDownClosed" >
                             <ComboBoxItem IsSelected="True">Normal</ComboBoxItem>
                             <ComboBoxItem>Definir</ComboBoxItem>
-                       
+
                         </ComboBox>
 
 
@@ -168,11 +168,10 @@
             </TabItem>
 
 
-            <TabItem x:Name="EditPAth" Visibility="Visible"  BorderBrush="{x:Null}" Background="{x:Null}" Margin="0,-2,-4,-2"    Padding="5,0,5,0">
+            <TabItem x:Name="EditPAth" Visibility="Hidden"  BorderBrush="{x:Null}" Background="{x:Null}" Margin="0,-2,-4,-2"    Padding="5,0,5,0">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Desglose;component/Resources/Flecha-icon_DESG.png" VerticalAlignment="Center" HorizontalAlignment="Center"
-                               Height="13" />
+
                         <Label Content="configuracion" />
                     </StackPanel>
                 </TabItem.Header>

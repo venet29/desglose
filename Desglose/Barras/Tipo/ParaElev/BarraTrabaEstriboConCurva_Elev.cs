@@ -31,6 +31,9 @@ namespace Desglose.Calculos.Tipo.ParaElev
             _largoPataInclinada = _rebarInferiorDTO.LargoPata;
             _Prefijo_F = "F=";
             _puntoInicialReferencia = _RebarInferiorDTO.ptoini;
+
+            if (_RebarInferiorDTO.Config_EspecialCorte.ListaPAraShare != null)
+                listaPArametroSharenh = _RebarInferiorDTO.Config_EspecialCorte.ListaPAraShare;
         }
 
 

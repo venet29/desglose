@@ -291,7 +291,7 @@ namespace Desglose.WPF
                 TipoCOnfigCuantia = _TipoCOnfCuantia,
                 ListaPAraShare = listaPAra,
                 tolerancia = Util.ConvertirStringInDouble(dtTole.Text),
-                TipoCasoAnalisis = (cbx_CasoCorte.Text == "Vertical" ? CasoAnalisas.AnalsisVertical : CasoAnalisas.AnalisisHorizontal)
+                TipoCasoAnalisis = (cbx_CasoCorte.Text.Contains("Vertical") ? CasoAnalisas.AnalsisVertical : CasoAnalisas.AnalisisHorizontal)
             };
 
             return _Config_EspecialCorte;
@@ -326,7 +326,7 @@ namespace Desglose.WPF
             {
                 tipoBarraElev = _newParaMe,
                 IsAgregarId = ((bool)chb_id.IsChecked ? true : false),
-                TipoCasoAnalisis = (cbx_CasoElev.Text == "Vertical" ? CasoAnalisas.AnalsisVertical : CasoAnalisas.AnalisisHorizontal)
+                TipoCasoAnalisis = (cbx_CasoElev.Text.Contains("Vertical") ? CasoAnalisas.AnalsisVertical : CasoAnalisas.AnalisisHorizontal)
             };
 
             return _Config_EspecialElev;

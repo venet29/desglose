@@ -66,6 +66,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Anotacion\AnotacionMultipleBarra.cs" />
     <Compile Include="Ayuda\AyudaAumentarLetra.cs" />
     <Compile Include="Ayuda\AyudaCreartexto.cs" />
     <Compile Include="Ayuda\AyudaCurveRebar.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="BuscarTipos\TiposFamilyRebar.cs" />
     <Compile Include="BuscarTipos\TiposPathReinTags.cs" />
     <Compile Include="BuscarTipos\TiposPathReinTagsFamilia.cs" />
+    <Compile Include="BuscarTipos\TiposMultiReferenceAnnotationType.cs" />
     <Compile Include="BuscarTipos\TiposRebarTag.cs" />
     <Compile Include="BuscarTipos\Tipos_Arrow.cs" />
     <Compile Include="Buscar\GeometriaViga.cs" />

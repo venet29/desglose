@@ -59,7 +59,7 @@ namespace Desglose
 
                 InfoSystema_validar _InfoSystema = new InfoSystema_validar();
                 _InfoSystema.M1_EjecutarInfoSistem();
-                _InfoSystema.M3_GetMacAddress();
+                _InfoSystema.M3_GetMacAddress2();
 
 
                 BitacoraDTO _usuariosDTO = new BitacoraDTO()
@@ -364,7 +364,7 @@ namespace Desglose
 
                 if (!M1_EjecutarInfoSistem()) return false;
                 if (!M2_ObtenerIp()) return false;
-                if (!M3_GetMacAddress()) return false;
+                if (!M3_GetMacAddress2()) return false;
             }
             catch (Exception ex)
             {
@@ -448,6 +448,39 @@ namespace Desglose
                 return false; ;
             }
             return true;
+        }
+
+        public bool M3_GetMacAddress2()
+        {
+
+            try
+            {
+                const int MIN_MAC_ADDR_LENGTH = 12;
+                string macAddress = string.Empty;
+                long maxSpeed = -1;
+
+                foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    Debug.WriteLine("Found MAC Address: " + nic.GetPhysicalAddress() + " Type: " + nic.NetworkInterfaceType);
+
+                    string tempMac = nic.GetPhysicalAddress().ToString();
+                    if (nic.Speed > maxSpeed &&
+                        !string.IsNullOrEmpty(tempMac) &&
+                        tempMac.Length >= MIN_MAC_ADDR_LENGTH)
+                    {
+                        Debug.WriteLine("New Max Speed = " + nic.Speed + ", MAC: " + tempMac);
+                        maxSpeed = nic.Speed;
+                        mac = tempMac;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($" error en 'M3_GetMacAddress'" + ex.Message);
+                return false; ;
+            }
+            return true;
+
         }
         #endregion
 

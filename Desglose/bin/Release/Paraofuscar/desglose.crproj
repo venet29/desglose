@@ -1,0 +1,5 @@
+<project outputDir="D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\bin\Release\Paraofuscar\Confused" baseDir="D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\bin\Release\Paraofuscar" xmlns="http://confuser.codeplex.com">
+  <module path="Desglose.dll">
+    <rule pattern="true" preset="maximum" inherit="false" />
+  </module>
+</project>

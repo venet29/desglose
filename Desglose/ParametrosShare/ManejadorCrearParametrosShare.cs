@@ -22,12 +22,12 @@ namespace Desglose.ParametrosShare
 
         private List<ElementId> listaIdExistentes;
 
-        public ManejadorCrearParametrosShare(UIApplication uiapp, string RutaArchivoCompartido)
+        public ManejadorCrearParametrosShare(UIApplication uiapp, string RutaArchivoCompartido , bool _IsCrearArchivoParametrosCOmpartido)
         {
             this._uiapp = uiapp;
             this._doc = uiapp.ActiveUIDocument.Document;
             this._rutaArchivoCompartido = RutaArchivoCompartido;
-            IsCrearArchivoParametrosCOmpartido = false;
+            IsCrearArchivoParametrosCOmpartido = _IsCrearArchivoParametrosCOmpartido;
             listaIdExistentes = new List<ElementId>();
             _versionREviT = _uiapp.Application.VersionNumber;
         }
@@ -81,8 +81,13 @@ namespace Desglose.ParametrosShare
                 // si archivo de parametro comppartido no existe salir
                 if (!File.Exists(_uiapp.Application.SharedParametersFilename))
                 {
-                    Util.ErrorMsg("Archivo de parametros compartidos no existe. Crear antes de asignar parametros compartidos");
-                    return false;
+                    if (IsCrearArchivoParametrosCOmpartido)
+                        M2_CrearArchivoDePArametrosCompartidos();
+                    else
+                    {
+                        Util.ErrorMsg("Archivo de parametros compartidos no existe. Crear antes de asignar parametros compartidos");
+                        return false;
+                    }
                 }
 
                 if (entidadDefinition.nombreParametro == "B_")
@@ -92,11 +97,11 @@ namespace Desglose.ParametrosShare
                 {
                     return true;
                 }
-                Application revitApp;
-                if (IsCrearArchivoParametrosCOmpartido)
-                    revitApp = M2_CrearArchivoDePArametrosCompartidos();
-                else
-                    revitApp = _uiapp.Application;
+                Application revitApp = _uiapp.Application;
+                //if (IsCrearArchivoParametrosCOmpartido)
+                //    revitApp = M2_CrearArchivoDePArametrosCompartidos();
+                //else
+                //    revitApp = _uiapp.Application;
 
                 //creadefinicio de parametroCon 'EntidadDefinition'
                 Definition rebarSharedParamDef = M3_CrearDefinicionDeParametro(entidadDefinition);

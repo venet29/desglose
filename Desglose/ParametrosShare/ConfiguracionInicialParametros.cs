@@ -22,7 +22,7 @@ namespace Desglose.ParametrosShare
   
         public bool AgregarParametrosShareDesglose()
         {
-            ManejadorCrearParametrosShare _definicionManejador = new ManejadorCrearParametrosShare(_uiapp, RutaArchivoCompartido: "ParametrosNH");
+            ManejadorCrearParametrosShare _definicionManejador = new ManejadorCrearParametrosShare(_uiapp, RutaArchivoCompartido: "ParametrosNH",true);
             if (!_definicionManejador.EjecutarDesglose()) return false;
             return true;
         }

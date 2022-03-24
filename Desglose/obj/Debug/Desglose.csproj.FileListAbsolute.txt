@@ -10,3 +10,16 @@ D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\obj\Debug\D
 D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\obj\Debug\Desglose.g.resources
 D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\obj\Debug\Desglose.dll
 D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\Desglose\obj\Debug\Desglose.pdb
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\bin\Debug\Desglose.dll
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\bin\Debug\Desglose.pdb
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\bin\Debug\Newtonsoft.Json.dll
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\WPF\UI_desglose.g.cs
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose_MarkupCompile.cache
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose_MarkupCompile.lref
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\WPF\UI_desglose.baml
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.g.resources
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.csproj.CoreCompileInputs.cache
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.csproj.CopyComplete
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.dll
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.pdb
+D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.csprojAssemblyReference.cache
