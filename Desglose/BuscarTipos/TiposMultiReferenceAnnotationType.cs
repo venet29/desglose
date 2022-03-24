@@ -70,7 +70,7 @@ namespace Desglose.BuscarTipos
             return elemento;
         }
 
-        public bool obtenerDefault(Document doc)
+        public static MultiReferenceAnnotationType obtenerDefault(Document doc)
         {
             try
             {
@@ -82,9 +82,9 @@ namespace Desglose.BuscarTipos
             catch (Exception)
             {
 
-                return false;
+                return null;
             }
-            return true;
+            return elemetEncontrado;
         }
 
         private static void AgregarDiccionario(string nombre, MultiReferenceAnnotationType element)

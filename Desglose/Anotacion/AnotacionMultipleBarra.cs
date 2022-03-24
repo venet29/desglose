@@ -53,6 +53,7 @@ namespace Desglose.Anotacion
             {
                 //1) definir MultiReferenceAnnotationType
                 var tupoanotation = TiposMultiReferenceAnnotationType.M1_GetMultiReferenceAnnotationType("Structural Rebar Section", _doc);
+                tupoanotation = TiposMultiReferenceAnnotationType.obtenerDefault( _doc);
                 if (tupoanotation == null) return false;
                 tupoanotation.TagTypeId = null; // generar tag por ejemplo 'MRA Rebar Section'
                 tupoanotation.DimensionStyleId = null; // definir un dimensiones sin flecha ni nada simple
