@@ -99,6 +99,8 @@
     <Compile Include="Ayuda\CrearViewNH.cs" />
     <Compile Include="Buscar\GeometriaBase.cs" />
     <Compile Include="Dimensiones\DimensionesDatosTextoDTO.cs" />
+    <Compile Include="DImensionNh\CrearTipoDimension.cs" />
+    <Compile Include="DImensionNh\SeleccionarDimensiones.cs" />
     <Compile Include="DTO\ConfiguracionIniciaWPFlBarraVerticalDTO.cs" />
     <Compile Include="DTO\ConfiguracionTAgBarraDTo.CS" />
     <Compile Include="DTO\ConfiguracionTAgEstriboDTo.CS" />

@@ -23,3 +23,15 @@ D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.c
 D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.dll
 D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.pdb
 D:\Documents\Escritorio\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.csprojAssemblyReference.cache
+J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\bin\Debug\Desglose.dll
+J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\bin\Debug\Desglose.pdb
+J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\bin\Debug\Newtonsoft.Json.dll
+J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\WPF\UI_desglose.g.cs
+J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose_MarkupCompile.cache
+J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose_MarkupCompile.lref
+J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\WPF\UI_desglose.baml
+J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.g.resources
+J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.csproj.CoreCompileInputs.cache
+J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.csproj.CopyComplete
+J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.dll
+J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Debug\Desglose.pdb

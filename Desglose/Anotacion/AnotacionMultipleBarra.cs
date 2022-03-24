@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Desglose.BuscarTipos;
+using Desglose.DImensionNh;
 
 namespace Desglose.Anotacion
 {
@@ -52,24 +53,51 @@ namespace Desglose.Anotacion
             try
             {
                 //1) definir MultiReferenceAnnotationType
-                var tupoanotation = TiposMultiReferenceAnnotationType.M1_GetMultiReferenceAnnotationType("Structural Rebar Section", _doc);
-                tupoanotation = TiposMultiReferenceAnnotationType.obtenerDefault( _doc);
+                MultiReferenceAnnotationType tupoanotation = TiposMultiReferenceAnnotationType.obtenerDefault(_doc);
                 if (tupoanotation == null) return false;
-                tupoanotation.TagTypeId = null; // generar tag por ejemplo 'MRA Rebar Section'
-                tupoanotation.DimensionStyleId = null; // definir un dimensiones sin flecha ni nada simple
-                tupoanotation.GroupTagHeads = true;
-                tupoanotation.ShowDimensionText = false;
+
+                //2)obtener dimensio
+                DimensionType dmNh = SeleccionarDimensiones.ObtenerPrimerDimensioneTypeLinear(_doc);
+                if (dmNh == null) return false;
+           
+
+                //3) obtener tag 
+                Element IndependentTagPath = TiposRebarTag.M1_GetRebarTag("MRA Rebar Section", _doc);
+                if (IndependentTagPath == null) return false;
+
+                try
+                {
+                    using (Transaction t = new Transaction(_doc, "MultiReferenceAnnotation_config"))
+                    {
+                        t.Start();
+                        tupoanotation.DimensionStyleId = dmNh.Id; // definir un dimensiones sin flecha ni nada simple
+                        tupoanotation.TagTypeId = IndependentTagPath.Id; // generar tag por ejemplo 'MRA Rebar Section'
+
+                        tupoanotation.GroupTagHeads = true;
+                        tupoanotation.ShowDimensionText = false;
+
+                        t.Commit();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Util.ErrorMsg($"Error al crear anotacion  EX:{ex.Message}");
+                    return false;
+                }
+           
+       
 
                 //2) crear ale option
                 opt = new MultiReferenceAnnotationOptions(tupoanotation);
-                opt.DimensionLineDirection = XYZ.BasisX;
-                opt.DimensionPlaneNormal = XYZ.BasisZ;
-               
+                opt.DimensionLineDirection = _view.RightDirection;
+                opt.DimensionPlaneNormal = _view.ViewDirection;
+
                 opt.DimensionLineOrigin = Origen;
                 opt.TagHasLeader = true;
                 opt.TagHeadPosition = Taghead;
                 opt.DimensionStyleType = DimensionStyleType.Linear;
-      
+
                 opt.SetElementsToDimension(listaBArras);
 
             }
@@ -81,15 +109,15 @@ namespace Desglose.Anotacion
             return true;
         }
 
-        public bool DibujarAnnotation()
+        private bool DibujarAnnotation()
         {
             try
             {
-               using (Transaction t = new Transaction(_doc, "MultiReferenceAnnotation"))
+                using (Transaction t = new Transaction(_doc, "MultiReferenceAnnotation"))
                 {
                     t.Start();
                     MultiReferenceAnnotation mra = MultiReferenceAnnotation.Create(_doc, _view.Id, opt);
-                  
+
                     t.Commit();
                 }
 
