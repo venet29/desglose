@@ -11,11 +11,13 @@ namespace Desglose.DTO
     public class Config_EspecialElev
     {
 
-        public ParametroShareNhDTO tipoBarraElev { get; internal set; }
-        public List<ParametroShareNhDTO> ListaPAraShare { get; internal set; }
+        public ParametroShareNhDTO tipoBarraElev { get;  set; }
+        public List<ParametroShareNhDTO> ListaPAraShare { get;  set; }
         public bool IsAgregarId { get; set; }
-        public CasoAnalisas TipoCasoAnalisis { get; internal set; }
-        public CrearTrasformadaSobreVectorDesg Trasform_ { get; internal set; }
-        public XYZ direccionMuevenBarrasFAlsa { get; internal set; }
+        public CasoAnalisas TipoCasoAnalisis { get;  set; }
+        public CrearTrasformadaSobreVectorDesg Trasform_ { get;  set; }
+        public XYZ direccionMuevenBarrasFAlsa { get;  set; }
+        public int DiamtroLateralMax { get;  set; }
+
     }
 }

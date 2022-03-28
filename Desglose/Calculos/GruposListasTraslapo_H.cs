@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Desglose.DTO;
 
 namespace Desglose.Calculos
 {
@@ -14,20 +15,24 @@ namespace Desglose.Calculos
     {
         private UIApplication _uiapp;
         private List<RebarDesglose> lista_RebarDesglose;
+        private  Config_EspecialElev config_EspecialElv;
+
         public List<RebarDesglose_GrupoBarras_H> GruposRebarMismaLinea { get; set; }
-        public GruposListasTraslapo_H(UIApplication uiapp, List<RebarDesglose> lista_RebarDesglose)
+        public GruposListasTraslapo_H(UIApplication uiapp, List<RebarDesglose> lista_RebarDesglose, Config_EspecialElev _Config_EspecialElv)
         {
             this._uiapp = uiapp;
             this.lista_RebarDesglose = lista_RebarDesglose;
+            config_EspecialElv = _Config_EspecialElv;
             this.GruposRebarMismaLinea = new List<RebarDesglose_GrupoBarras_H>();
         }
 
         public bool ObtenerGruposTraslapos()
         {
-            List<RebarDesglose_Barras_H> listaBArras = lista_RebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_BA_H)
+            List<RebarDesglose_Barras_H> listaBArras_sinLat = lista_RebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_BA_H &&
+                                                                                             config_EspecialElv.DiamtroLateralMax<c.Diametro_MM)
                                                                          .Select(c => new RebarDesglose_Barras_H(c, _uiapp)).ToList();
             //obtener RebarDesglose_Barras
-            foreach (RebarDesglose_Barras_H item in listaBArras)
+            foreach (RebarDesglose_Barras_H item in listaBArras_sinLat)
             {
                 item.Ordenar_UltimaCurvaMayorZ();
                 item.Ordenar_Analizar();
@@ -35,29 +40,29 @@ namespace Desglose.Calculos
 
             // ordenar de los inicial menor y solo verticales
 
-            listaBArras = listaBArras.Where(c => c._direccion == Ayuda.direccionBarra.Horizontal).OrderBy(c => c.ptoInicial.Z).ToList();
+            listaBArras_sinLat = listaBArras_sinLat.Where(c => c._direccion == Ayuda.direccionBarra.Horizontal).OrderBy(c => c.ptoInicial.Z).ToList();
 
             try
             {
-                for (int i = 0; i < listaBArras.Count; i++)
+                for (int i = 0; i < listaBArras_sinLat.Count; i++)
                 {
-                    RebarDesglose_Barras_H item = listaBArras[i];
+                    RebarDesglose_Barras_H item = listaBArras_sinLat[i];
 
                     RebarDesglose_Barras_H BarraAnalizada = item;
-                    List<RebarDesglose_Barras_H> NuewGrupoBarras = new List<RebarDesglose_Barras_H>();
+                    List<RebarDesglose_Barras_H> NuevoGrupoBarras = new List<RebarDesglose_Barras_H>();
                     if (item.analizadasuperior) continue;
 
                     item.analizadasuperior = true;
-                    NuewGrupoBarras.Add(item);
+                    NuevoGrupoBarras.Add(item);
                     RebarDesglose_GrupoBarras_H _RebarDesglose_GrupoBarrasNew = null;
                     if (item.IsTraslapable == false || !item.SepuedeTraslaparSUperior())
                     {
-                        _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuewGrupoBarras);
+                        _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuevoGrupoBarras);
                         GruposRebarMismaLinea.Add(_RebarDesglose_GrupoBarrasNew);
                         continue;
                     }
 
-                    var listaGrupo = listaBArras
+                    var listaGrupo = listaBArras_sinLat
                         .Where(c => (!c.ptoInicial.IsAlmostEqualTo(item.ptoInicial)) &&
                                     c.IsTraslapable && 
                                     UtilDesglose.IsCollinear_barraDesglose(item.curvePrincipal, c.curvePrincipal, Util.MmToFoot( Math.Max(item.diametroMM,c.diametroMM))))
@@ -78,10 +83,10 @@ namespace Desglose.Calculos
                         BarraAnalizada = barra_colineales;
 
                         barra_colineales.analizadasuperior = true;
-                        NuewGrupoBarras.Add(barra_colineales);
+                        NuevoGrupoBarras.Add(barra_colineales);
                     }
 
-                    _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuewGrupoBarras);
+                    _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuevoGrupoBarras);
                     GruposRebarMismaLinea.Add(_RebarDesglose_GrupoBarrasNew);
                 }
             }

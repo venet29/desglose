@@ -329,7 +329,8 @@ namespace Desglose.WPF
             {
                 tipoBarraElev = _newParaMe,
                 IsAgregarId = ((bool)chb_id.IsChecked ? true : false),
-                TipoCasoAnalisis = (cbx_CasoElev.Text.Contains("Vertical") ? CasoAnalisas.AnalsisVertical : CasoAnalisas.AnalisisHorizontal)
+                TipoCasoAnalisis = (cbx_CasoElev.Text.Contains("Vertical") ? CasoAnalisas.AnalsisVertical : CasoAnalisas.AnalisisHorizontal),
+                DiamtroLateralMax=12
             };
 
             return _Config_EspecialElev;

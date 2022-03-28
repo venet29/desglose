@@ -161,5 +161,9 @@ namespace Desglose.Ayuda
         public static int CONST_REDONDEAR_VIEW = 8;
 
 
+        public static double CONST_1CM_en_Foot = 0.032808398950;// 1 cm    
+            
+
+
     }
 }

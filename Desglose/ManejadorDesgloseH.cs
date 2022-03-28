@@ -80,11 +80,11 @@ namespace Desglose
 
 
                 //a)BARRAS
-                GruposListasTraslapo_H _GruposListasTraslapo = new GruposListasTraslapo_H(_uiapp, Lista_RebarDesglose);
+                GruposListasTraslapo_H _GruposListasTraslapo = new GruposListasTraslapo_H(_uiapp, Lista_RebarDesglose, _Config_EspecialElv);
                 if (!_GruposListasTraslapo.ObtenerGruposTraslapos()) return false;
 
                 GruposListasTraslapoIguales_H _GruposListasTraslapoIguales = new GruposListasTraslapoIguales_H(_uiapp, _GruposListasTraslapo.GruposRebarMismaLinea);
-                if (!_GruposListasTraslapoIguales.ObtenerGruposTraslaposIguales(_Config_EspecialElv)) return false;
+                if (!_GruposListasTraslapoIguales.ObtenerGruposTraslaposIgualesV2(_Config_EspecialElv)) return false;
 
                 //b)ESTRIBO
                 GruposListasEstribo_H _GruposListasEstribo = new GruposListasEstribo_H(_uiapp, Lista_RebarDesglose);

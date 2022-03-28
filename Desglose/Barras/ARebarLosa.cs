@@ -313,7 +313,7 @@ namespace Desglose.Calculos
 
             //M10_CreaDimension();
             // M11_CreaCirculo();
-            // M11_CrearGrupo();
+             M11_CrearGrupo();
             //  M12_MOverHaciaBajo();
 
         }
@@ -657,7 +657,7 @@ namespace Desglose.Calculos
         }
         public void M11_CrearGrupo()
         {
-            if (listaGrupo_LineaRebar.Count < 1 || listaGrupo_Tag.Count < 2) return;
+            if (listaGrupo_LineaRebar.Count < 1 ) return;
 
             if (listaGrupo_DimensionCirculo.Count > 0)
                 listaGrupo_LineaRebar.AddRange(listaGrupo_DimensionCirculo);

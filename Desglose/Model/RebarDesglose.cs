@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using Desglose.Entidades;
 using ADesglose.Ayuda;
+using Desglose.Extension;
 
 namespace Desglose.Model
 {
@@ -30,6 +31,7 @@ namespace Desglose.Model
         public List<WraperRebarLargo> ListaCurvaBarrasFinal_conCurva_Estribo { get; set; }
 
         public XYZ _normal { get; set; }
+        public int Diametro_MM { get; private set; }
         public List<Curve> listaptoInicialConCurva { get; private set; }
         public WraperRebarLargo CurvaMasLargo { get; private set; }
         public OrientacionBArra OrientacionBArra_ { get; set; }
@@ -99,7 +101,7 @@ namespace Desglose.Model
                 ListaCurvaBarras = AuxTRans_ListaCurvaBarras,
                 ListaCurvaBarrasFinal_Estribo = AuxTRans_ListaCurvaBarrasFinal_Estribo,
                 ListaCurvaBarrasFinal_conCurva_Estribo = AuxTRans_ListaCurvaBarrasFinal_conCurva_Estribo,
-
+                Diametro_MM =Diametro_MM,
                 _normal = _normal,
                 listaptoInicialConCurva = listaptoInicialConCurva,
                 CurvaMasLargo = CurvaMasLargo.GenerarTrasformada(trasform),
@@ -265,7 +267,7 @@ namespace Desglose.Model
             {
                 var _driverAccesor = _rebar.GetShapeDrivenAccessor();
                 _normal = _driverAccesor.Normal;
-
+                Diametro_MM= _rebar.ObtenerDiametroInt();
 
                 if (ListaParametrosRebar.Count == 6) //estribo
                 {

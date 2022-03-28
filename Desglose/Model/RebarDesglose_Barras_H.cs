@@ -48,7 +48,7 @@ namespace Desglose.Model
         {
             nextId += 1;
             contBarra = nextId;
-            diametroMM = _RebarDesglose._rebar.ObtenerDiametroInt();
+            diametroMM = _RebarDesglose.Diametro_MM;
             this._rebarDesglose = _RebarDesglose;
             this._uiapp = uiapp;
             this._doc = _uiapp.ActiveUIDocument;
