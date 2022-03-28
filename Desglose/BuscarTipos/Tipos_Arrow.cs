@@ -132,29 +132,31 @@ namespace Desglose.BuscarTipos
                 {
                     t.Start("CreateIncialesArrow-NH");
 
-                    ElementType _tipodeHook = BuscarElementType("Filled Dot 2mm", _doc);
+                    string familiabase = "Open Dot 2mm";
+
+                     ElementType _tipodeHook = BuscarElementType(familiabase, _doc);
 
                     if (_tipodeHook != null)
 
                     {
-                        ElementType _tipodeHook50 = BuscarElementType("Filled Dot 2mm_50", _doc);
+                        ElementType _tipodeHook50 = BuscarElementType(familiabase+"_50", _doc);
                         if (_tipodeHook50 == null)
                         {
-                            var newArrow50 = _tipodeHook.Duplicate("Filled Dot 2mm_50");
+                            var newArrow50 = _tipodeHook.Duplicate(familiabase+"_50");
                             if (ParameterUtil.FindParaByName(newArrow50, "Tick Size") != null) ParameterUtil.SetParaInt(newArrow50, "Tick Size", Util.CmToFoot(1 / 10f));
                         }
 
-                        ElementType _tipodeHook75 = BuscarElementType("Filled Dot 2mm_75", _doc);
+                        ElementType _tipodeHook75 = BuscarElementType(familiabase+"_75", _doc);
                         if (_tipodeHook75 == null)
                         {
-                            var newArrow75 = _tipodeHook.Duplicate("Filled Dot 2mm_75");
+                            var newArrow75 = _tipodeHook.Duplicate(familiabase+"_75");
                             if (ParameterUtil.FindParaByName(newArrow75, "Tick Size") != null) ParameterUtil.SetParaInt(newArrow75, "Tick Size", Util.CmToFoot(0.66665 / 10f));
                         }
 
                         ElementType _tipodeHook100 = BuscarElementType("Filled Dot 2mm_100", _doc);
                         if (_tipodeHook100 == null)
                         {
-                            var newArrow100 = _tipodeHook.Duplicate("Filled Dot 2mm_100");
+                            var newArrow100 = _tipodeHook.Duplicate(familiabase+"_100");
                             if (ParameterUtil.FindParaByName(newArrow100, "Tick Size") != null) ParameterUtil.SetParaInt(newArrow100, "Tick Size", Util.CmToFoot(0.5 / 10f));
                         }
                     }

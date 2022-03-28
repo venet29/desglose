@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Desglose.Ayuda;
-
+using Desglose.Familias;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,28 +12,38 @@ using Desglose.DImensionNh;
 
 namespace Desglose.Anotacion
 {
-    public class AnotacionMultipleBarra
+    public class AnotacionMultipleBarraDTO
+    {
+        public string nombrefamilia { get; set; }
+        public XYZ Origen_ { get; set; }
+        public XYZ taghead_ { get; set; }
+    }
+        public class AnotacionMultipleBarra
     {
         private readonly UIApplication _uiapp;
+        private readonly int _dire;
         private readonly View _view;
         private Document _doc;
         private MultiReferenceAnnotationOptions opt;
-        private XYZ Origen;
-        private XYZ Taghead;
+        private XYZ _Origen;
+        private XYZ _Taghead;
+        private string _nombrefamilia;
 
-        public AnotacionMultipleBarra(UIApplication uiapp, View _view)
+        public AnotacionMultipleBarra(UIApplication uiapp, View _section, int  _dire)
         {
             this._uiapp = uiapp;
-            this._view = _view;
+            this._dire = _dire;
+            this._view = _section;
             this._doc = _uiapp.ActiveUIDocument.Document;
         }
 
-        public bool CreateAnnotation(List<ElementId> listaBArras, XYZ Origen_, XYZ taghead_)
+        public bool CreateAnnotation(List<ElementId> listaBArras, AnotacionMultipleBarraDTO _AnotacionMultipleBarraDTO )
         {
             try
             {
-                Origen = Origen_;
-                Taghead = taghead_;
+                _Origen = _AnotacionMultipleBarraDTO.Origen_;
+                _Taghead = _AnotacionMultipleBarraDTO.taghead_;
+                _nombrefamilia=_AnotacionMultipleBarraDTO.nombrefamilia;
                 if (!ObtenerMultiRef(listaBArras)) return false;
 
                 DibujarAnnotation();
@@ -53,7 +63,20 @@ namespace Desglose.Anotacion
             try
             {
                 //1) definir MultiReferenceAnnotationType
-                MultiReferenceAnnotationType tupoanotation = TiposMultiReferenceAnnotationType.obtenerDefault(_doc);
+
+
+                MultiReferenceAnnotationType tupoanotation = null; // TiposMultiReferenceAnnotationType.obtenerDefault(_doc);
+
+                if (_nombrefamilia == CONSTFami.NOmbre_FAMILIA_LAT)
+                    tupoanotation = TiposMultiReferenceAnnotationType.M1_GetMultiReferenceAnnotationType("MultiReferenceAnnotationType_LAT", _doc);
+                else if (_nombrefamilia == CONSTFami.NOmbre_Section_Diam)
+                    tupoanotation = TiposMultiReferenceAnnotationType.M1_GetMultiReferenceAnnotationType("MultiReferenceAnnotationType_DIAM", _doc);
+                else if (_nombrefamilia == CONSTFami.NOmbre_Section_SegunElev)
+                    tupoanotation = TiposMultiReferenceAnnotationType.M1_GetMultiReferenceAnnotationType("MultiReferenceAnnotationType_SegunELEV", _doc);
+                else
+                    tupoanotation = TiposMultiReferenceAnnotationType.obtenerDefault(_doc);
+
+
                 if (tupoanotation == null) return false;
 
                 //2)obtener dimensio
@@ -62,7 +85,7 @@ namespace Desglose.Anotacion
            
 
                 //3) obtener tag 
-                Element IndependentTagPath = TiposRebarTag.M1_GetRebarTag("MRA Rebar Section", _doc);
+                Element IndependentTagPath = TiposRebarTag.M1_GetRebarTag(_nombrefamilia, _doc);
                 if (IndependentTagPath == null) return false;
 
                 try
@@ -93,9 +116,9 @@ namespace Desglose.Anotacion
                 opt.DimensionLineDirection = _view.RightDirection;
                 opt.DimensionPlaneNormal = _view.ViewDirection;
 
-                opt.DimensionLineOrigin = Origen;
+                opt.DimensionLineOrigin = _Origen;
                 opt.TagHasLeader = true;
-                opt.TagHeadPosition = Taghead;
+                opt.TagHeadPosition = _Taghead;
                 opt.DimensionStyleType = DimensionStyleType.Linear;
 
                 opt.SetElementsToDimension(listaBArras);
@@ -120,7 +143,6 @@ namespace Desglose.Anotacion
 
                     t.Commit();
                 }
-
             }
             catch (Exception ex)
             {

@@ -181,6 +181,13 @@ namespace Desglose
                     UtilDesglose.ErrorMsg($"Error al seleccionar estribos. Se han seleccionado {_GruposListasEstribo.GruposRebarMismaLinea.Count} grupos de estribos, se debe seleccionar solo 1 grupo de Estribo");
                 }
 
+                //seleccionar pto
+                SeleccionarElementosV _SeleccionarElementosV = new SeleccionarElementosV(_uiapp, true);
+                _SeleccionarElementosV.M1_1_CrearWorkPLane_EnCentroViewSecction();
+                var lista = CrearListaPtos.M2_ListaPtoSimple(_uiapp, 1);
+                if (lista.Count == 0) return false;
+
+                XYZ posicionInicial = lista[0];
 
                 try
                 {
@@ -189,15 +196,20 @@ namespace Desglose
                         t.Start("Crear cortes");
 
                         Dibujar2D_Estribos_Corte_H _Dibujar2D_Estribos_Corte = new Dibujar2D_Estribos_Corte_H(_uiapp, _GruposListasEstribo, _Config_EspecialCorte);
-                        if (_Dibujar2D_Estribos_Corte.PreDibujar(_CrearView.section, _ViewOriginal))
+                        if (_Dibujar2D_Estribos_Corte.PreDibujar(_CrearView.section, _ViewOriginal, lista[0]))
                         {
                             _Dibujar2D_Estribos_Corte.Dibujar();
                         }
-
-
                         Dibujar2D_Barra_Corte_TAg_H _dibujar2D_Barra_Corte_TAg = new Dibujar2D_Barra_Corte_TAg_H(_uiapp,
                                                             _GruposListasEstribo.listaBArrasEnElev, _GruposListasEstribo._DatosHost.CaraCentral, _Config_EspecialCorte);
-                        //_dibujar2D_Barra_Corte_TAg.CrearTAg(_CrearView.section);
+
+                        //   dibujar detalle de barras transversales
+                        Dibujar2D_Barras_Corte_H _Dibujar2D_Barras_Corte_H = new Dibujar2D_Barras_Corte_H(_uiapp, _GruposListasEstribo, _Config_EspecialCorte);
+                        if (_Dibujar2D_Barras_Corte_H.PreDibujar(_CrearView.section, _ViewOriginal))
+                        {
+                            _Dibujar2D_Barras_Corte_H.Dibujar();
+                        }
+
                         t.Assimilate();
                     }
                 }

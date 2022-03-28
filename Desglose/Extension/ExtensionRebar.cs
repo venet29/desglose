@@ -38,7 +38,8 @@ namespace Desglose.Extension
         public static double ObtenerEspaciento_cm(this Rebar rebar)
         {
             double espa = rebar.get_Parameter(BuiltInParameter.REBAR_ELEM_BAR_SPACING).AsDouble();
-
+            if (espa == 0)
+                espa = rebar.MaxSpacing;
             return Util.FootToCm(espa);
         }
         public static XYZ ObtenerInicioCurvaMasLarga(this Rebar rebar)

@@ -41,18 +41,14 @@ namespace Desglose.Dibujar2D
         }
 
 
-        public bool PreDibujar(View _view, View _viewOriginal)
+        public bool PreDibujar(View _view, View _viewOriginal, XYZ posicionInicial)
         {
 
             try
             {
-                SeleccionarElementosV _SeleccionarElementosV = new SeleccionarElementosV(_uiapp, true);
-                _SeleccionarElementosV.M1_1_CrearWorkPLane_EnCentroViewSecction();
+           
 
-                var lista = CrearListaPtos.M2_ListaPtoSimple(_uiapp, 1);
-                if (lista.Count == 0) return false;
-
-                XYZ posicionInicial = lista[0];
+        
                 XYZ posicionAUX = XYZ.Zero;
 
                 var listaEstribo= _rebarDesglose_GrupoBarras._GrupoRebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_V).ToList();

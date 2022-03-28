@@ -13,16 +13,16 @@ namespace Desglose.Model
 {
     public class DatosHost
     {
-        private  UIApplication _uiapp;
+        private UIApplication _uiapp;
         private Document _doc;
         private View _view;
         private RebarDesglose rebarDesglose;
         private XYZ aux_ptoMedio;
         private XYZ aux_direccion;
 
-        public PlanarFace CaraCentral { get;  set; }
-        public XYZ CentroHost { get;  set; }
-        public double LargoMAximoHost_foot { get;  set; }
+        public PlanarFace CaraCentral { get; set; }
+        public XYZ CentroHost { get; set; }
+        public double LargoMAximoHost_foot { get; set; }
         public XYZ Direccion_ParalelaView { get; internal set; }
 
         public DatosHost(UIApplication _uiapp, RebarDesglose rebarDesglose)
@@ -40,8 +40,8 @@ namespace Desglose.Model
                 WraperRebarLargo curvaPrinciplar = rebarDesglose.ListaCurvaBarras.Find(c => c.IsBarraPrincipal);
                 aux_ptoMedio = curvaPrinciplar.ptoMedio;
                 aux_direccion = rebarDesglose.CurvaMasLargo.direccion;
-                   //en pilares carainferior: caraabajo  //  en vigas cara vertical inicial izquioerda o derecha final
-      
+                //en pilares carainferior: caraabajo  //  en vigas cara vertical inicial izquioerda o derecha final
+
             }
             catch (Exception ex)
             {
@@ -55,7 +55,7 @@ namespace Desglose.Model
             try
             {
                 WraperRebarLargo curvaPrinciplar = rebarDesglose.ListaCurvaBarras.Find(c => c.IsBarraPrincipal);
-               // aux_ptoMedio = curvaPrinciplar._Trasform.EjecutarTransformInvertida(curvaPrinciplar.ptoMedio);
+                // aux_ptoMedio = curvaPrinciplar._Trasform.EjecutarTransformInvertida(curvaPrinciplar.ptoMedio);
 
                 aux_direccion = rebarDesglose._normal;
                 //en pilares carainferior: caraabajo  //  en vigas cara vertical inicial izquioerda o derecha final
@@ -69,6 +69,12 @@ namespace Desglose.Model
             return true;
         }
 
+        public bool ObtenerCentroPilarOmUro(XYZ direcionRAyo)
+        {
+            aux_direccion = direcionRAyo;
+            return ObtenerCentroPilarOmUro();
+        }
+
         public bool ObtenerCentroPilarOmUro()
         {
             try
@@ -78,14 +84,14 @@ namespace Desglose.Model
 
                 //XYZ _ptoMedio=rebarDesglose.trasform.EjecutarTransformInvertida(curvaPrinciplar.ptoMedio);
                 //en pilares carainferior: caraabajo  //  en vigas cara vertical inicial izquioerda o derecha final
-                CaraCentral = host.ObtenerCaraSegun_Direccion( aux_direccion);
-               XYZ _aux_p1 = CaraCentral.GetCenterOfFace();
+                CaraCentral = host.ObtenerCaraSegun_Direccion(aux_direccion);
+                XYZ _aux_p1 = CaraCentral.GetCenterOfFace();
 
 
                 var Cara2 = host.ObtenerCaraSegun_Direccion(-aux_direccion);
-                XYZ _aux_pt2= Cara2.ProjectNH(_aux_p1);
+                XYZ _aux_pt2 = Cara2.ProjectNH(_aux_p1);
 
-          
+
 
                 if (CaraCentral == null)
                 {
@@ -97,7 +103,7 @@ namespace Desglose.Model
 
                 var listacurva = CaraCentral.ObtenerListaCurvas();
 
-                 var aux_Direccion_ParalelaView =  CaraCentral.ObtenerListaCurvas().Where(c => !UtilDesglose.IsParallel(((Line)c).Direction, _view.ViewDirection)).FirstOrDefault();
+                var aux_Direccion_ParalelaView = CaraCentral.ObtenerListaCurvas().Where(c => !UtilDesglose.IsParallel(((Line)c).Direction, _view.ViewDirection)).FirstOrDefault();
                 Direccion_ParalelaView = ((Line)aux_Direccion_ParalelaView).Direction;
             }
             catch (Exception ex)
@@ -108,6 +114,6 @@ namespace Desglose.Model
             return true;
         }
 
-     
+
     }
 }

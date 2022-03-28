@@ -98,7 +98,7 @@ namespace Desglose
         public Autodesk.Revit.UI.Result Execute(ExternalCommandData commandData, ref string message, Autodesk.Revit.DB.ElementSet elements)
         {
             Document _doc = commandData.Application.ActiveUIDocument.Document;
-            AnotacionMultipleBarra _AnotacionMultipleBarra = new  AnotacionMultipleBarra(commandData.Application, commandData.Application.ActiveUIDocument.ActiveView);
+            AnotacionMultipleBarra _AnotacionMultipleBarra = new  AnotacionMultipleBarra(commandData.Application, commandData.Application.ActiveUIDocument.ActiveView,-1);
 
             var lista = CrearListaPtos.M2_ListaPtoSimple(commandData.Application, 2);
             if (lista.Count == 0) return Result.Cancelled;
@@ -106,7 +106,14 @@ namespace Desglose
             List<ElementId> listat = new List<ElementId>() { 
             new ElementId(493875),new ElementId(493926)  ,new ElementId(493896)   
             };
-            _AnotacionMultipleBarra.CreateAnnotation(listat, lista[0], lista[1]);
+
+            AnotacionMultipleBarraDTO _AnotacionMultipleBarraDTO = new AnotacionMultipleBarraDTO()
+            {
+                Origen_ = lista[0],
+                taghead_ = lista[1],
+                nombrefamilia = "MRA Rebar Section"
+            };
+            _AnotacionMultipleBarra.CreateAnnotation(listat, _AnotacionMultipleBarraDTO);
             return Result.Succeeded;
 
 

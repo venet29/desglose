@@ -32,7 +32,9 @@ namespace Desglose.Entidades
         public XYZ PtoInicialTransformada { get; internal set; }
         public XYZ PtoFinalTransformada { get; internal set; }
         public XYZ PtoMedioTransformada { get; internal set; }
-
+        public XYZ ptoMedioSinTrans { get; private set; }
+        public XYZ ptoFinalSinTrans { get; private set; }
+        public XYZ ptoInicialSinTrans { get; private set; }
 
         public WraperRebarLargo(Curve item, parametrosRebar parametrosRebar, bool isBarraPrincipal)
         {
@@ -173,6 +175,9 @@ namespace Desglose.Entidades
             
                     _curve = _AUx_trasncurve,
                     TipoCurva = TipoCurva,
+                    ptoInicialSinTrans = ptoInicial,
+                    ptoMedioSinTrans = ptoMedio,
+                    ptoFinalSinTrans = ptoFinal,
                     ptoInicial = AUXTranf_ptoInicial,
                     ptoMedio = AUXTranf_ptoMedio,
                     ptoFinal = AUXTranf_ptoFinal,

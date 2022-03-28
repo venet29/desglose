@@ -291,7 +291,10 @@ namespace Desglose.WPF
                 TipoCOnfigCuantia = _TipoCOnfCuantia,
                 ListaPAraShare = listaPAra,
                 tolerancia = Util.ConvertirStringInDouble(dtTole.Text),
-                TipoCasoAnalisis = (cbx_CasoCorte.Text.Contains("Vertical") ? CasoAnalisas.AnalsisVertical : CasoAnalisas.AnalisisHorizontal)
+                TipoCasoAnalisis = (cbx_CasoCorte.Text.Contains("Vertical") ? CasoAnalisas.AnalsisVertical : CasoAnalisas.AnalisisHorizontal),
+                DiamtroLateralMax= Util.ConvertirStringInInteger(cbx_diamMaxLat.Text), // falta interfase
+                ParaBarraHorizontalEnCorteViga =TipoTagBArraHorizontalENcorte.mostrarDiamtro, // falta interfase
+                dire=-1
             };
 
             return _Config_EspecialCorte;

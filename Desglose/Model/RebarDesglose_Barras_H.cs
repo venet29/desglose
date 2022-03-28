@@ -17,7 +17,7 @@ using Desglose.Geometria;
 namespace Desglose.Model
 {
 
-    //solo  barras verticales
+    //solo  barras horizontal
     public class RebarDesglose_Barras_H
     {
         static int nextId = 0;
@@ -29,11 +29,16 @@ namespace Desglose.Model
         public RebarDesglose _rebarDesglose { get; set; }
         public TipoRebar _tipoBarraEspecifico { get; private set; }
         public bool analizadasuperior { get; set; }
+
+        #region datos BARRA principal de '_rebarDesglose'
+
+
         public bool IsTraslapable { get; set; }
         public XYZ ptoInicial { get; set; }
         public XYZ ptoMedio { get; set; }
         public XYZ ptoFinal { get; set; }
         public Line curvePrincipal { get; set; }
+        #endregion
         public int diametroMM { get; set; }
         public Reference refenciaInicial { get; private set; }
         public Reference refenciaFinal { get; private set; }
@@ -54,26 +59,7 @@ namespace Desglose.Model
         }
 
 
-        //public bool Ordenar_InicioIzq_FinDerecho()
-        //{
-        //    try
-        //    {
-        //        if (_tipoBarraEspecifico == TipoRebar.ELEV_BA_H)
-        //        {
-        //            XYZ direcon = (_rebarDesglose.ListaCurvaBarras[0].ptoFinal - _rebarDesglose.ListaCurvaBarras.Last().ptoFinal).Normalize();
-        //            if (UtilDesglose.GetProductoEscalar(direcon, _view.RightDirection) <0)
-        //                _rebarDesglose.ListaCurvaBarras.Reverse();
-        //        }
 
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        UtilDesglose.ErrorMsg($"Error al obtener 'UltimaCurvaMayorZ'   ex: {ex.Message}");
-        //        return false;
-        //    }
-        //    return true;
-        //}
         public bool Ordenar_UltimaCurvaMayorZ()
         {
             try
@@ -118,9 +104,9 @@ namespace Desglose.Model
                 {
                     tipoBarra = _rebarDesglose.C_obtenerTipobarra(),
                     LargoPata = ptoFinal.DistanceTo(ptoFinal),
-                    ptoini = _config_EspecialElv.Trasform_.EjecutarTransformInvertida( ptoB.AsignarZ(ptoInicial.Z)),
+                    ptoini = _config_EspecialElv.Trasform_.EjecutarTransformInvertida(ptoB.AsignarZ(ptoInicial.Z)),
                     ptofinal = _config_EspecialElv.Trasform_.EjecutarTransformInvertida(ptoB.AsignarZ(ptoFinal.Z)),
-                    DireccionPataEnFierrado = new XYZ(0,0,1),
+                    DireccionPataEnFierrado = new XYZ(0, 0, 1),
                     diametroMM = diametroMM,
                     listaCUrvas = AuxTRans_ListaCurvaBarras,
                     cantidadBarras = contBarra,
@@ -142,7 +128,7 @@ namespace Desglose.Model
 
 
 
-        public RebarElevDTO ObtenerRebarCorteDTO(XYZ posicionAUX,XYZ ptocentroHost,UIApplication _uiapp, View _view, View _viewOriginal, Config_EspecialCorte _Config_EspecialCorte)
+        public RebarElevDTO ObtenerRebarCorteDTO(XYZ posicionAUX, XYZ ptocentroHost, UIApplication _uiapp, View _view, View _viewOriginal, Config_EspecialCorte _Config_EspecialCorte)
         {
             var AuxTRans_ListaCurvaBarras = new List<WraperRebarLargo>();
             //a)
@@ -175,23 +161,23 @@ namespace Desglose.Model
                 {
                     tipoBarra = _rebarDesglose.C_obtenerTipoEstribo_H(),
                     LargoPata = ptoFinal.DistanceTo(ptoFinal),
-                    ptoini = posicionAUX,                   
+                    ptoini = posicionAUX,
                     ptofinal = posicionAUX + (ptoFinal - ptoInicial).Normalize() * 1,//valor no se  utiliza y se agrega  new XYZ(0,0,1)  para evitar error
                     DireccionPataEnFierrado = -_view.RightDirection,
                     diametroMM = diametroMM,
                     listaCUrvas = AuxTRans_ListaCurvaBarras,
                     cantidadBarras = contBarra,
-                    Rebar_= _rebarDesglose._rebar,
+                    Rebar_ = _rebarDesglose._rebar,
                     Id = _rebarDesglose._rebar.Id.IntegerValue,
                     TipoBarraEspecifico = _tipoBarraEspecifico,
 
                     _View = _view,
-                    _viewOriginal= _viewOriginal,//valido solo arco de estribo y traba para dibujo tranversal
+                    _viewOriginal = _viewOriginal,//valido solo arco de estribo y traba para dibujo tranversal
                     ptoMedio = ptoMedio, //valido solo arco de estribo y traba para dibujo tranversal
                     ListaCurvaBarrasFinal_conCurva = AuxTRans_ListaCurvaBarrasFinal_conCurva_Estribo, //solo para dijar corte real re estribo
                     ptocentroHost = ptocentroHost,//solo para dijar corte real re estribo
-                    Config_EspecialCorte= _Config_EspecialCorte,//valido solo arco de estribo y traba para dibujo tranversal
-                    LargoTotalSumaParcialesFoot=_rebarDesglose.LargoTotalSumaParcialesFoot//valido solo arco de estribo y traba para dibujo tranversal
+                    Config_EspecialCorte = _Config_EspecialCorte,//valido solo arco de estribo y traba para dibujo tranversal
+                    LargoTotalSumaParcialesFoot = _rebarDesglose.LargoTotalSumaParcialesFoot//valido solo arco de estribo y traba para dibujo tranversal
                 };
             }
             catch (Exception ex)
@@ -276,7 +262,7 @@ namespace Desglose.Model
         {
             try
             {
-                var curveMasLArga =  _rebarDesglose.CurvaMasLargo._curve;
+                var curveMasLArga = _rebarDesglose.CurvaMasLargo._curve;
 
                 if (_rebarDesglose.OrientacionBArra_ == OrientacionBArra.Horizontal)
                 {

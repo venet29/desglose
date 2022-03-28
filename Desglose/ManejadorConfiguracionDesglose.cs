@@ -4,6 +4,7 @@ using Autodesk.Revit.UI;
 using System;
 using Desglose.ParametrosShare;
 using Desglose.Familias;
+using Desglose.BuscarTipos;
 
 namespace Desglose
 {
@@ -16,8 +17,19 @@ namespace Desglose
             Document _doc = _uiapp.ActiveUIDocument.Document;
             View _view = _doc.ActiveView;
 
-         //  ManejadorDatos _ManejadorUsuarios = new ManejadorDatos();
-          //  _ManejadorUsuarios.PostInscripcion("NHdelporte");
+            ManejadorDatos _ManejadorUsuarios = new ManejadorDatos();
+            bool resultadoConexion = _ManejadorUsuarios.PostBitacora("CARGAR ManejadorConfiguracionDesglose");
+
+            if (!resultadoConexion)
+            {
+                Util.ErrorMsg("Error al validad credencial (No conexion)");
+                return false;
+            }
+            else if (!_ManejadorUsuarios.resultnh.Isok)
+            {
+                Util.ErrorMsg("Error al validar Usuario");
+                return false;
+            }
 
 
             try
@@ -32,6 +44,11 @@ namespace Desglose
                     ConfiguracionInicialParametros configuracionInicial = new ConfiguracionInicialParametros(_uiapp);
                     configuracionInicial.AgregarParametrosShareDesglose();
 
+                    //    // crear arrow
+                    Tipos_Arrow.CrearArropwIniciales(_uiapp.ActiveUIDocument.Document);
+
+
+                    TiposMultiReferenceAnnotationType.CrearMultiReferenceAnnotationTypeIniciales(_doc);
 
                     // familias
                     ManejadorCargarFAmilias _ManejadorCargarFAmilias = new ManejadorCargarFAmilias(_uiapp);

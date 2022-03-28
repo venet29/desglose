@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Desglose.BuscarTipos
 {
-    public class TiposMultiReferenceAnnotationType
+    internal class TiposMultiReferenceAnnotationType
     {
 
         public static Dictionary<string, MultiReferenceAnnotationType> ListaFamilias { get; set; }
@@ -99,6 +99,59 @@ namespace Desglose.BuscarTipos
 
 
         }
+
+
+        public static bool CrearMultiReferenceAnnotationTypeIniciales(Document _doc)
+        {
+
+
+            try
+            {
+                using (Transaction t = new Transaction(_doc))
+                {
+                    t.Start("MultiReferenceAnnotationTypeIniciales-NH");
+
+                    ElementType _typeDefault = obtenerDefault( _doc);
+
+                    if (_typeDefault != null)
+
+                    {
+                        ElementType _tipoLat = M1_GetMultiReferenceAnnotationType("MultiReferenceAnnotationType_LAT", _doc);
+                        if (_tipoLat == null)
+                        {
+                            var _ResultLat = _typeDefault.Duplicate("MultiReferenceAnnotationType_LAT");
+                          //  if (ParameterUtil.FindParaByName(newArrow50, "Tick Size") != null) ParameterUtil.SetParaInt(newArrow50, "Tick Size", Util.CmToFoot(1 / 10f));
+                        }
+
+                        ElementType _tipoDiamtros = M1_GetMultiReferenceAnnotationType("MultiReferenceAnnotationType_DIAM", _doc);
+                        if (_tipoDiamtros == null)
+                        {
+                            var _ResultDiam = _typeDefault.Duplicate("MultiReferenceAnnotationType_DIAM");
+                           // if (ParameterUtil.FindParaByName(newArrow75, "Tick Size") != null) ParameterUtil.SetParaInt(newArrow75, "Tick Size", Util.CmToFoot(0.66665 / 10f));
+                        }
+                        ElementType _tipoSegunElev = M1_GetMultiReferenceAnnotationType("MultiReferenceAnnotationType_SegunELEV", _doc);
+                        if (_tipoSegunElev == null)
+                        {
+                            var _ResultSegunElev = _typeDefault.Duplicate("MultiReferenceAnnotationType_SegunELEV");
+                            // if (ParameterUtil.FindParaByName(newArrow75, "Tick Size") != null) ParameterUtil.SetParaInt(newArrow75, "Tick Size", Util.CmToFoot(0.66665 / 10f));
+                        }
+                    }
+
+
+
+
+                    t.Commit();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string msj = ex.Message;
+                return false;
+            }
+            return true;
+        }
+
 
     }
 }

@@ -89,9 +89,11 @@
     <Compile Include="BuscarTipos\TiposRebarTag.cs" />
     <Compile Include="BuscarTipos\Tipos_Arrow.cs" />
     <Compile Include="Buscar\GeometriaViga.cs" />
+    <Compile Include="Calculos\CalculoPtoTagBArraHorizontal_Corte.cs" />
     <Compile Include="cmd_cargarDesglose.cs" />
     <Compile Include="Creador\CrearFamilySymbolTagRein.cs" />
     <Compile Include="Dibujar2D\SeleccionarElementosV.cs" />
+    <Compile Include="Dibujar2D\Dibujar2D_Barras_Corte_H.cs" />
     <Compile Include="Dimensiones\CreadorAligneDimensiones.cs" />
     <Compile Include="Dimensiones\CreadorDimensiones.cs" />
     <Compile Include="Ayuda\CrearTrasformadaSobreVector.cs" />
@@ -171,6 +173,7 @@
     <Compile Include="Extension\ExtensionLine.cs" />
     <Compile Include="Extension\ExtensionRebar.cs" />
     <Compile Include="Extension\ExtensionView.cs" />
+    <Compile Include="Familias\CONSTFami.cs" />
     <Compile Include="Familias\FactoryCargarFamilias.cs" />
     <Compile Include="Familias\ManejadorCargarFamilias.cs" />
     <Compile Include="FILTER\RebarSelectionFilter.cs" />

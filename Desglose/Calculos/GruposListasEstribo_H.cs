@@ -113,7 +113,7 @@ namespace Desglose.Calculos
         {
             try
             {
-                listaBArrasEnElev = lista_RebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_BA_V)
+                listaBArrasEnElev = lista_RebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_BA_H)
                                                                          .Select(c => new RebarDesglose_Barras_H(c,_uiapp)).ToList();
                 //obtener RebarDesglose_Barras
                 foreach (RebarDesglose_Barras_H item in listaBArrasEnElev)

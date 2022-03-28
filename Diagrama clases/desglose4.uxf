@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>570</y>
+      <w>470</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>RebarDesglose
+--
+List&lt;parametrosRebar&gt; ListaParametrosRebar 
+List&lt;WraperRebarLargo&gt; ListaCurvaBarras
+List&lt;WraperRebarLargo&gt; ListaCurvaBarrasFinal_Estribo
+List&lt;WraperRebarLargo&gt; ListaCurvaBarrasFinal_conCurva_Estribo
+
+CrearTrasformadaSobreVectorDesg _Trasform </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>920</x>
+      <y>120</y>
+      <w>210</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::FatClass
+{Some Properties}
+--
+-id: Long {composite}
+_-ClassAttribute: Long_
+--
+#Operation(i: int): int
+/+AbstractOperation()/
+--
+Responsibilities
+-- Resp1
+-- Resp2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>900</x>
+      <y>430</y>
+      <w>210</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>WraperRebarLargo
+--
+Curve _curve 
+
+XYZ ptoInicial
+XYZ ptoMedio
+XYZ ptoFinal
+
+XYZ PtoInicialTransformada
+XYZ PtoFinalTransformada
+XYZ PtoMedioTransformada</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>800</x>
+      <y>460</y>
+      <w>120</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;180.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>310</x>
+      <y>330</y>
+      <w>470</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>RebarElevDTO
+--
+XYZ ptoini
+ List&lt;WraperRebarLargo&gt; ListaCurvaBarrasFinal_conCurva 
+ Rebar Rebar_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>780</x>
+      <y>390</y>
+      <w>140</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;80.0</additional_attributes>
+  </element>
+</diagram>
