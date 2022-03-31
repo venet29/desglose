@@ -33,7 +33,7 @@ namespace Desglose.Model
         public XYZ _normal { get; set; }
         public int Diametro_MM { get; private set; }
         public List<Curve> listaptoInicialConCurva { get; private set; }
-        public WraperRebarLargo CurvaMasLargo { get; private set; }
+        public WraperRebarLargo CurvaMasLargo_WraperRebarLargo { get; private set; }
         public OrientacionBArra OrientacionBArra_ { get; set; }
         public RebarHookType HookInicial { get; private set; }
         public RebarHookType HookFinal { get; private set; }
@@ -104,7 +104,7 @@ namespace Desglose.Model
                 Diametro_MM =Diametro_MM,
                 _normal = _normal,
                 listaptoInicialConCurva = listaptoInicialConCurva,
-                CurvaMasLargo = CurvaMasLargo.GenerarTrasformada(trasform),
+                CurvaMasLargo_WraperRebarLargo = CurvaMasLargo_WraperRebarLargo.GenerarTrasformada(trasform),
                 OrientacionBArra_ = OrientacionBArra_,
                 HookInicial = HookInicial,
                 HookFinal = HookFinal,
@@ -147,15 +147,15 @@ namespace Desglose.Model
             {
                 if (ListaCurvaBarras[0].IsBarraPrincipal)
                 {
-                    CurvaMasLargo = ListaCurvaBarras[0];
+                    CurvaMasLargo_WraperRebarLargo = ListaCurvaBarras[0];
                 }
                 else if (ListaCurvaBarras.Last().IsBarraPrincipal)
                 {
-                    CurvaMasLargo = ListaCurvaBarras.Last();
+                    CurvaMasLargo_WraperRebarLargo = ListaCurvaBarras.Last();
                 }
                 else
                 {
-                    CurvaMasLargo = ListaCurvaBarras.OrderByDescending(c => c._curve.Length).FirstOrDefault();
+                    CurvaMasLargo_WraperRebarLargo = ListaCurvaBarras.OrderByDescending(c => c._curve.Length).FirstOrDefault();
                 }
             }
             catch (Exception ex)
@@ -285,7 +285,7 @@ namespace Desglose.Model
                 }
 
                 else if (ListaParametrosRebar.Count == 3 &&
-                    UtilDesglose.IsSimilarValor(Math.Abs(UtilDesglose.GetProductoEscalar(((Line)CurvaMasLargo._curve).Direction, _view.ViewDirection)), 1, 0.015)) //traba
+                    UtilDesglose.IsSimilarValor(Math.Abs(UtilDesglose.GetProductoEscalar(((Line)CurvaMasLargo_WraperRebarLargo._curve).Direction, _view.ViewDirection)), 1, 0.015)) //traba
                 {
                     if (UtilDesglose.IsSimilarValor(_normal.Z, 0, 0.15708)) //+-10°
                     {
@@ -318,7 +318,7 @@ namespace Desglose.Model
 
 
 
-                    if (UtilDesglose.IsmasHorizontal(((Line)CurvaMasLargo._curve).Direction)) //+-10°
+                    if (UtilDesglose.IsmasHorizontal(((Line)CurvaMasLargo_WraperRebarLargo._curve).Direction)) //+-10°
                     {
                         _tipoBarraEspecifico = TipoRebar.ELEV_BA_H;// estribo viga horizontal    
                         OrientacionBArra_ = OrientacionBArra.Horizontal;

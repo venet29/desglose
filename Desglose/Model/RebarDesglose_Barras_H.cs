@@ -91,7 +91,7 @@ namespace Desglose.Model
             //a)
             for (int i = 0; i < _rebarDesglose.ListaCurvaBarras.Count; i++)
             {
-                var Aux_RebarDesglose = _rebarDesglose.ListaCurvaBarras[i];
+                WraperRebarLargo Aux_RebarDesglose = _rebarDesglose.ListaCurvaBarras[i];
 
                 var RebarDesglose_normal = Aux_RebarDesglose.GenerarTrasformada(Aux_RebarDesglose._Trasform.EjecutarTransformInvertida);
                 if (RebarDesglose_normal != null)
@@ -126,6 +126,51 @@ namespace Desglose.Model
             return _newRebarElevDTO;
         }
 
+        public RebarElevDTO ObtenerRebarElevDTOV2(UIApplication _uiapp, bool isId, Config_EspecialElev _config_EspecialElv)
+        {
+            View _view = _uiapp.ActiveUIDocument.Document.ActiveView;
+            RebarElevDTO _newRebarElevDTO = null;
+
+
+            var AuxTRans_ListaCurvaBarras = new List<WraperRebarLargo>();
+
+            //a)
+            for (int i = 0; i < _rebarDesglose.ListaCurvaBarras.Count; i++)
+            {
+                WraperRebarLargo Aux_RebarDesglose = _rebarDesglose.ListaCurvaBarras[i];
+
+                var RebarDesglose_normal = Aux_RebarDesglose.GenerarTrasformada(Aux_RebarDesglose._Trasform.EjecutarTransformInvertida);
+                if (RebarDesglose_normal != null)
+                    AuxTRans_ListaCurvaBarras.Add(RebarDesglose_normal);
+            }
+
+            try
+            {
+                _newRebarElevDTO = new RebarElevDTO(_uiapp)
+                {
+                    tipoBarra = _rebarDesglose.C_obtenerTipobarra(),
+                    LargoPata = ptoFinal.DistanceTo(ptoFinal),
+                    ptoini = _config_EspecialElv.Trasform_.EjecutarTransformInvertida(ptoInicial),
+                    ptofinal = _config_EspecialElv.Trasform_.EjecutarTransformInvertida(ptoFinal),
+                    DireccionPataEnFierrado = new XYZ(0, 0, 1),
+                    diametroMM = diametroMM,
+                    listaCUrvas = AuxTRans_ListaCurvaBarras,
+                    cantidadBarras = contBarra,
+                    Rebar_ = _rebarDesglose._rebar,
+                    Id = (isId ? _rebarDesglose._rebar.Id.IntegerValue : -1),
+                    TipoBarraEspecifico = _tipoBarraEspecifico,
+                    Config_EspecialElv = _config_EspecialElv
+
+                };
+            }
+            catch (Exception ex)
+            {
+
+                UtilDesglose.ErrorMsg($"Error al  'ObtenerRebarElevDTO'   ex: {ex.Message}");
+                return null;
+            }
+            return _newRebarElevDTO;
+        }
 
 
         public RebarElevDTO ObtenerRebarCorteDTO(XYZ posicionAUX, XYZ ptocentroHost, UIApplication _uiapp, View _view, View _viewOriginal, Config_EspecialCorte _Config_EspecialCorte)
@@ -134,9 +179,9 @@ namespace Desglose.Model
             //a)
             for (int i = 0; i < _rebarDesglose.ListaCurvaBarras.Count; i++)
             {
-                var Aux_RebarDesglose = _rebarDesglose.ListaCurvaBarras[i];
+                WraperRebarLargo Aux_RebarDesglose = _rebarDesglose.ListaCurvaBarras[i];
 
-                var RebarDesglose_normal = Aux_RebarDesglose.GenerarTrasformada(Aux_RebarDesglose._Trasform.EjecutarTransformInvertida);
+                WraperRebarLargo RebarDesglose_normal = Aux_RebarDesglose.GenerarTrasformada(Aux_RebarDesglose._Trasform.EjecutarTransformInvertida);
                 if (RebarDesglose_normal != null)
                     AuxTRans_ListaCurvaBarras.Add(RebarDesglose_normal);
             }
@@ -146,9 +191,9 @@ namespace Desglose.Model
             //b)
             for (int i = 0; i < _rebarDesglose.ListaCurvaBarrasFinal_conCurva_Estribo.Count; i++)
             {
-                var Aux_RebarDesglose = _rebarDesglose.ListaCurvaBarrasFinal_conCurva_Estribo[i];
+                WraperRebarLargo Aux_RebarDesglose = _rebarDesglose.ListaCurvaBarrasFinal_conCurva_Estribo[i];
 
-                var RebarDesglose_normal = Aux_RebarDesglose.GenerarTrasformada(Aux_RebarDesglose._Trasform.EjecutarTransformInvertida);
+                WraperRebarLargo RebarDesglose_normal = Aux_RebarDesglose.GenerarTrasformada(Aux_RebarDesglose._Trasform.EjecutarTransformInvertida);
                 if (RebarDesglose_normal != null)
                     AuxTRans_ListaCurvaBarrasFinal_conCurva_Estribo.Add(RebarDesglose_normal);
             }
@@ -262,7 +307,7 @@ namespace Desglose.Model
         {
             try
             {
-                var curveMasLArga = _rebarDesglose.CurvaMasLargo._curve;
+                var curveMasLArga = _rebarDesglose.CurvaMasLargo_WraperRebarLargo._curve;
 
                 if (_rebarDesglose.OrientacionBArra_ == OrientacionBArra.Horizontal)
                 {
@@ -313,7 +358,7 @@ namespace Desglose.Model
         {
             try
             {
-                WraperRebarLargo utimoCUrva = _rebarDesglose.ListaCurvaBarras.Last();
+                WraperRebarLargo utimoCUrva = _rebarDesglose.ListaCurvaBarras.OrderByDescending(c=>c.ptoFinal.Z).First();
                 return (utimoCUrva.IsBarraPrincipal ? true : false);
             }
             catch (Exception ex)

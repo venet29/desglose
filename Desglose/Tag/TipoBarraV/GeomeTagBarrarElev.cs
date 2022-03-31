@@ -4,7 +4,7 @@ using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 
-namespace Desglose.Tag
+namespace Desglose.Tag.TipoBarraV
 {
     public class GeomeTagBarrarElev : GeomeTagBaseV, IGeometriaTag
     {

@@ -12,7 +12,8 @@
 
     Background="White"
     Foreground="Gray" FontSize="12"
-    Name="DebugUtility" Icon="/Desglose;component/Resources/Revit-icon_DESG.png">
+    Name="DebugUtility" Icon="/Desglose;component/Resources/Revit-icon_DESG.png"
+    MaxHeight="310" MinHeight="310"  MaxWidth="380" MinWidth="380">
 
 
 

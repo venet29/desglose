@@ -10,20 +10,19 @@ using System.Linq;
 
 namespace Desglose.Calculos
 {
-    public class GruposListasTraslapoIguales_H
+    public class GruposListasTraslapoIguales_HV2
     {
         private UIApplication uiapp;
         private Document _doc;
         private List<RebarDesglose_GrupoBarras_H> GruposRebarMismaLinea;
 
         public List<RebarDesglose_GrupoBarras_H> soloListaPrincipales { get; set; }
-        public GruposListasTraslapoIguales_H(UIApplication uiapp, List<RebarDesglose_GrupoBarras_H> lista_RebarDesglose)
+        public GruposListasTraslapoIguales_HV2(UIApplication uiapp, List<RebarDesglose_GrupoBarras_H> lista_RebarDesglose)
         {
             this.uiapp = uiapp;
             this._doc = uiapp.ActiveUIDocument.Document;
             this.GruposRebarMismaLinea = lista_RebarDesglose;
         }
-
 
 
 
@@ -35,7 +34,7 @@ namespace Desglose.Calculos
                 for (int k = 0; k < GruposRebarMismaLinea.Count; k++)
                 {
                     RebarDesglose_GrupoBarras_H itemGrup = GruposRebarMismaLinea[k];
-
+                    if (itemGrup._casoAgrupar != casoAgrupar.NoAnalizada) continue;
                     List<RebarDesglose_GrupoBarras_H> _ListRebarDesglose_GrupoBarras =
                         GruposRebarMismaLinea.Where(c=> Util.IsEqual(c._ptoInicial.Z,itemGrup._ptoInicial.Z, c._curvePrincipal.Length * ConstNH.CONST_porcentajeErrorRespectoLArgoBArras) &&
                                                         Util.IsEqual(c._ptoFinal.Z, itemGrup._ptoFinal.Z, c._curvePrincipal.Length * ConstNH.CONST_porcentajeErrorRespectoLArgoBArras)).ToList();
@@ -139,8 +138,7 @@ namespace Desglose.Calculos
 
                     if (_barraPrincipal._rebarDesglose.ListaCurvaBarras.Count != _barraRepetida._rebarDesglose.ListaCurvaBarras.Count) return false;
 
-                  
-                    if (!Util.IsSimilarValor(_barraPrincipal.ptoInicial.Z, _barraRepetida.ptoInicial.Z, _barraPrincipal.curvePrincipal.Length* ConstNH.CONST_porcentajeErrorRespectoLArgoBArras)) return false;
+                    if (!Util.IsSimilarValor(_barraPrincipal.ptoInicial.Z, _barraRepetida.ptoInicial.Z, _barraPrincipal.curvePrincipal.Length * ConstNH.CONST_porcentajeErrorRespectoLArgoBArras)) return false;
 
                     if (!Util.IsSimilarValor(_barraPrincipal.ptoFinal.Z, _barraRepetida.ptoFinal.Z, _barraPrincipal.curvePrincipal.Length * ConstNH.CONST_porcentajeErrorRespectoLArgoBArras)) return false;
 

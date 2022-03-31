@@ -90,8 +90,10 @@
     <Compile Include="BuscarTipos\Tipos_Arrow.cs" />
     <Compile Include="Buscar\GeometriaViga.cs" />
     <Compile Include="Calculos\CalculoPtoTagBArraHorizontal_Corte.cs" />
+    <Compile Include="Calculos\GruposListasTraslapoIguales_HV2.cs" />
     <Compile Include="cmd_cargarDesglose.cs" />
     <Compile Include="Creador\CrearFamilySymbolTagRein.cs" />
+    <Compile Include="Dibujar2D\Dibujar2D_Barra_elevacion_HV2.cs" />
     <Compile Include="Dibujar2D\SeleccionarElementosV.cs" />
     <Compile Include="Dibujar2D\Dibujar2D_Barras_Corte_H.cs" />
     <Compile Include="Dimensiones\CreadorAligneDimensiones.cs" />
@@ -205,7 +207,13 @@
     <Compile Include="Seleccionar\SeleccionarDimensiones.cs" />
     <Compile Include="Tag\FactoryGeomTagRebarDesglose.cs" />
     <Compile Include="Tag\GeomeTagArgs.cs" />
-    <Compile Include="Tag\GeomeTagBarrarElev.cs" />
+    <Compile Include="Tag\TipoBarraH\FactoryGeomTagRebarH.cs" />
+    <Compile Include="Tag\TipoBarraH\GeomeTagBaseH.cs" />
+    <Compile Include="Tag\TipoBarraH\GeomeTagPataAmbosH.cs" />
+    <Compile Include="Tag\TipoBarraH\GeomeTagPataFinalH.cs" />
+    <Compile Include="Tag\TipoBarraH\GeomeTagPataInicialH.cs" />
+    <Compile Include="Tag\TipoBarraH\GeomeTagSinPataH.cs" />
+    <Compile Include="Tag\TipoBarraV\GeomeTagBarrarElev.cs" />
     <Compile Include="Tag\GeomeTagBaseV.cs" />
     <Compile Include="Tag\GeomeTagEstribo.cs" />
     <Compile Include="Tag\GeomeTagEstriboViga.cs" />

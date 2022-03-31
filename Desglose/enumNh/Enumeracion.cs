@@ -24,7 +24,10 @@ namespace Desglose.Ayuda
     public enum DireccionRecorrido_ { DireccionZ, ParaleloDerechaVista, PerpendicularEntradoVista, Manual }
 
     public enum TipoCasobarra { BarrasHorizontal, BarraVertical, BarraRefuerzoLosa } //ob3)  horizontal  angulo=0 ,  vertical   angulo!=0
-
+        public enum TipoPataBarra { buscar, BarraVPataInicial, BarraVPataFinal, BarraVSinPatas, BarraVPataAmbos, NoBuscar, BarraVPataAUTO,
+        BarraVHorquilla,
+        BarraVPataAmbos_Horquilla
+    }
     public enum TipoRebar
     {
         ELEV_BA_H, ELEV_BA_V, ELEV_BA_CABEZA_HORQ , ELEV_BA_HORQ,
@@ -101,10 +104,7 @@ namespace Desglose.Ayuda
 
     public enum TipoLineaMallaH { inicial, central, final }
     public enum TipoIntervaloMalla { inicial, central, final, incialFinal }
-    public enum TipoPataBarra { buscar, BarraVPataInicial, BarraVPataFinal, BarraVSinPatas, BarraVPataAmbos, NoBuscar, BarraVPataAUTO,
-        BarraVHorquilla,
-        BarraVPataAmbos_Horquilla
-    }
+
 
     public enum TipoBarraRefuerzo { buscar, BarraRefPataInicial, BarraRefPataFinal, BarraRefSinPatas, BarraRefPataAmbos, NoBuscar, BarraRefPataAUTO, EstriboRef }
     public enum PosicionDeBusqueda { Inicio, Fin }

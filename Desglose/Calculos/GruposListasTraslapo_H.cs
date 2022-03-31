@@ -17,13 +17,13 @@ namespace Desglose.Calculos
         private List<RebarDesglose> lista_RebarDesglose;
         private  Config_EspecialElev config_EspecialElv;
 
-        public List<RebarDesglose_GrupoBarras_H> GruposRebarMismaLinea { get; set; }
+        public List<RebarDesglose_GrupoBarras_H> GruposRebarMismaLinea_Colineal { get; set; }
         public GruposListasTraslapo_H(UIApplication uiapp, List<RebarDesglose> lista_RebarDesglose, Config_EspecialElev _Config_EspecialElv)
         {
             this._uiapp = uiapp;
             this.lista_RebarDesglose = lista_RebarDesglose;
             config_EspecialElv = _Config_EspecialElv;
-            this.GruposRebarMismaLinea = new List<RebarDesglose_GrupoBarras_H>();
+            this.GruposRebarMismaLinea_Colineal = new List<RebarDesglose_GrupoBarras_H>();
         }
 
         public bool ObtenerGruposTraslapos()
@@ -38,9 +38,19 @@ namespace Desglose.Calculos
                 item.Ordenar_Analizar();
             }
 
+
+
             // ordenar de los inicial menor y solo verticales
 
             listaBArras_sinLat = listaBArras_sinLat.Where(c => c._direccion == Ayuda.direccionBarra.Horizontal).OrderBy(c => c.ptoInicial.Z).ToList();
+
+
+
+            //a) buscar las barras y agrupar iguales en el plano entrando en view
+            //b)  asignar  posicon de lineas
+            //c) rotar y buscar lineas de barras con tralpaos 
+            //d) genrar barras por lineas con dimensiones
+
 
             try
             {
@@ -49,21 +59,21 @@ namespace Desglose.Calculos
                     RebarDesglose_Barras_H item = listaBArras_sinLat[i];
 
                     RebarDesglose_Barras_H BarraAnalizada = item;
-                    List<RebarDesglose_Barras_H> NuevoGrupoBarras = new List<RebarDesglose_Barras_H>();
+                    List<RebarDesglose_Barras_H> NuevoGrupoBarras_Colineal = new List<RebarDesglose_Barras_H>();
                     if (item.analizadasuperior) continue;
 
                     item.analizadasuperior = true;
-                    NuevoGrupoBarras.Add(item);
+                    NuevoGrupoBarras_Colineal.Add(item);
                     RebarDesglose_GrupoBarras_H _RebarDesglose_GrupoBarrasNew = null;
                     if (item.IsTraslapable == false || !item.SepuedeTraslaparSUperior())
                     {
-                        _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuevoGrupoBarras);
-                        GruposRebarMismaLinea.Add(_RebarDesglose_GrupoBarrasNew);
+                        _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuevoGrupoBarras_Colineal);
+                        GruposRebarMismaLinea_Colineal.Add(_RebarDesglose_GrupoBarrasNew);
                         continue;
                     }
 
-                    var listaGrupo = listaBArras_sinLat
-                        .Where(c => (!c.ptoInicial.IsAlmostEqualTo(item.ptoInicial)) &&
+                    var listaGrupo_Colineal = listaBArras_sinLat
+                        .Where(c => (!c.ptoInicial.IsAlmostEqualTo(item.ptoInicial)) && // para no selecionar el mismo
                                     c.IsTraslapable && 
                                     UtilDesglose.IsCollinear_barraDesglose(item.curvePrincipal, c.curvePrincipal, Util.MmToFoot( Math.Max(item.diametroMM,c.diametroMM))))
                         .OrderBy(c => c.ptoInicial.Z)
@@ -71,9 +81,9 @@ namespace Desglose.Calculos
 
 
                     //busca dentro del gurpo colineal
-                    for (int j = 0; j < listaGrupo.Count; j++)
+                    for (int j = 0; j < listaGrupo_Colineal.Count; j++)
                     {
-                        RebarDesglose_Barras_H barra_colineales = listaGrupo[j];
+                        RebarDesglose_Barras_H barra_colineales = listaGrupo_Colineal[j];
 
                         // cuando el pto inicial de la sigueinte barra no esta contendia en la actual
                         if (!BarraAnalizada.curvePrincipal.Contains(barra_colineales.ptoInicial, 
@@ -83,11 +93,11 @@ namespace Desglose.Calculos
                         BarraAnalizada = barra_colineales;
 
                         barra_colineales.analizadasuperior = true;
-                        NuevoGrupoBarras.Add(barra_colineales);
+                        NuevoGrupoBarras_Colineal.Add(barra_colineales);
                     }
 
-                    _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuevoGrupoBarras);
-                    GruposRebarMismaLinea.Add(_RebarDesglose_GrupoBarrasNew);
+                    _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuevoGrupoBarras_Colineal);
+                    GruposRebarMismaLinea_Colineal.Add(_RebarDesglose_GrupoBarrasNew);
                 }
             }
             catch (Exception ex)

@@ -20,8 +20,9 @@ namespace Desglose.Ayuda
         public static string NOMBRE_VIEW_TEMPLATE_LOSA = "VISTA ARMADURAS DE LOSAS";
         public static string NOMBRE_VIEW_TEMPLATE_ELEV = "ARMADURAS DE ELEVACIONES";
         public static string NOMBRE_VIEW_TEMPLATE_ESTRUC = "PLANTA ESTRUCTURA CIELO (VT)";
-        public static string NOMBRE_VIEW_TEMPLATE_FUND = "PLANTA FUNDACIONES (VT)";
+        public static string  NOMBRE_VIEW_TEMPLATE_FUND = "PLANTA FUNDACIONES (VT)";
 
+        public static double CONST_porcentajeErrorRespectoLArgoBArras = 0.05;//  DEFINIR EN EL CNFIGURACION
 
         public static int CONST_CANTIDAD_TRABA_MALLA_XM2 = 6; // 6 po metro cuadrado
         public static int CONST_CANTIDAD_PatABarraFundaciOn_XM2 = 3; // 3 po metro cuadrado

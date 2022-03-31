@@ -18,6 +18,11 @@ namespace Desglose.Entidades
         public XYZ ptoFinal { get; set; }
         public XYZ ptoCentroArc { get; set; }
 
+
+        public XYZ ptoInicial_Inicial { get; set; }
+        public XYZ ptoMedio_Inicial { get; set; }
+        public XYZ ptoFinal_Inicial { get; set; }
+
         public FijacionRebar FijacionInicial { get; set; }
         public FijacionRebar FijacionFinal { get; set; }
         public bool IsCurvaSeleccionada { get; set; }
@@ -116,6 +121,9 @@ namespace Desglose.Entidades
                     _Trasform = _Trasform,
                     _curve = _AUx_trasncurve,
                     TipoCurva = TipoCurva,
+                    ptoInicial_Inicial = ptoInicial,
+                    ptoMedio_Inicial = ptoMedio,
+                    ptoFinal_Inicial = ptoFinal,
                     ptoInicial = AUXTranf_ptoInicial,
                     ptoMedio = AUXTranf_ptoMedio,
                     ptoFinal = AUXTranf_ptoFinal,
@@ -130,9 +138,9 @@ namespace Desglose.Entidades
                     direccion = (AUXTranf_ptoFinal - AUXTranf_ptoInicial).Normalize(),
                     alargarFin = alargarFin,
                     IsOK = IsOK,
-                    PtoInicialTransformada = PtoInicialTransformada,
-                    PtoFinalTransformada = PtoFinalTransformada,
-                    PtoMedioTransformada = PtoMedioTransformada,
+                    PtoInicialTransformada = AUXTranf_ptoInicial,
+                    PtoFinalTransformada = AUXTranf_ptoMedio,
+                    PtoMedioTransformada = AUXTranf_ptoCentroArc,
                 };
             }
             catch (Exception)

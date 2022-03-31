@@ -14,14 +14,16 @@ namespace Desglose.DTO
         public UIApplication uiapp { get; set; }
         public Element floor { get; set; }
 
-      //  public ServicioModificarCoordenadasEscalera ServicioModificarCoordenadasEscalera { get; set; }
+        //  public ServicioModificarCoordenadasEscalera ServicioModificarCoordenadasEscalera { get; set; }
 
-      
+        public TipoPataBarra tipobarraV { get; set; }
         public XYZ PtoDirectriz1 { get; set; }
         public XYZ PtoDirectriz2 { get; set; }
         public XYZ ptoini { get; set; }
         public XYZ ptofinal { get; set; }
 
+        public XYZ ptoPosicionTAg { get; set; }
+        
         public XYZ ptoSeleccionMouse { get; set; }
 
 

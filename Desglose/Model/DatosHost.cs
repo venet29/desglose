@@ -39,7 +39,7 @@ namespace Desglose.Model
             {
                 WraperRebarLargo curvaPrinciplar = rebarDesglose.ListaCurvaBarras.Find(c => c.IsBarraPrincipal);
                 aux_ptoMedio = curvaPrinciplar.ptoMedio;
-                aux_direccion = rebarDesglose.CurvaMasLargo.direccion;
+                aux_direccion = rebarDesglose.CurvaMasLargo_WraperRebarLargo.direccion;
                 //en pilares carainferior: caraabajo  //  en vigas cara vertical inicial izquioerda o derecha final
 
             }

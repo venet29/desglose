@@ -8,6 +8,7 @@ using Desglose.Extension;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.UI;
+using Desglose.Tag.TipoBarraV;
 
 namespace Desglose.Dibujar2D
 {

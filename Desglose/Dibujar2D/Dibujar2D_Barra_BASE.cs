@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using Desglose.Ayuda;
 using Desglose.Dimensiones;
+using Desglose.Tag.TipoBarraV;
+using Desglose.Tag.TipoBarraH;
 
 namespace Desglose.Dibujar2D
 {
@@ -17,6 +19,7 @@ namespace Desglose.Dibujar2D
         protected Document _doc;
         protected View _view;
         protected GruposListasTraslapoIguales_H _GruposListasTraslapoIguales_H;
+        protected GruposListasTraslapoIguales_HV2 _GruposListasTraslapoIguales_HV2;
         protected GruposListasTraslapoIguales_V _GruposListasTraslapoIguales_v;
         protected Config_EspecialElev _config_EspecialElv;
 
@@ -45,7 +48,16 @@ namespace Desglose.Dibujar2D
             //  _GruposListasEstribo = gruposListasEstribo;
             _ListIRebarLosa = new List<IRebarLosa_Desglose>();
         }
-
+        public Dibujar2D_Barra_BASE(UIApplication _uiapp, GruposListasTraslapoIguales_HV2 _gruposListasTraslapoIguales, Config_EspecialElev _Config_EspecialElv)
+        {
+            this._uiapp = _uiapp;
+            this._doc = _uiapp.ActiveUIDocument.Document;
+            this._view = _uiapp.ActiveUIDocument.Document.ActiveView;
+            _GruposListasTraslapoIguales_HV2 = _gruposListasTraslapoIguales;
+            _config_EspecialElv = _Config_EspecialElv;
+            //  _GruposListasEstribo = gruposListasEstribo;
+            _ListIRebarLosa = new List<IRebarLosa_Desglose>();
+        }
         protected void CrearDimensionENtreBArras(RebarElevDTO rebarElevDTO, RebarElevDTO rebarElevDTOANterior)
         {
             XYZ iNICIAL = rebarElevDTOANterior.ptoini.AsignarZ(rebarElevDTO.ptoini.Z)-_view.RightDirection*Util.CmToFoot(5);
@@ -58,6 +70,7 @@ namespace Desglose.Dibujar2D
             try
             {
                 //3)tag
+                
                 IGeometriaTag _newIGeometriaTag = new GeomeTagBarrarElev(_uiapp, _RebarElevDTO);
 
                 //4)barra
@@ -76,7 +89,35 @@ namespace Desglose.Dibujar2D
             }
             return true;
         }
+        protected bool GenerarBarra_2DH2(RebarElevDTO _RebarElevDTO)
+        {
+            try
+            {
+                //3)tag
+                IGeometriaTag _newGeometriaTag = FactoryGeomTagRebarH.CrearGeometriaTagH(_uiapp,
+                                                                                        _RebarElevDTO.tipobarraV,
+                                                                                        _RebarElevDTO.ptoini,
+                                                                                        _RebarElevDTO.ptofinal,
+                                                                                        _RebarElevDTO.ptoPosicionTAg,
+                                                                                        -_RebarElevDTO.DireccionPataEnFierrado );
+                IGeometriaTag _newIGeometriaTag = new GeomeTagBarrarElev(_uiapp, _RebarElevDTO);
 
+                //4)barra
+                IRebarLosa_Desglose rebarLosa = FactoryIRebarDesglose.CrearIRebarLosa(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+                if (!rebarLosa.M1A_IsTodoOK()) return false;
+
+                _ListIRebarLosa.Add(rebarLosa);
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Util.DebugDescripcion(ex);
+                return false;
+            }
+            return true;
+        }
 
         public bool Dibujar()
         {

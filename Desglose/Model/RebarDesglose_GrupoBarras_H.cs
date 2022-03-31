@@ -13,7 +13,8 @@ namespace Desglose.Model
     {
         static int nextId = 0;
         public int contGrupo { get; private set; }
-        public List<RebarDesglose_Barras_H> _GrupoRebarDesglose { get; set; }
+        public List<RebarDesglose_Barras_H> _GrupoRebarDesglose { get; set; } // contiene las  barras en la misma linea
+        public List<RebarDesglose_GrupoBarras_H> _ListaRebarDesglose_GrupoBarrasRepetidas { get; set; }  // contiene grupos de lineas de  barras en la misma linea
 
         public XYZ _ptoInicial { get; set; }
         public XYZ _ptoFinal { get; set; }
@@ -22,7 +23,9 @@ namespace Desglose.Model
         public casoAgrupar _casoAgrupar { get; set; }
         public string replaceWithText { get; set; }
         public string textobelow { get; set; }
-        public List<RebarDesglose_GrupoBarras_H> _ListaRebarDesglose_GrupoBarrasRepetidas { get; set; }
+    
+
+      
 
         public static RebarDesglose_GrupoBarras_H Creador_RebarDesglose_GrupoBarras(List<RebarDesglose_Barras_H> _grupoRebarDesglose)
         {

@@ -171,25 +171,6 @@ namespace Desglose.WPF
             _mExternalMethodStringArg = evExternalMethodStringArg;
             _mExternalMethodWpfArg = eExternalMethodWpfArg;
 
-
-            //if (_seleccionarPathReinfomentConPto != null)
-            //{
-            //    TipoBarra_ = EnumeracionBuscador.ObtenerEnumGenerico(TipoBarraTraslapoDereArriba.NONE, _seleccionarPathReinfomentConPto._tipobarra);
-            //    Espaciamiento = _seleccionarPathReinfomentConPto._espaciamiento;
-            //    Diametro = _seleccionarPathReinfomentConPto._diametro;
-            //    Orientacion = _seleccionarPathReinfomentConPto._direccion;
-            //    _Id = _seleccionarPathReinfomentConPto.PathReinforcement.Id.IntegerValue.ToString();
-
-            //}
-            //else
-            //{
-            //    TipoBarra_ = TipoBarraTraslapoDereArriba.f4;
-            //    Espaciamiento = "20";
-            //    Diametro = "8";
-            //    Orientacion = "Derecha";
-            //}
-
-
             this.Topmost = true;
             IsVisibleTolerancia = System.Windows.Visibility.Hidden;
             IsVisibleToleranciaCuantia = System.Windows.Visibility.Hidden;

@@ -79,7 +79,7 @@ namespace Desglose.Dimensiones
             {
                 if (!CAlculosIniciales(graphic_stylesLineName)) return false;
 
-                _dimension = CreateLinearDimension_sinTrans(_doc, p1, p2, _doc.ActiveView);
+                if (!CreateLinearDimension_sinTrans(_doc, p1, p2, _doc.ActiveView)) return false;
 
                 if (_DimensionesDatosTexto.IsSobreEscribir)
                 {
@@ -102,8 +102,8 @@ namespace Desglose.Dimensiones
             {
                 if (!CAlculosIniciales(graphic_stylesLineName)) return false;
 
-                _dimension = CreateLinearDimensionConrefer_sinTrans(_doc, p1, p2, ref1, ref2, _doc.ActiveView);
-
+                if (!CreateLinearDimensionConrefer_sinTrans(_doc, p1, p2, ref1, ref2, _doc.ActiveView)) return false;
+                
             }
             catch (Exception ex)
             {
@@ -141,9 +141,9 @@ namespace Desglose.Dimensiones
         }
 
 
-        private Dimension CreateLinearDimension_sinTrans(Document doc, XYZ pt1, XYZ pt2, View _view)
+        private bool CreateLinearDimension_sinTrans(Document doc, XYZ pt1, XYZ pt2, View _view)
         {
-            Dimension dimension = null;
+             _dimension = null;
             try
             {
 
@@ -165,28 +165,30 @@ namespace Desglose.Dimensiones
                 ReferenceArray ra = new ReferenceArray();
                 ra.Append(lineafalsa.GeometryCurve.GetEndPointReference(0));
                 ra.Append(lineafalsa.GeometryCurve.GetEndPointReference(1));
-                dimension = doc.Create.NewDimension(doc.ActiveView, line, ra, this._dimensionType);
+                _dimension = doc.Create.NewDimension(doc.ActiveView, line, ra, this._dimensionType);
                 // _doc.Delete(line.GraphicsStyleId); 
 
             }
             catch (Exception ex)
             {
-                dimension = null;
+              
                 Util.ErrorMsg($"  EX:{ex.Message}");
+                return false;
             }
-            return dimension;
+            return true;
         }
 
         public Dimension CrearConref_conTrans(string textoAbovoe, string replaceWithText, string textobelow, Reference ref1, Reference ref2, string graphic_stylesLineName = "")
         {
             try
             {
+
                 using (Transaction trans = new Transaction(_doc))
                 {
                     trans.Start("Crear dimension-NH");
                     if (CrearConRef_sintrans(ref1, ref2, graphic_stylesLineName))//  CreateLinearDimension_sinTrans(_doc, p1, p2, _doc.ActiveView);
                     {
-                        if (textoAbovoe != null) _dimension.Above = textoAbovoe;
+                        if (textoAbovoe != "") _dimension.Above = textoAbovoe;
                         if (replaceWithText != "") _dimension.ValueOverride = replaceWithText;
 
                         if (textobelow != "") _dimension.Below = textobelow;
@@ -206,9 +208,9 @@ namespace Desglose.Dimensiones
 
         }
 
-        private Dimension CreateLinearDimensionConrefer_sinTrans(Document doc, XYZ pt1, XYZ pt2, Reference ref1, Reference ref2, View _view)
+        private bool CreateLinearDimensionConrefer_sinTrans(Document doc, XYZ pt1, XYZ pt2, Reference ref1, Reference ref2, View _view)
         {
-            Dimension dimension = null;
+             _dimension = null;
             try
             {
                 pt1 = ProyectadoEnPlano.ObtenerPtoProyectadoEnPlano(_view.ViewDirection, _view.Origin, pt1) + -_view.ViewDirection * 0.01;
@@ -236,16 +238,16 @@ namespace Desglose.Dimensiones
 
                 ra.Append(lineafalsa.GeometryCurve.GetEndPointReference(0));
                 ra.Append(lineafalsa.GeometryCurve.GetEndPointReference(1));
-                dimension = doc.Create.NewDimension(doc.ActiveView, line, ra, _dimensionType);
+                _dimension = doc.Create.NewDimension(doc.ActiveView, line, ra, _dimensionType);
                 // _doc.Delete(line.GraphicsStyleId); 
 
             }
             catch (Exception ex)
-            {
-                dimension = null;
+            {              
                 Util.ErrorMsg($"  EX:{ex.Message}");
+                return false;
             }
-            return dimension;
+            return true;
         }
 
 

@@ -82,8 +82,12 @@ namespace Desglose
                         t.Start("Crear Elevacion");
                         //b)dibujar  barra
                         Dibujar2D_Barra_elevacion_V _Dibujar2D_elevcion = new Dibujar2D_Barra_elevacion_V(_uiapp, _GruposListasTraslapoIguales, _Config_EspecialElv);
-                        if (_Dibujar2D_elevcion.PreDibujar(isId))
-                            _Dibujar2D_elevcion.Dibujar();
+                        if (!_Dibujar2D_elevcion.PreDibujar(isId))
+                        {
+                            t.RollBack();
+                            return false;
+                        }
+                        _Dibujar2D_elevcion.Dibujar();
 
                         //b)dibujar estribo
                         Dibujar2D_Estribos_elevacion_V _Dibujar2D_Estribo_Elev = new Dibujar2D_Estribos_elevacion_V(_uiapp, _GruposListasEstribo);
@@ -161,10 +165,13 @@ namespace Desglose
                         t.Start("Crear cortes");
 
                         Dibujar2D_Estribos_Corte_V _Dibujar2D_Estribos_Corte = new Dibujar2D_Estribos_Corte_V(_uiapp, _GruposListasEstribo, _Config_EspecialCorte);
-                        if (_Dibujar2D_Estribos_Corte.PreDibujar(_CrearView.section, _ViewOriginal))
+                        if (!_Dibujar2D_Estribos_Corte.PreDibujar(_CrearView.section, _ViewOriginal))
                         {
-                            _Dibujar2D_Estribos_Corte.Dibujar();
+                            t.RollBack();
+                            return false;
                         }
+                        _Dibujar2D_Estribos_Corte.Dibujar();
+                        
 
                         Dibujar2D_Barra_Corte_TAg_V _dibujar2D_Barra_Corte_TAg = new Dibujar2D_Barra_Corte_TAg_V(_uiapp, 
                                                     _GruposListasEstribo.listaBArrasEnElev, _GruposListasEstribo._DatosHost.CaraCentral, _Config_EspecialCorte);
