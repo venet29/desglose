@@ -126,7 +126,7 @@ namespace Desglose.Model
             return _newRebarElevDTO;
         }
 
-        public RebarElevDTO ObtenerRebarElevDTOV2(UIApplication _uiapp, bool isId, Config_EspecialElev _config_EspecialElv)
+        public RebarElevDTO ObtenerRebarElevDTO_HV2(UIApplication _uiapp, bool isId, Config_EspecialElev _config_EspecialElv)
         {
             View _view = _uiapp.ActiveUIDocument.Document.ActiveView;
             RebarElevDTO _newRebarElevDTO = null;
@@ -148,7 +148,7 @@ namespace Desglose.Model
             {
                 _newRebarElevDTO = new RebarElevDTO(_uiapp)
                 {
-                    tipoBarra = _rebarDesglose.C_obtenerTipobarra(),
+                    tipoBarra = _rebarDesglose.C_obtenerTipobarra_H2(),
                     LargoPata = ptoFinal.DistanceTo(ptoFinal),
                     ptoini = _config_EspecialElv.Trasform_.EjecutarTransformInvertida(ptoInicial),
                     ptofinal = _config_EspecialElv.Trasform_.EjecutarTransformInvertida(ptoFinal),

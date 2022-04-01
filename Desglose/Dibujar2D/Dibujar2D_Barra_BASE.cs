@@ -19,7 +19,7 @@ namespace Desglose.Dibujar2D
         protected Document _doc;
         protected View _view;
         protected GruposListasTraslapoIguales_H _GruposListasTraslapoIguales_H;
-        protected GruposListasTraslapoIguales_HV2 _GruposListasTraslapoIguales_HV2;
+        
         protected GruposListasTraslapoIguales_V _GruposListasTraslapoIguales_v;
         protected Config_EspecialElev _config_EspecialElv;
 
@@ -48,13 +48,11 @@ namespace Desglose.Dibujar2D
             //  _GruposListasEstribo = gruposListasEstribo;
             _ListIRebarLosa = new List<IRebarLosa_Desglose>();
         }
-        public Dibujar2D_Barra_BASE(UIApplication _uiapp, GruposListasTraslapoIguales_HV2 _gruposListasTraslapoIguales, Config_EspecialElev _Config_EspecialElv)
+        public Dibujar2D_Barra_BASE(UIApplication _uiapp)
         {
             this._uiapp = _uiapp;
             this._doc = _uiapp.ActiveUIDocument.Document;
             this._view = _uiapp.ActiveUIDocument.Document.ActiveView;
-            _GruposListasTraslapoIguales_HV2 = _gruposListasTraslapoIguales;
-            _config_EspecialElv = _Config_EspecialElv;
             //  _GruposListasEstribo = gruposListasEstribo;
             _ListIRebarLosa = new List<IRebarLosa_Desglose>();
         }

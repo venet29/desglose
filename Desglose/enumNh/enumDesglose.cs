@@ -45,10 +45,11 @@ namespace Desglose.Ayuda
     }
     public enum TipoRebarElev
     {
-        Sinpata,PataInferior,PataSuperior, AmbasPata,Estribo,EstriboTraba,
+        Sinpata,PataInferior,PataSuperior, AmbasPata,
+        SinpataH, PataInferiorH, PataSuperiorH, AmbasPataH,// para vigS en elevacion
+        Estribo,EstriboTraba,
         NONE,
-        EstriboViga,
-        EstriboVigaTraba
+        EstriboViga, EstriboVigaLatela, EstriboVigaTraba
     }
     public enum TipoCUrva
     {

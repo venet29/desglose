@@ -318,7 +318,17 @@ namespace Desglose.Calculos
 
         }
 
+        public virtual void M2A_GenerarBarra_BArraHorizontal()
+        {
+            M1_ConfigurarDatosIniciales();
 
+            M4_ConfigurarAsignarParametrosRebarshape();
+            M8_CrearPatSymbolFalso();
+            M9_CreaTAg();
+           // M4_CrearTExto(_ptoTexto, _textoBArras, angleRADNormalHostYEJeZ);
+            M11_CrearGrupo();
+
+        }
 
         public void M1_ConfigurarDatosIniciales()
         {

@@ -3,6 +3,7 @@ using Desglose.DTO;
 using Desglose.Tag;
 using Autodesk.Revit.UI;
 using Desglose.Tag.TipoBarraH;
+using Desglose.Tag.TipoBarraV;
 
 namespace Desglose.Tag
 {

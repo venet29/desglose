@@ -7,27 +7,25 @@ using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 
-namespace Desglose.Calculos.Tipo
+namespace Desglose.Calculos.Tipo.ParaElevVigas
 
 {
-    public class BarraPataInicial : ARebarLosa_desglose, IRebarLosa_Desglose
+    public class BarraPataInicialH : AARebarLosa_desgloseH, IRebarLosa_Desglose
     {
         private RebarElevDTO _RebarInferiorDTO;
 
-        public string _texToLargoParciales { get; private set; }
-        public string _largoTotal { get; private set; }
+
         public double mayorDistancia { get; set; }
 
 
-        public BarraPataInicial(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
+        public BarraPataInicialH(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
         {
             this._RebarInferiorDTO = _rebarInferiorDTO;
             _newGeometriaTag = newGeometriaTag;
             _largoPataInclinada = _rebarInferiorDTO.LargoPata;
             _Prefijo_F = "F=";
 
-            if (_rebarInferiorDTO.Config_EspecialElv.ListaPAraShare != null)
-                listaPArametroSharenh = _rebarInferiorDTO.Config_EspecialElv.ListaPAraShare;
+
         }
 
 
@@ -48,9 +46,10 @@ namespace Desglose.Calculos.Tipo
 
             List<WraperRebarLargo> listaCuvas = _RebarInferiorDTO.listaCUrvas;
             double pataInicial = listaCuvas[0]._curve.Length;
-           // XYZ DireccionPataEnFierrado = -listaCuvas[0].direccion;
+            XYZ direcionPAtaInferior = -listaCuvas[0].direccion;
 
-            ladoAB_pathSym = Line.CreateBound(_RebarInferiorDTO.ptoini + _RebarInferiorDTO.DireccionPataEnFierrado * pataInicial, _RebarInferiorDTO.ptoini);
+
+            ladoAB_pathSym = Line.CreateBound(_RebarInferiorDTO.ptoini + direcionPAtaInferior * pataInicial, _RebarInferiorDTO.ptoini);
              ladoBC_pathSym = Line.CreateBound(_RebarInferiorDTO.ptoini, _RebarInferiorDTO.ptofinal);
 
              _texToLargoParciales = $"({ Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0) }+{ Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0) })";
@@ -58,10 +57,9 @@ namespace Desglose.Calculos.Tipo
              _largoTotal = (Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0) + Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0)).ToString();
 
             _ptoTexto = (_RebarInferiorDTO.ptoini + _RebarInferiorDTO.ptofinal) / 2;
-            if (_RebarInferiorDTO.Id == -1)
-                _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}\n {_texToLargoParciales} ";
-            else
-                _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}  id:{_RebarInferiorDTO.Id}\n {_texToLargoParciales} ";
+            
+            CargarPAratrosSHARE();
+
             OBtenerListaFalsoPAthSymbol();
 
             return true;

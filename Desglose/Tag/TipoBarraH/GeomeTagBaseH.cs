@@ -91,17 +91,17 @@ namespace Desglose.Tag.TipoBarraH
         {
 
             XYZ p0_F = _p1 + _direccionBarra * _largoMedioEnFoot * 0.25;
-            TagP0_F = M2_1_ObtenerTAgBarra(p0_F, "F", nombreDefamiliaBase + "_FH_" + escala, escala);// 2@12
+            TagP0_F = M2_1_ObtenerTAgBarra(p0_F, "FB", nombreDefamiliaBase + " FBarra", escala);// 2@12
             listaTag.Add(TagP0_F);
 
 
             XYZ p0_C = CentroBarra;
-            TagP0_C = M2_1_ObtenerTAgBarra(p0_C, "C", nombreDefamiliaBase + " C " + escala, escala); // (20+300+20)
+            TagP0_C = M2_1_ObtenerTAgBarra(p0_C, "LP", nombreDefamiliaBase + " LP", escala); // (20+300+20)
             listaTag.Add(TagP0_C);
 
 
             XYZ p0_L = _p2 - _direccionBarra * _largoMedioEnFoot * 0.25; 
-            TagP0_L = M2_1_ObtenerTAgBarra(p0_L, "L", nombreDefamiliaBase + "_L_" + escala, escala);// L=340
+            TagP0_L = M2_1_ObtenerTAgBarra(p0_L, "LT", nombreDefamiliaBase + " LT", escala);// L=340
             listaTag.Add(TagP0_L);
 
 

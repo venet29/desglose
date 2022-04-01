@@ -5,6 +5,7 @@ using Desglose.Calculos.Tipo.ParaPlanta;
 using Desglose.DTO;
 using Autodesk.Revit.UI;
 using Desglose.Tag;
+using Desglose.Calculos.Tipo.ParaElevVigas;
 
 namespace Desglose.Calculos
 {
@@ -14,7 +15,7 @@ namespace Desglose.Calculos
         public static IRebarLosa_Desglose CrearIRebarLosa(UIApplication _uiapp, RebarElevDTO _RebarElevDTO, IGeometriaTag _newIGeometriaTag)
         {
 
-
+            
             switch (_RebarElevDTO.tipoBarra)
             {
                 case TipoRebarElev.Sinpata:
@@ -25,6 +26,16 @@ namespace Desglose.Calculos
                     return new BarraPataSuperior(_uiapp, _RebarElevDTO, _newIGeometriaTag);
                 case TipoRebarElev.AmbasPata:
                     return new BarraPataAmbos(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+
+                case TipoRebarElev.SinpataH:
+                    return new BarraSinPatasH(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+                case TipoRebarElev.PataInferiorH:
+                    return new BarraPataInicialH(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+                case TipoRebarElev.PataSuperiorH:
+                    return new BarraPataSuperiorH(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+                case TipoRebarElev.AmbasPataH:
+                    return new BarraPataAmbosH(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+
                 case TipoRebarElev.Estribo:
                     return new BarraEstriboTransConCurva_Plata(_uiapp, _RebarElevDTO, _newIGeometriaTag);
                 case TipoRebarElev.EstriboTraba:

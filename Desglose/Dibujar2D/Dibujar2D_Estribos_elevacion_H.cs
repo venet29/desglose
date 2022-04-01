@@ -11,26 +11,59 @@ using Desglose.Ayuda;
 
 namespace Desglose.Dibujar2D
 {
-    public class Dibujar2D_Estribos_elevacion_H
+    public class Dibujar2D_Estribos_elevacion_H: Dibujar2D_Barra_BASE
     {
-        private UIApplication _uiapp;
-        private Document _doc;
-        private View _view;
-        private GruposListasTraslapoIguales_H _GruposListasTraslapoIguales;
-        private GruposListasEstribo_H _GruposListasEstribo;
-        private  Config_EspecialElev _config_EspecialElv;
-        private List<IRebarLosa> _ListIRebarLosa;
 
-        public Dibujar2D_Estribos_elevacion_H(UIApplication _uiapp, GruposListasEstribo_H gruposListasEstribo, Config_EspecialElev _Config_EspecialElv)
+        private GruposListasEstribo_H _GruposListasEstribo;
+
+
+        public Dibujar2D_Estribos_elevacion_H(UIApplication _uiapp, GruposListasEstribo_H gruposListasEstribo, Config_EspecialElev _Config_EspecialElv) : base(_uiapp)
         {
-            this._uiapp = _uiapp;
-            this._doc = _uiapp.ActiveUIDocument.Document;
-            this._view = _uiapp.ActiveUIDocument.Document.ActiveView;
-            _GruposListasTraslapoIguales = null;
+
+
             _GruposListasEstribo = gruposListasEstribo;
             _config_EspecialElv = _Config_EspecialElv;
-            _ListIRebarLosa = new List<IRebarLosa>();
+
+
         }
+
+        public bool PreDibujar_HV2(bool isId)
+        {
+
+            try
+            {
+
+                SeleccionarElementosV _SeleccionarElementosV = new SeleccionarElementosV(_uiapp, true);
+                _SeleccionarElementosV.M1_1_CrearWorkPLane_EnCentroViewSecction();
+
+                var trasnf = _config_EspecialElv.Trasform_;
+
+                XYZ direccionMuevenBarrasFAlsa = new XYZ(0, 0, -1);
+                _config_EspecialElv.direccionMuevenBarrasFAlsa = direccionMuevenBarrasFAlsa;
+
+
+                foreach (RebarDesglose_GrupoBarras_H itemGRUOP in _GruposListasEstribo.GruposRebarMismaLinea)
+                {
+                    for (int i = 0; i < itemGRUOP._GrupoRebarDesglose.Count; i++)
+                    {
+
+                        RebarDesglose_Barras_H item1 = itemGRUOP._GrupoRebarDesglose[i];
+                        item1.contBarra = itemGRUOP._ListaRebarDesglose_GrupoBarrasRepetidas.Count + 1;
+                        RebarElevDTO _RebarElevDTO = item1.ObtenerRebarElevDTO_HV2(_uiapp, isId, _config_EspecialElv);
+                        _RebarElevDTO.tipoBarra = TipoRebarElev.EstriboViga;
+                        GenerarBarra_2DH2(_RebarElevDTO);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Util.DebugDescripcion(ex);
+                return false;
+            }
+            return true;
+        }
+
 
         public bool Dibujar(XYZ posicionAUX)
         {

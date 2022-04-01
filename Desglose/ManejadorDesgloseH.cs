@@ -38,99 +38,6 @@ namespace Desglose
         }
 
 
-        //similar alfuncionamiento de generar barra de pilares verticales, pero para elemrntos horizontes
-        public bool EjecutarDibujarBarrasEnElevacionH(Config_EspecialElev _Config_EspecialElv)
-        {
-            try
-            {
-
-                ManejadorDatos _ManejadorUsuarios = new ManejadorDatos();
-                bool resultadoConexion = _ManejadorUsuarios.PostBitacora("EjecutarDibujarBarrasEnElevacionH");
-
-                if (!resultadoConexion)
-                {
-                    Util.ErrorMsg("Error al validad credencial (No conexion)");
-                    return false;
-                }
-                else if (!_ManejadorUsuarios.resultnh.Isok)
-                {
-                    Util.ErrorMsg("Error al validar Usuario");
-                    return false;
-                }
-
-                // ThisApplication _ThisApplication = new ThisApplication(_uiapp);
-                //  _ThisApplication.C4_M2_InfoGeometriaAnidada();
-                bool isId = (bool)_ui.chb_id.IsChecked;
-                SeleccionarRebarRectangulo administrador_ReferenciaRoom = new SeleccionarRebarRectangulo(_uiapp);
-                if (!administrador_ReferenciaRoom.GetUnicamenteRebarSeleccionadosConRectaguloYFiltros()) return false;
-
-                if (!AyudaObtenerListaDesglosada.ObtenerLista(administrador_ReferenciaRoom._ListaRebarSeleccionado, _uiapp)) return false;
-
-                //hacer trasformada
-
-                List<RebarDesglose> Lista_RebarDesglose = AyudaObtenerListaDesglosada.Lista_RebarDesglose;
-
-                //*******************  importante
-                GeneradorListaTrasfomardas _GeneradorListaTrasfomardas = new GeneradorListaTrasfomardas(_uiapp, Lista_RebarDesglose);
-                if (!_GeneradorListaTrasfomardas.Ejecutar()) return false;
-
-                _Config_EspecialElv.Trasform_ = _GeneradorListaTrasfomardas._Trasform;
-
-                Lista_RebarDesglose = _GeneradorListaTrasfomardas.listaTransformada_RebarDesglose;
-
-                //*********************
-
-
-                //a)BARRAS
-                GruposListasTraslapo_H _GruposListasTraslapo = new GruposListasTraslapo_H(_uiapp, Lista_RebarDesglose, _Config_EspecialElv);
-                if (!_GruposListasTraslapo.ObtenerGruposTraslapos()) return false;
-
-                GruposListasTraslapoIguales_HV2 _GruposListasTraslapoIguales = new GruposListasTraslapoIguales_HV2(_uiapp,
-                                                                                                                   _GruposListasTraslapo.GruposRebarMismaLinea_Colineal,
-                                                                                                                   _Config_EspecialElv);
-                if (!_GruposListasTraslapoIguales.M1_ObtenerGruposTraslaposIgualesV2()) return false;
-
-                //b)ESTRIBO
-                GruposListasEstribo_H _GruposListasEstribo = new GruposListasEstribo_H(_uiapp, Lista_RebarDesglose);
-                if (!_GruposListasEstribo.ObtenerGruposEstribo()) return false;
-
-
-                try
-                {
-                    using (TransactionGroup t = new TransactionGroup(_doc))
-                    {
-                        t.Start("Crear Elevacion");
-                        //b)dibujar  barra
-                        Dibujar2D_Barra_elevacion_HV2 _Dibujar2D_elevcion = new Dibujar2D_Barra_elevacion_HV2(_uiapp, _GruposListasTraslapoIguales, _Config_EspecialElv);
-                        if (!_Dibujar2D_elevcion.PreDibujar(isId))
-                        {
-                            t.RollBack();
-                            return false;
-                        }
-                        _Dibujar2D_elevcion.Dibujar();
-
-                        //b)dibujar estribo
-                        Dibujar2D_Estribos_elevacion_H _Dibujar2D_Estribo_Elev = new Dibujar2D_Estribos_elevacion_H(_uiapp, _GruposListasEstribo, _Config_EspecialElv);
-                        _Dibujar2D_Estribo_Elev.DibujarH2();
-                        t.Assimilate();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    string msj = ex.Message;
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                UtilDesglose.DebugDescripcion(ex);
-                return false;
-            }
-            return true;
-        }
-
-
 
         //similar alfuncionamiento de generar barra de pilares verticales, pero para elemrntos horizontes
         public bool EjecutarDibujarBarrasEnElevacionHV2(Config_EspecialElev _Config_EspecialElv)
@@ -196,17 +103,21 @@ namespace Desglose
                         t.Start("Crear Elevacion");
                         //b)dibujar  barra
                         Dibujar2D_Barra_elevacion_HV2 _Dibujar2D_elevcion = new Dibujar2D_Barra_elevacion_HV2(_uiapp, _GruposListasTraslapoIguales, _Config_EspecialElv);
-                        if (!_Dibujar2D_elevcion.PreDibujarV2(isId))
+                        if (!_Dibujar2D_elevcion.PreDibujar_HV2(isId))
                         {
                             t.RollBack();
                             return false;
                         }
 
                         _Dibujar2D_elevcion.Dibujar();
-
+                        
                         //b)dibujar estribo
                         Dibujar2D_Estribos_elevacion_H _Dibujar2D_Estribo_Elev = new Dibujar2D_Estribos_elevacion_H(_uiapp, _GruposListasEstribo, _Config_EspecialElv);
+                       // _Dibujar2D_Estribo_Elev.pre
+
+
                         _Dibujar2D_Estribo_Elev.DibujarH2();
+    
                         t.Assimilate();
                     }
                 }

@@ -6,7 +6,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
 
-namespace Desglose.Tag
+namespace Desglose.Tag.TipoBarraV
 {
     public class GeomeTagEstriboViga : GeomeTagBaseV, IGeometriaTag
     {

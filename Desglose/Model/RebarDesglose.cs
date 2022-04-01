@@ -416,6 +416,36 @@ namespace Desglose.Model
         }
 
         //publicas
+
+        public TipoRebarElev C_obtenerTipobarra_H2()
+        {
+            if (ListaCurvaBarras.Count == 3)
+                return TipoRebarElev.AmbasPataH;
+            else if (ListaCurvaBarras.Count == 1)
+                return TipoRebarElev.SinpataH;
+            else if (ListaCurvaBarras.Count == 2)
+            {
+                if (ListaCurvaBarras[0].IsBarraPrincipal)
+                {
+                    if (Util.IsSimilarValor(ListaCurvaBarras[0].ptoFinal.Z, ListaCurvaBarras[1].ptoFinal.Z, 0.1))
+                        return TipoRebarElev.PataSuperiorH;
+                    else
+                        return TipoRebarElev.PataInferiorH;
+                }
+                else
+                {
+                    if (Util.IsSimilarValor(ListaCurvaBarras[1].ptoFinal.Z, ListaCurvaBarras[0].ptoFinal.Z, 0.1))
+                        return TipoRebarElev.PataSuperiorH;
+                    else
+                        return TipoRebarElev.PataInferiorH;
+                }
+            }
+            else
+            {
+                UtilDesglose.ErrorMsg($"Barras con {ListaCurvaBarras.Count}  segmentos. Rutina solo implementada par 1,2 y 3 segmentos. Se considera barra de 1 segmentos");
+                return TipoRebarElev.Sinpata;
+            }
+        }
         public TipoRebarElev C_obtenerTipobarra()
         {
             if (ListaCurvaBarras.Count == 3)

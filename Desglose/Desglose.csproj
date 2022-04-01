@@ -82,6 +82,11 @@
     <Compile Include="Barras\ParametrosCompartidos\BarraParametrosCompartidos.cs" />
     <Compile Include="Barras\ParametrosCompartidos\ParametroBarra.cs" />
     <Compile Include="Barras\RebarInferiorDTO.cs" />
+    <Compile Include="Barras\Tipo\ParaElevVigas\ARebarLosa_desgloseH.cs" />
+    <Compile Include="Barras\Tipo\ParaElevVigas\BarraPataAmbosH.cs" />
+    <Compile Include="Barras\Tipo\ParaElevVigas\BarraPataInicialH.cs" />
+    <Compile Include="Barras\Tipo\ParaElevVigas\BarraPataSuperior.cs" />
+    <Compile Include="Barras\Tipo\ParaElevVigas\BarraSinPatas.cs" />
     <Compile Include="BuscarTipos\TiposFamilyRebar.cs" />
     <Compile Include="BuscarTipos\TiposPathReinTags.cs" />
     <Compile Include="BuscarTipos\TiposPathReinTagsFamilia.cs" />
@@ -132,7 +137,7 @@
     <Compile Include="Ayuda\SeleccionarRebarRectangulo.cs" />
     <Compile Include="Ayuda\TiposViewFamily.cs" />
     <Compile Include="Ayuda\UtilDesglose.cs" />
-    <Compile Include="Barras\ARebarLosa.cs" />
+    <Compile Include="Barras\ARebarLosa_desglose.cs" />
     <Compile Include="Barras\FactoryIRebarLosa.cs" />
     <Compile Include="Barras\IRebarLosa.cs" />
     <Compile Include="Barras\Tipo\BarraPataAmbos.cs" />
@@ -215,8 +220,8 @@
     <Compile Include="Tag\TipoBarraH\GeomeTagSinPataH.cs" />
     <Compile Include="Tag\TipoBarraV\GeomeTagBarrarElev.cs" />
     <Compile Include="Tag\GeomeTagBaseV.cs" />
-    <Compile Include="Tag\GeomeTagEstribo.cs" />
-    <Compile Include="Tag\GeomeTagEstriboViga.cs" />
+    <Compile Include="Tag\TipoBarraV\GeomeTagEstribo.cs" />
+    <Compile Include="Tag\TipoBarraV\GeomeTagEstriboViga.cs" />
     <Compile Include="Tag\GeomeTagNull.cs" />
     <Compile Include="Tag\GeomeTagTraba.cs" />
     <Compile Include="Tag\GeomeTagTrabaViga.cs" />

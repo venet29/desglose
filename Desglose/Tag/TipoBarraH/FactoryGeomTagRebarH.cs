@@ -18,32 +18,17 @@ namespace Desglose.Tag.TipoBarraH
         public static IGeometriaTag CrearGeometriaTagH(UIApplication _uiapp,RebarElevDTO _RebarElevDTO)
         {
  
-            //string nombreFasmiliaBase = "";
-            //switch (_RebarElevDTO.tipobarraV)
-            //{
-            //    case TipoPataBarra.BarraVPataInicial:
-            //        return new GeomeTagPataInicialH(_uiapp, _RebarElevDTO);
-            //    case TipoPataBarra.BarraVPataFinal:
-            //        return new GeomeTagPataFinalH(_uiapp, _RebarElevDTO);
-            //    case TipoPataBarra.BarraVSinPatas:
-            //        return new GeomeTagSinPataH(_uiapp, _RebarElevDTO);
-            //    case TipoPataBarra.BarraVPataAmbos:
-            //        return new GeomeTagPataAmbosH(_uiapp, _RebarElevDTO);
-            //    default:
-            //        return new GeomeTagNull();
-            //}
-
-
-
             switch (_RebarElevDTO.tipoBarra)
             {
-                case TipoRebarElev.Sinpata:
+                case TipoRebarElev.SinpataH:
                     return new GeomeTagSinPataH(_uiapp, _RebarElevDTO);
-                case TipoRebarElev.PataInferior:
+                case TipoRebarElev.PataInferiorH:
                     return new GeomeTagPataInicialH(_uiapp, _RebarElevDTO);
-                case TipoRebarElev.PataSuperior:
+                case TipoRebarElev.PataSuperiorH:
                     return new GeomeTagPataFinalH(_uiapp, _RebarElevDTO);
-                case TipoRebarElev.AmbasPata:
+                case TipoRebarElev.AmbasPataH:
+                    return new GeomeTagPataAmbosH(_uiapp, _RebarElevDTO);
+                case TipoRebarElev.EstriboViga:
                     return new GeomeTagPataAmbosH(_uiapp, _RebarElevDTO);
                 default:
                     return new GeomeTagNull();
