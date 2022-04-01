@@ -24,13 +24,15 @@ namespace Desglose.Ayuda
     public enum DireccionRecorrido_ { DireccionZ, ParaleloDerechaVista, PerpendicularEntradoVista, Manual }
 
     public enum TipoCasobarra { BarrasHorizontal, BarraVertical, BarraRefuerzoLosa } //ob3)  horizontal  angulo=0 ,  vertical   angulo!=0
-        public enum TipoPataBarra { buscar, BarraVPataInicial, BarraVPataFinal, BarraVSinPatas, BarraVPataAmbos, NoBuscar, BarraVPataAUTO,
+    public enum TipoPataBarra
+    {
+        buscar, BarraVPataInicial, BarraVPataFinal, BarraVSinPatas, BarraVPataAmbos, NoBuscar, BarraVPataAUTO,
         BarraVHorquilla,
         BarraVPataAmbos_Horquilla
     }
     public enum TipoRebar
     {
-        ELEV_BA_H, ELEV_BA_V, ELEV_BA_CABEZA_HORQ , ELEV_BA_HORQ,
+        ELEV_BA_H, ELEV_BA_V, ELEV_BA_CABEZA_HORQ, ELEV_BA_HORQ,
         ELEV_CO, ELEV_CO_T, ELEV_ES, ELEV_ES_L, ELEV_ES_T, ELEV_ES_V, ELEV_ES_VL, ELEV_ES_VT, ELEV_MA_H, ELEV_MA_V,
         ELEV_ESCA,
         REFUERZO_ES,
@@ -78,7 +80,9 @@ namespace Desglose.Ayuda
 
     public enum NombreParametros { A_, B_, C_, D_, E_, F_, FF, G_, H_, LL }
 
-    public enum TipoBarraVertical { Cabeza, MallaV, MallaH,
+    public enum TipoBarraVertical
+    {
+        Cabeza, MallaV, MallaH,
         MallaH_Horq,
         Cabeza_Horquilla,
         Cabeza_BarraVHorquilla
@@ -176,7 +180,7 @@ namespace Desglose.Ayuda
     }
 
 
-    public enum TipoPataMAlla  {     Auto, Izquierda, Derecha, Ambos,Sin } 
+    public enum TipoPataMAlla { Auto, Izquierda, Derecha, Ambos, Sin }
 
     public enum TipoBarraSoloTag
     {
@@ -224,7 +228,9 @@ namespace Desglose.Ayuda
     }
 
 
-    public enum ElementoSeleccionado { Muro, Viga, Losa, None, Barra,
+    public enum ElementoSeleccionado
+    {
+        Muro, Viga, Losa, None, Barra,
         Columna
     }
 

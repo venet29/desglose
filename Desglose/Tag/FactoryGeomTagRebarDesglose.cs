@@ -2,6 +2,7 @@
 using Desglose.DTO;
 using Desglose.Tag;
 using Autodesk.Revit.UI;
+using Desglose.Tag.TipoBarraH;
 
 namespace Desglose.Tag
 {
@@ -27,6 +28,8 @@ namespace Desglose.Tag
                     return new GeomeTagEstriboViga(_uiapp, _RebarElevDTO);
                 case TipoRebarElev.EstriboVigaTraba:
                     return new GeomeTagTrabaViga(_uiapp, _RebarElevDTO);
+
+
                 default:
                     return  new GeomeTagNull(); 
 

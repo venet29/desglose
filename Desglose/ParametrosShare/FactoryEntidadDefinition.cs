@@ -43,6 +43,13 @@ namespace Desglose.ParametrosShare
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "MLB", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: true, "Tipo de grupo de barra", "0f022cc2-8b49-470a-8687-2d8e4feabd3f");
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "OpcionCuantia", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "d711e591-ffd0-48d9-985b-da3039cbfd6a");
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.ReinforcementLength, "LargoSumaParciales", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: true, "", "014e7044-cdb9-4bba-80e0-5251d13a2dda");
+
+            AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "CantidadBarra", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "0368c956-9e15-41f5-a86b-375c0c55b11e");
+            AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "LargoParciales", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "53530261-a393-46a6-9ae0-01639eb6a3f8");
+            AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "LargoTotal", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "d0bcbf64-eaca-4d45-92c9-a3a5bda8e75e");
+
+            //CantidadEstriboCONF
+            AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "CantidadEstriboCONF", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "630baf2e-6d65-4a4c-b331-fcb9e7d63a7a");
             return _lista;
 
         }

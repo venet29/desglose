@@ -97,7 +97,7 @@ namespace Desglose.Calculos
                         }
                     }
 
-                    _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuewGrupoBarras);
+                    _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuewGrupoBarras, item._rebarDesglose.trasform);
                     GruposRebarMismaLinea.Add(_RebarDesglose_GrupoBarrasNew);
                 }
             }

@@ -20,14 +20,16 @@ namespace Desglose.Model
         public XYZ _ptoFinal { get; set; }
         public bool Isok { get; set; }
         public Line _curvePrincipal { get; set; }
+        public CrearTrasformadaSobreVectorDesg Trasform { get; }
         public casoAgrupar _casoAgrupar { get; set; }
+        public TipobarraH TipobarraH_ { get; set; }
         public string replaceWithText { get; set; }
         public string textobelow { get; set; }
     
 
       
 
-        public static RebarDesglose_GrupoBarras_H Creador_RebarDesglose_GrupoBarras(List<RebarDesglose_Barras_H> _grupoRebarDesglose)
+        public static RebarDesglose_GrupoBarras_H Creador_RebarDesglose_GrupoBarras(List<RebarDesglose_Barras_H> _grupoRebarDesglose, CrearTrasformadaSobreVectorDesg trasform)
         {
 
             if (_grupoRebarDesglose == null) return new RebarDesglose_GrupoBarras_H();
@@ -37,16 +39,16 @@ namespace Desglose.Model
             XYZ ptoFinal = _grupoRebarDesglose.Last().ptoFinal;
             Line _NewcurvePrincipal = Line.CreateBound(ptoInicial, ptoFinal);
 
-            return new RebarDesglose_GrupoBarras_H(_grupoRebarDesglose, _NewcurvePrincipal);
+            return new RebarDesglose_GrupoBarras_H(_grupoRebarDesglose, _NewcurvePrincipal, trasform);
         }
 
-        private RebarDesglose_GrupoBarras_H(List<RebarDesglose_Barras_H> _grupoRebarDesglose, Line _curvePrincipal)
+        private RebarDesglose_GrupoBarras_H(List<RebarDesglose_Barras_H> _grupoRebarDesglose, Line _curvePrincipal, CrearTrasformadaSobreVectorDesg trasform)
         {
             nextId += 1;
             this.contGrupo = nextId;
             this._GrupoRebarDesglose = _grupoRebarDesglose;
             this._curvePrincipal = _curvePrincipal;
-
+            Trasform = trasform;
             XYZ p0 = _curvePrincipal.GetEndPoint(0);
             this._ptoInicial = p0.AsignarZ(Math.Round(p0.Z,5));
             XYZ p1 = _curvePrincipal.GetEndPoint(1);
@@ -54,6 +56,7 @@ namespace Desglose.Model
             this._ListaRebarDesglose_GrupoBarrasRepetidas = new List<RebarDesglose_GrupoBarras_H>();
             this.Isok = true;
             this._casoAgrupar = casoAgrupar.NoAnalizada;
+            this.TipobarraH_ = TipobarraH.NONE;
 
         }
 

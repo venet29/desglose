@@ -16,7 +16,7 @@ namespace Desglose.DTO
 
         //  public ServicioModificarCoordenadasEscalera ServicioModificarCoordenadasEscalera { get; set; }
 
-        public TipoPataBarra tipobarraV { get; set; }
+        //public TipoPataBarra tipobarraV { get; set; }
         public XYZ PtoDirectriz1 { get; set; }
         public XYZ PtoDirectriz2 { get; set; }
         public XYZ ptoini { get; set; }

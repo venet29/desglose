@@ -67,7 +67,7 @@ namespace Desglose.Calculos
                     RebarDesglose_GrupoBarras_H _RebarDesglose_GrupoBarrasNew = null;
                     if (item.IsTraslapable == false || !item.SepuedeTraslaparSUperior())
                     {
-                        _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuevoGrupoBarras_Colineal);
+                        _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuevoGrupoBarras_Colineal, config_EspecialElv.Trasform_);
                         GruposRebarMismaLinea_Colineal.Add(_RebarDesglose_GrupoBarrasNew);
                         continue;
                     }
@@ -96,7 +96,7 @@ namespace Desglose.Calculos
                         NuevoGrupoBarras_Colineal.Add(barra_colineales);
                     }
 
-                    _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuevoGrupoBarras_Colineal);
+                    _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuevoGrupoBarras_Colineal, config_EspecialElv.Trasform_);
                     GruposRebarMismaLinea_Colineal.Add(_RebarDesglose_GrupoBarrasNew);
                 }
             }

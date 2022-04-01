@@ -1,7 +1,9 @@
 ﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 using Desglose.Ayuda;
 using Desglose.BuscarTipos;
 using Desglose.Creador;
+using Desglose.DTO;
 using System;
 using System.Collections.Generic;
 
@@ -18,6 +20,7 @@ namespace Desglose.Tag.TipoBarraH
        // private readonly List<XYZ> _listaPtosPerimetroBarras;
         
         protected readonly XYZ CentroBarra;
+        private readonly UIApplication _uiapp;
         private View _view;
 
         //pto inical y final de barra( linea inferior)
@@ -46,13 +49,14 @@ namespace Desglose.Tag.TipoBarraH
         public TagBarra TagP0_L { get; set; }
 
         public GeomeTagBaseH() { }
-        public GeomeTagBaseH(Document doc, XYZ ptoIni, XYZ ptoFin, XYZ posiciontag)
+        public GeomeTagBaseH(UIApplication _uiapp, RebarElevDTO _RebarElevDTO)
         {
-            this._doc = doc;
-            _p1 = ptoIni;
-            _p2 = ptoFin;
+            this._uiapp = _uiapp;
+            this._doc = _uiapp.ActiveUIDocument.Document;
+            this._p1 = _RebarElevDTO.ptoini;// ptoIni;
+            this._p2 = _RebarElevDTO.ptofinal; 
 
-            _posiciontag = posiciontag;   
+            _posiciontag = (_p1 + _p2) / 2;   
             this.CentroBarra = _posiciontag;// (ptoFin - new XYZ(0, 0, Util.CmToFoot(50)));
             this.CentroBarra = (_p1 + _p2) / 2;
             this._view = _doc.ActiveView;
@@ -60,6 +64,7 @@ namespace Desglose.Tag.TipoBarraH
             this.escala = 50;// _view.Scale;
             //dos opciones  "M_Path Reinforcement Tag(ID_cuantia_largo)"
             this.nombreDefamiliaBase = "MRA Rebar";
+            
         }
 
         public virtual void M1_ObtnerPtosInicialYFinalDeBarra(double anguloRoomRad)
@@ -91,7 +96,7 @@ namespace Desglose.Tag.TipoBarraH
 
 
             XYZ p0_C = CentroBarra;
-            TagP0_C = M2_1_ObtenerTAgBarra(p0_C, "C", nombreDefamiliaBase + "_C_" + escala, escala); // (20+300+20)
+            TagP0_C = M2_1_ObtenerTAgBarra(p0_C, "C", nombreDefamiliaBase + " C " + escala, escala); // (20+300+20)
             listaTag.Add(TagP0_C);
 
 

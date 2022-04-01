@@ -1,4 +1,6 @@
 ﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+using Desglose.DTO;
 using System;
 
 namespace Desglose.Tag.TipoBarraH
@@ -7,8 +9,8 @@ namespace Desglose.Tag.TipoBarraH
     {
 
 
-        public GeomeTagSinPataH(Document doc, XYZ ptoIni, XYZ ptoFin, XYZ posiciontag) :
-            base(doc, ptoIni, ptoFin, posiciontag)
+        public GeomeTagSinPataH(UIApplication _uiapp, RebarElevDTO _RebarElevDTO) :
+            base(_uiapp, _RebarElevDTO)
         { }
 
         public GeomeTagSinPataH() { }

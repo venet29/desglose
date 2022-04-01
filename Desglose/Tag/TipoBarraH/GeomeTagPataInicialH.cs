@@ -1,5 +1,7 @@
 ﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 using Desglose.Ayuda;
+using Desglose.DTO;
 using System;
 
 namespace Desglose.Tag.TipoBarraH
@@ -8,8 +10,8 @@ namespace Desglose.Tag.TipoBarraH
     {
 
 
-        public GeomeTagPataInicialH(Document doc, XYZ ptoIni, XYZ ptoFin, XYZ posiciontag) :
-            base(doc, ptoIni, ptoFin, posiciontag)
+        public GeomeTagPataInicialH(UIApplication _uiapp, RebarElevDTO _RebarElevDTO) :
+            base(_uiapp, _RebarElevDTO)
         { }
 
         public GeomeTagPataInicialH() { }

@@ -85,8 +85,10 @@ namespace Desglose
                 GruposListasTraslapo_H _GruposListasTraslapo = new GruposListasTraslapo_H(_uiapp, Lista_RebarDesglose, _Config_EspecialElv);
                 if (!_GruposListasTraslapo.ObtenerGruposTraslapos()) return false;
 
-                GruposListasTraslapoIguales_HV2 _GruposListasTraslapoIguales = new GruposListasTraslapoIguales_HV2(_uiapp, _GruposListasTraslapo.GruposRebarMismaLinea_Colineal);
-                if (!_GruposListasTraslapoIguales.ObtenerGruposTraslaposIgualesV2(_Config_EspecialElv)) return false;
+                GruposListasTraslapoIguales_HV2 _GruposListasTraslapoIguales = new GruposListasTraslapoIguales_HV2(_uiapp,
+                                                                                                                   _GruposListasTraslapo.GruposRebarMismaLinea_Colineal,
+                                                                                                                   _Config_EspecialElv);
+                if (!_GruposListasTraslapoIguales.M1_ObtenerGruposTraslaposIgualesV2()) return false;
 
                 //b)ESTRIBO
                 GruposListasEstribo_H _GruposListasEstribo = new GruposListasEstribo_H(_uiapp, Lista_RebarDesglose);
@@ -175,8 +177,10 @@ namespace Desglose
                 GruposListasTraslapo_H _GruposListasTraslapo = new GruposListasTraslapo_H(_uiapp, Lista_RebarDesglose, _Config_EspecialElv);
                 if (!_GruposListasTraslapo.ObtenerGruposTraslapos()) return false;
 
-                GruposListasTraslapoIguales_HV2 _GruposListasTraslapoIguales = new GruposListasTraslapoIguales_HV2(_uiapp, _GruposListasTraslapo.GruposRebarMismaLinea_Colineal);
-                if (!_GruposListasTraslapoIguales.ObtenerGruposTraslaposIgualesV2(_Config_EspecialElv)) return false;
+                GruposListasTraslapoIguales_HV2 _GruposListasTraslapoIguales = new GruposListasTraslapoIguales_HV2(_uiapp,
+                                                                                                                _GruposListasTraslapo.GruposRebarMismaLinea_Colineal,
+                                                                                                                _Config_EspecialElv);
+                if (!_GruposListasTraslapoIguales.M1_ObtenerGruposTraslaposIgualesV2()) return false;
 
                 //b)ESTRIBO
                 GruposListasEstribo_H _GruposListasEstribo = new GruposListasEstribo_H(_uiapp, Lista_RebarDesglose);
@@ -192,7 +196,7 @@ namespace Desglose
                         t.Start("Crear Elevacion");
                         //b)dibujar  barra
                         Dibujar2D_Barra_elevacion_HV2 _Dibujar2D_elevcion = new Dibujar2D_Barra_elevacion_HV2(_uiapp, _GruposListasTraslapoIguales, _Config_EspecialElv);
-                        if (!_Dibujar2D_elevcion.PreDibujar(isId))
+                        if (!_Dibujar2D_elevcion.PreDibujarV2(isId))
                         {
                             t.RollBack();
                             return false;

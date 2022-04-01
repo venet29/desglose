@@ -71,7 +71,7 @@ namespace Desglose.Dibujar2D
             {
                 //3)tag
                 
-                IGeometriaTag _newIGeometriaTag = new GeomeTagBarrarElev(_uiapp, _RebarElevDTO);
+                IGeometriaTag _newIGeometriaTag =  new GeomeTagBarrarElev(_uiapp, _RebarElevDTO);
 
                 //4)barra
                 IRebarLosa_Desglose rebarLosa = FactoryIRebarDesglose.CrearIRebarLosa(_uiapp, _RebarElevDTO, _newIGeometriaTag);
@@ -94,13 +94,7 @@ namespace Desglose.Dibujar2D
             try
             {
                 //3)tag
-                IGeometriaTag _newGeometriaTag = FactoryGeomTagRebarH.CrearGeometriaTagH(_uiapp,
-                                                                                        _RebarElevDTO.tipobarraV,
-                                                                                        _RebarElevDTO.ptoini,
-                                                                                        _RebarElevDTO.ptofinal,
-                                                                                        _RebarElevDTO.ptoPosicionTAg,
-                                                                                        -_RebarElevDTO.DireccionPataEnFierrado );
-                IGeometriaTag _newIGeometriaTag = new GeomeTagBarrarElev(_uiapp, _RebarElevDTO);
+                IGeometriaTag _newIGeometriaTag = FactoryGeomTagRebarH.CrearGeometriaTagH(_uiapp, _RebarElevDTO);
 
                 //4)barra
                 IRebarLosa_Desglose rebarLosa = FactoryIRebarDesglose.CrearIRebarLosa(_uiapp, _RebarElevDTO, _newIGeometriaTag);
