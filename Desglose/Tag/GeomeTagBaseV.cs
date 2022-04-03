@@ -80,7 +80,6 @@ namespace Desglose.Tag
             }
             catch (Exception ex)
             {
-
                 return false;
             }
             return true;
@@ -100,10 +99,7 @@ namespace Desglose.Tag
         //obs4
         public   void M2_CAlcularPtosDeTAg(bool IsGraficarEnForm = false)
         {
-     
-
-
-
+    
         }
 
         protected TagBarra M1_1_ObtenerTAgBarra(XYZ posicion, string nombreLetra, string NombreFamilia, int escala)

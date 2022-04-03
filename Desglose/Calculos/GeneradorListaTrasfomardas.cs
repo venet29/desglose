@@ -19,6 +19,8 @@ namespace Desglose.Calculos
         private List<RebarDesglose> lista_RebarDesglose;
  
         public List<RebarDesglose> listaTransformada_RebarDesglose { get; set; }
+        public List<RebarDesglose> listaTransformada_RebarDesgloseEstribo { get; private set; }
+
         private DatosHost _DatosHost;
 
         public GeneradorListaTrasfomardas(UIApplication uiapp, List<RebarDesglose> lista_RebarDesglose)
@@ -27,6 +29,8 @@ namespace Desglose.Calculos
             this._view=_uiapp.ActiveUIDocument.ActiveView;
             this.lista_RebarDesglose = lista_RebarDesglose;
             this.listaTransformada_RebarDesglose = new List<RebarDesglose>();
+
+            this.listaTransformada_RebarDesgloseEstribo = new List<RebarDesglose>();
         }
 
         public CrearTrasformadaSobreVectorDesg _Trasform { get;  set; }
@@ -43,8 +47,8 @@ namespace Desglose.Calculos
 
                 if (barraAnalizada == null)
                 {
-                    UtilDesglose.ErrorMsg($"Host no contiene barras longitudinales, no es posible encontrar Host");
-                    return false;
+                    //UtilDesglose.ErrorMsg($"Host no contiene barras longitudinales, no es posible encontrar Host");
+                    return true;
 
                 }
                 //datos iniciales
@@ -74,6 +78,59 @@ namespace Desglose.Calculos
                 }
 
                 if (listaTransformada_RebarDesglose.Count == 0) return false;
+            }
+            catch (Exception ex)
+            {
+                UtilDesglose.ErrorMsg($"Error al obtener reorden de coordenadas: {ex.Message}");
+                return false;
+            }
+            return true;
+        }
+
+        internal bool EjecutarEstribo()
+        {
+            try
+            {
+
+                //NOTA CODIGO SE PUEDE MEJAR SI NO ENCUENTRO, BUSCAR ESTRIBO O TRABA--> CREAR CLASE APARTE PARA Y QUE DEVUELVA 'DatosHost'
+                var barraAnalizada = lista_RebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VT ||
+                                                                    c._tipoBarraEspecifico == TipoRebar.ELEV_ES_V)
+                                                        .FirstOrDefault();
+
+                if (barraAnalizada == null)
+                {
+                    //UtilDesglose.ErrorMsg($"Host no contiene barras longitudinales, no es posible encontrar Host");
+                    return true;
+
+                }
+                //datos iniciales
+                _DatosHost = new DatosHost(_uiapp, barraAnalizada);
+                if (!_DatosHost.ObtenerPtoMedioYDireccion()) return false;
+                if (!_DatosHost.ObtenerCentroPilarOmUro()) return false;
+
+                //revisar si viga tiene angulo posito o negatico
+                WraperRebarLargo curvaPrinciplar = lista_RebarDesglose[0].ListaCurvaBarras.Find(c => c.IsBarraPrincipal);
+                XYZ normal_=lista_RebarDesglose[0]._rebar.GetShapeDrivenAccessor().Normal;
+                if (curvaPrinciplar == null)
+                {
+                    UtilDesglose.ErrorMsg($"No se puedo obtener de coordenadas planos de host");
+                    return false;
+                }
+
+                double angleRADNormalHostYEJeZ = Math.PI / 2 - normal_.GetAngleEnZ_respectoPlanoXY(false);
+
+
+                _Trasform = new CrearTrasformadaSobreVectorDesg(_DatosHost.CentroHost, -UtilDesglose.RadianeToGrados(angleRADNormalHostYEJeZ), -_view.ViewDirection);
+
+
+                for (int i = 0; i < lista_RebarDesglose.Count; i++)
+                {
+                    RebarDesglose _RebarDesglose = lista_RebarDesglose[i];
+                    RebarDesglose _COPYRebarDesgloseTrans = _RebarDesglose.CrearCopiarTrans(_Trasform);
+                    listaTransformada_RebarDesgloseEstribo.Add(_COPYRebarDesgloseTrans);
+                }
+
+                if (listaTransformada_RebarDesgloseEstribo.Count == 0) return false;
             }
             catch (Exception ex)
             {

@@ -36,12 +36,7 @@ namespace Desglose.Dibujar2D
                 SeleccionarElementosV _SeleccionarElementosV = new SeleccionarElementosV(_uiapp, true);
                 _SeleccionarElementosV.M1_1_CrearWorkPLane_EnCentroViewSecction();
 
-                var trasnf = _config_EspecialElv.Trasform_;
-
-                XYZ direccionMuevenBarrasFAlsa = new XYZ(0, 0, -1);
-                _config_EspecialElv.direccionMuevenBarrasFAlsa = direccionMuevenBarrasFAlsa;
-
-
+         
                 foreach (RebarDesglose_GrupoBarras_H itemGRUOP in _GruposListasEstribo.GruposRebarMismaLinea)
                 {
                     for (int i = 0; i < itemGRUOP._GrupoRebarDesglose.Count; i++)
@@ -49,8 +44,17 @@ namespace Desglose.Dibujar2D
 
                         RebarDesglose_Barras_H item1 = itemGRUOP._GrupoRebarDesglose[i];
                         item1.contBarra = itemGRUOP._ListaRebarDesglose_GrupoBarrasRepetidas.Count + 1;
-                        RebarElevDTO _RebarElevDTO = item1.ObtenerRebarElevDTO_HV2(_uiapp, isId, _config_EspecialElv);
-                        _RebarElevDTO.tipoBarra = TipoRebarElev.EstriboViga;
+                       
+                        RebarElevDTO _RebarElevDTO = item1.ObtenerRebarElevDTO_HV2Estribo(_uiapp, isId, _config_EspecialElv);
+                        _RebarElevDTO.tipoBarra = TipoRebarElev.EstriboVigaElv;
+
+                        Config_DatosEstriboElevVigas _Config_DatosEstriboElevVigas = new Config_DatosEstriboElevVigas()
+                        {
+                            CantidadEstriboCONF = "2ED."
+                        };
+                        _RebarElevDTO.Config_DatosEstriboElevVigas= _Config_DatosEstriboElevVigas;
+
+
                         GenerarBarra_2DH2(_RebarElevDTO);
                     }
                 }
@@ -99,7 +103,7 @@ namespace Desglose.Dibujar2D
             return true;
         }
 
-        public bool DibujarH2()
+        public bool DibujarH2_crearDimension()
         {
             try
             {

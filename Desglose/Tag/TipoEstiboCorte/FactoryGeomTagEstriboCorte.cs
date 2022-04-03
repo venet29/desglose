@@ -4,6 +4,7 @@ using Desglose.Tag;
 using Autodesk.Revit.UI;
 using Desglose.Tag.TipoBarraH;
 using Desglose.Tag.TipoBarraV;
+using Desglose.Tag.TipoEstiboCorte;
 
 namespace Desglose.Tag
 {
@@ -12,23 +13,23 @@ namespace Desglose.Tag
     //    List<TagBarra> listaTag { get; set; }
     //    void CAlcularPtosDeTAg(bool IsGarficarEnForm=false);
     //}
-    public class FactoryGeomTagRebarDesglose
+    public class FactoryGeomTagEstriboCorte
     {
 
-        public static IGeometriaTag CrearIGeomTagRebarDesaglose(UIApplication _uiapp, RebarElevDTO _RebarElevDTO)
+        public static IGeometriaTag CrearIGeomTagRebarEstriboCorte(UIApplication _uiapp, RebarElevDTO _RebarElevDTO)
         {
        
             switch (_RebarElevDTO.tipoBarra)
             {
 
                 case TipoRebarElev.Estribo:
-                    return new GeomeTagEstribo(_uiapp, _RebarElevDTO);
+                    return new GeomeTagEstriboCorte(_uiapp, _RebarElevDTO);
                 case TipoRebarElev.EstriboTraba:
-                    return new GeomeTagTraba(_uiapp, _RebarElevDTO);
+                    return new GeomeTagTrabaCorte(_uiapp, _RebarElevDTO);
                 case TipoRebarElev.EstriboViga:
-                    return new GeomeTagEstriboViga(_uiapp, _RebarElevDTO);
+                    return new GeomeTagEstriboVigaCorte(_uiapp, _RebarElevDTO);
                 case TipoRebarElev.EstriboVigaTraba:
-                    return new GeomeTagTrabaViga(_uiapp, _RebarElevDTO);
+                    return new GeomeTagTrabaVigaCorte(_uiapp, _RebarElevDTO);
 
 
                 default:

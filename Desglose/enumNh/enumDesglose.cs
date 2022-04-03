@@ -49,7 +49,9 @@ namespace Desglose.Ayuda
         SinpataH, PataInferiorH, PataSuperiorH, AmbasPataH,// para vigS en elevacion
         Estribo,EstriboTraba,
         NONE,
-        EstriboViga, EstriboVigaLatela, EstriboVigaTraba
+        EstriboViga, EstriboVigaLatelaElev, EstriboVigaTraba,
+        EstriboVigaElv,
+        EstriboVigaTrabaElev
     }
     public enum TipoCUrva
     {

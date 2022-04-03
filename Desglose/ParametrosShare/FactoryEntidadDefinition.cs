@@ -50,6 +50,11 @@ namespace Desglose.ParametrosShare
 
             //CantidadEstriboCONF
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "CantidadEstriboCONF", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "630baf2e-6d65-4a4c-b331-fcb9e7d63a7a");
+
+            AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "CantidadEstriboCONF", "Estribo", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "630baf2e-6d65-4a4c-b331-fcb9e7d63a7a");
+            AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "CantidadEstriboLAT", "Estribo", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "f34f3a0f-de70-4c05-b3c6-2a216d7f758a");
+            AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "CantidadEstriboTRABA", "Estribo", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "c6a11417-9b23-4742-ac77-ac9bf1d4246d");
+
             return _lista;
 
         }

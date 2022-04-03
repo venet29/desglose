@@ -27,14 +27,7 @@ namespace Desglose.Calculos
                 case TipoRebarElev.AmbasPata:
                     return new BarraPataAmbos(_uiapp, _RebarElevDTO, _newIGeometriaTag);
 
-                case TipoRebarElev.SinpataH:
-                    return new BarraSinPatasH(_uiapp, _RebarElevDTO, _newIGeometriaTag);
-                case TipoRebarElev.PataInferiorH:
-                    return new BarraPataInicialH(_uiapp, _RebarElevDTO, _newIGeometriaTag);
-                case TipoRebarElev.PataSuperiorH:
-                    return new BarraPataSuperiorH(_uiapp, _RebarElevDTO, _newIGeometriaTag);
-                case TipoRebarElev.AmbasPataH:
-                    return new BarraPataAmbosH(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+
 
                 case TipoRebarElev.Estribo:
                     return new BarraEstriboTransConCurva_Plata(_uiapp, _RebarElevDTO, _newIGeometriaTag);
@@ -44,6 +37,22 @@ namespace Desglose.Calculos
                     return new BarraEstriboTransConCurva_Elev(_uiapp, _RebarElevDTO, _newIGeometriaTag);
                 case TipoRebarElev.EstriboVigaTraba:
                     return new BarraTrabaEstriboConCurva_Elev(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+
+                    // elevacion viga
+                case TipoRebarElev.SinpataH:
+                    return new BarraSinPatasH(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+                case TipoRebarElev.PataInferiorH:
+                    return new BarraPataInicialH(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+                case TipoRebarElev.PataSuperiorH:
+                    return new BarraPataSuperiorH(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+                case TipoRebarElev.AmbasPataH:
+                    return new BarraPataAmbosH(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+                case TipoRebarElev.EstriboVigaElv:
+                    return new EstriboVigaElv(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+                case TipoRebarElev.EstriboVigaLatelaElev:
+                    return new EstriboVigaLatelaElev(_uiapp, _RebarElevDTO, _newIGeometriaTag);
+                case TipoRebarElev.EstriboVigaTrabaElev:
+                    return new EstriboVigaTrabaElev(_uiapp, _RebarElevDTO, _newIGeometriaTag);
                 default:
                     return new fx_null();
 

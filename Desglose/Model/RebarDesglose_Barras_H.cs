@@ -172,7 +172,51 @@ namespace Desglose.Model
             return _newRebarElevDTO;
         }
 
+        public RebarElevDTO ObtenerRebarElevDTO_HV2Estribo(UIApplication _uiapp, bool isId, Config_EspecialElev _config_EspecialElv)
+        {
+            View _view = _uiapp.ActiveUIDocument.Document.ActiveView;
+            RebarElevDTO _newRebarElevDTO = null;
 
+
+            var AuxTRans_ListaCurvaBarras = new List<WraperRebarLargo>();
+
+            //a)
+            //for (int i = 0; i < _rebarDesglose.ListaCurvaBarras.Count; i++)
+            //{
+            //    WraperRebarLargo Aux_RebarDesglose = _rebarDesglose.ListaCurvaBarras[i];
+
+            //    var RebarDesglose_normal = Aux_RebarDesglose.GenerarTrasformada(Aux_RebarDesglose._Trasform.EjecutarTransformInvertida);
+            //    if (RebarDesglose_normal != null)
+            //        AuxTRans_ListaCurvaBarras.Add(RebarDesglose_normal);
+            //}
+
+            try
+            {
+                _newRebarElevDTO = new RebarElevDTO(_uiapp)
+                {
+                    tipoBarra = TipoRebarElev.EstriboVigaElv,
+                    LargoPata = ptoFinal.DistanceTo(ptoFinal),
+                    ptoini = _rebarDesglose.CurvaMasLargo_WraperEstribo.ptoInicial,// ptoInicial,// _config_EspecialElv.Trasform_.EjecutarTransformInvertida(ptoInicial),
+                    ptofinal = _rebarDesglose.CurvaMasLargo_WraperEstribo.ptoFinal,// _config_EspecialElv.Trasform_.EjecutarTransformInvertida(ptoFinal),
+                    DireccionPataEnFierrado = new XYZ(0, 0, 1),
+                    diametroMM = diametroMM,
+                    listaCUrvas = AuxTRans_ListaCurvaBarras,
+                    cantidadBarras = contBarra,
+                    Rebar_ = _rebarDesglose._rebar,
+                    Id = (isId ? _rebarDesglose._rebar.Id.IntegerValue : -1),
+                    TipoBarraEspecifico = _tipoBarraEspecifico,
+                    Config_EspecialElv = _config_EspecialElv
+
+                };
+            }
+            catch (Exception ex)
+            {
+
+                UtilDesglose.ErrorMsg($"Error al  'ObtenerRebarElevDTO'   ex: {ex.Message}");
+                return null;
+            }
+            return _newRebarElevDTO;
+        }
         public RebarElevDTO ObtenerRebarCorteDTO(XYZ posicionAUX, XYZ ptocentroHost, UIApplication _uiapp, View _view, View _viewOriginal, Config_EspecialCorte _Config_EspecialCorte)
         {
             var AuxTRans_ListaCurvaBarras = new List<WraperRebarLargo>();

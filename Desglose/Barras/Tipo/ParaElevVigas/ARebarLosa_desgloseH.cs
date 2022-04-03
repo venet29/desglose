@@ -1,6 +1,6 @@
 ﻿using Desglose.DTO;
 
-namespace Desglose.Calculos
+namespace Desglose.Calculos.Tipo.ParaElevVigas
 {
     public  class AARebarLosa_desgloseH: ARebarLosa_desglose
     {

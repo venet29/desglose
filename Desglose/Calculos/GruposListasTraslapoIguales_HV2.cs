@@ -35,7 +35,10 @@ namespace Desglose.Calculos
             this._config_EspecialElv = _Config_EspecialElv;
         }
 
-
+        public GruposListasTraslapoIguales_HV2()
+        {
+            soloListaPrincipales = new List<RebarDesglose_GrupoBarras_H>();
+        }
 
         public bool M1_ObtenerGruposTraslaposIgualesV2()
         {

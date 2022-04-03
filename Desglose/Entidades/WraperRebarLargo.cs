@@ -41,6 +41,9 @@ namespace Desglose.Entidades
         public XYZ ptoFinalSinTrans { get; private set; }
         public XYZ ptoInicialSinTrans { get; private set; }
 
+
+        public WraperRebarLargo()
+        { }
         public WraperRebarLargo(Curve item, parametrosRebar parametrosRebar, bool isBarraPrincipal)
         {
             this._curve = item;

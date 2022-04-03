@@ -100,7 +100,7 @@ namespace Desglose.Dibujar2D
             try
             {
                 //3)tag
-                IGeometriaTag _newIGeometriaTag = FactoryGeomTagRebarDesglose.CrearIGeomTagRebarDesaglose(_uiapp, _RebarElevDTO);
+                IGeometriaTag _newIGeometriaTag = FactoryGeomTagEstriboCorte.CrearIGeomTagRebarEstriboCorte(_uiapp, _RebarElevDTO);
 
                 //4)barra
                 IRebarLosa_Desglose rebarLosa = FactoryIRebarDesglose.CrearIRebarLosa(_uiapp, _RebarElevDTO, _newIGeometriaTag);

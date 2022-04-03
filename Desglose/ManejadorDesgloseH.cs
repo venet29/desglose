@@ -59,9 +59,8 @@ namespace Desglose
                     return false;
                 }
 
-                // ThisApplication _ThisApplication = new ThisApplication(_uiapp);
-                //  _ThisApplication.C4_M2_InfoGeometriaAnidada();
-                bool isId = (bool)_ui.chb_id.IsChecked;
+
+                bool isId = false;// (bool)_ui.chb_id.IsChecked;  //para mostrar ide barras no aplica en esta seccion
                 SeleccionarRebarRectangulo administrador_ReferenciaRoom = new SeleccionarRebarRectangulo(_uiapp);
                 if (!administrador_ReferenciaRoom.GetUnicamenteRebarSeleccionadosConRectaguloYFiltros()) return false;
 
@@ -77,47 +76,49 @@ namespace Desglose
 
                 _Config_EspecialElv.Trasform_ = _GeneradorListaTrasfomardas._Trasform;
 
-                Lista_RebarDesglose = _GeneradorListaTrasfomardas.listaTransformada_RebarDesglose;
+                var Lista_RebarDesglose_trans = _GeneradorListaTrasfomardas.listaTransformada_RebarDesglose;
 
                 //*********************
                 //a)BARRAS
-                GruposListasTraslapo_H _GruposListasTraslapo = new GruposListasTraslapo_H(_uiapp, Lista_RebarDesglose, _Config_EspecialElv);
-                if (!_GruposListasTraslapo.ObtenerGruposTraslapos()) return false;
+                GruposListasTraslapoIguales_HV2 _GruposListasTraslapoIguales = new GruposListasTraslapoIguales_HV2();
+                if (Lista_RebarDesglose_trans.Count > 0)
+                {
 
-                GruposListasTraslapoIguales_HV2 _GruposListasTraslapoIguales = new GruposListasTraslapoIguales_HV2(_uiapp,
-                                                                                                                _GruposListasTraslapo.GruposRebarMismaLinea_Colineal,
-                                                                                                                _Config_EspecialElv);
-                if (!_GruposListasTraslapoIguales.M1_ObtenerGruposTraslaposIgualesV2()) return false;
+                    GruposListasTraslapo_H _GruposListasTraslapo = new GruposListasTraslapo_H(_uiapp, Lista_RebarDesglose_trans, _Config_EspecialElv);
+                    if (!_GruposListasTraslapo.ObtenerGruposTraslapos()) return false;
 
+                    _GruposListasTraslapoIguales = new GruposListasTraslapoIguales_HV2(_uiapp,
+                                                                                                                   _GruposListasTraslapo.GruposRebarMismaLinea_Colineal,
+                                                                                                                   _Config_EspecialElv);
+                    if (!_GruposListasTraslapoIguales.M1_ObtenerGruposTraslaposIgualesV2()) return false;
+                }
+                //**************************************************
                 //b)ESTRIBO
-                GruposListasEstribo_H _GruposListasEstribo = new GruposListasEstribo_H(_uiapp, Lista_RebarDesglose);
+
+                if (!_GeneradorListaTrasfomardas.EjecutarEstribo()) return false;
+                var Lista_RebarDesglose_Estribo_trans = _GeneradorListaTrasfomardas.listaTransformada_RebarDesgloseEstribo;
+
+                GruposListasEstribo_H _GruposListasEstribo = new GruposListasEstribo_H(_uiapp, Lista_RebarDesglose_Estribo_trans);
                 if (!_GruposListasEstribo.ObtenerGruposEstribo()) return false;
 
-                //a)BARRAS
-                //if (!_GruposListasEstribo.ObteneGruposDeBarraEnELev()) return false;
 
+                // en caso de no seeleccionar nada
+                if (_GruposListasTraslapoIguales.soloListaPrincipales.Count == 0 && _GruposListasEstribo.GruposRebarMismaLinea.Count == 0) return true;
+                 
                 try
                 {
                     using (TransactionGroup t = new TransactionGroup(_doc))
                     {
                         t.Start("Crear Elevacion");
+
+
                         //b)dibujar  barra
-                        Dibujar2D_Barra_elevacion_HV2 _Dibujar2D_elevcion = new Dibujar2D_Barra_elevacion_HV2(_uiapp, _GruposListasTraslapoIguales, _Config_EspecialElv);
-                        if (!_Dibujar2D_elevcion.PreDibujar_HV2(isId))
-                        {
+                        if (!DibujarBarras(_Config_EspecialElv, isId, _GruposListasTraslapoIguales))
                             t.RollBack();
-                            return false;
-                        }
 
-                        _Dibujar2D_elevcion.Dibujar();
-                        
-                        //b)dibujar estribo
-                        Dibujar2D_Estribos_elevacion_H _Dibujar2D_Estribo_Elev = new Dibujar2D_Estribos_elevacion_H(_uiapp, _GruposListasEstribo, _Config_EspecialElv);
-                       // _Dibujar2D_Estribo_Elev.pre
+                        if (!DibujarEstribos(_Config_EspecialElv, isId, _GruposListasEstribo))
+                            t.RollBack();
 
-
-                        _Dibujar2D_Estribo_Elev.DibujarH2();
-    
                         t.Assimilate();
                     }
                 }
@@ -136,7 +137,44 @@ namespace Desglose
             return true;
         }
 
+        private bool DibujarBarras(Config_EspecialElev _Config_EspecialElv, bool isId, GruposListasTraslapoIguales_HV2 _GruposListasTraslapoIguales)
+        {
+            try
+            {
+                if (_GruposListasTraslapoIguales.soloListaPrincipales.Count == 0) return true;
+                
+                    Dibujar2D_Barra_elevacion_HV2 _Dibujar2D_elevcion = new Dibujar2D_Barra_elevacion_HV2(_uiapp, _GruposListasTraslapoIguales, _Config_EspecialElv);
+                    if (!_Dibujar2D_elevcion.PreDibujar_HV2(isId)) return true;
+                _Dibujar2D_elevcion.Dibujar();
+                
+            }
+            catch (Exception ex)
+            {
+                Util.ErrorMsg($"Error al dibujar Tag barras \n ex{ex.Message}");
+                return false;
+            }
+            return true;
+        }
 
+        private bool DibujarEstribos(Config_EspecialElev _Config_EspecialElv, bool isId, GruposListasEstribo_H _GruposListasEstribo)
+        {
+            //b)dibujar estribo
+            try
+            {
+                if (_GruposListasEstribo.GruposRebarMismaLinea.Count == 0) return true;
+
+                Dibujar2D_Estribos_elevacion_H _Dibujar2D_Estribo_Elev = new Dibujar2D_Estribos_elevacion_H(_uiapp, _GruposListasEstribo, _Config_EspecialElv);
+                if (!_Dibujar2D_Estribo_Elev.PreDibujar_HV2(isId)) return true;
+
+                _Dibujar2D_Estribo_Elev.Dibujar();
+            }
+            catch (Exception ex)
+            {
+                Util.ErrorMsg($"Error al dibujar Tag Estribo \n ex{ex.Message}");
+                return false;
+            }
+            return true;
+        }
 
         public bool EjecutarDibujarBarrasEncorteH(Config_EspecialCorte _Config_EspecialCorte)
         {

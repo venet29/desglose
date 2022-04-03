@@ -34,6 +34,8 @@ namespace Desglose.Model
         public int Diametro_MM { get; private set; }
         public List<Curve> listaptoInicialConCurva { get; private set; }
         public WraperRebarLargo CurvaMasLargo_WraperRebarLargo { get; private set; }
+
+        public WraperRebarLargo CurvaMasLargo_WraperEstribo { get; private set; }
         public OrientacionBArra OrientacionBArra_ { get; set; }
         public RebarHookType HookInicial { get; private set; }
         public RebarHookType HookFinal { get; private set; }
@@ -57,6 +59,7 @@ namespace Desglose.Model
             this.ListaCurvaBarrasFinal_Estribo = new List<WraperRebarLargo>();
             this.ListaCurvaBarrasFinal_conCurva_Estribo = new List<WraperRebarLargo>();
             this._tipoBarraEspecifico = TipoRebar.NONE;
+            this.CurvaMasLargo_WraperEstribo = new WraperRebarLargo();
         }
 
         public RebarDesglose CrearCopiarTrans(CrearTrasformadaSobreVectorDesg trasform)
@@ -114,7 +117,62 @@ namespace Desglose.Model
 
         }
 
+        public RebarDesglose CrearCopiarTrans_Estribo(CrearTrasformadaSobreVectorDesg trasform)
+        {
+            AuxTRans_ListaCurvaBarras = new List<WraperRebarLargo>();
+            AuxTRans_ListaCurvaBarrasFinal_Estribo = new List<WraperRebarLargo>();
+            AuxTRans_ListaCurvaBarrasFinal_conCurva_Estribo = new List<WraperRebarLargo>();
 
+            //a)
+           
+            for (int i = 0; i < ListaCurvaBarras.Count; i++)
+            {
+                var trans = ListaCurvaBarras[i].GenerarTrasformada(trasform);
+                if (trans != null)
+                    AuxTRans_ListaCurvaBarras.Add(trans);
+            }
+
+            //b
+            for (int i = 0; i < ListaCurvaBarrasFinal_Estribo.Count; i++)
+            {
+                var trans = ListaCurvaBarrasFinal_Estribo[i].GenerarTrasformada(trasform);
+                if (trans != null)
+                    AuxTRans_ListaCurvaBarrasFinal_Estribo.Add(trans);
+            }
+
+            //c
+            for (int i = 0; i < ListaCurvaBarrasFinal_conCurva_Estribo.Count; i++)
+            {
+                var trans = ListaCurvaBarrasFinal_conCurva_Estribo[i].GenerarTrasformada(trasform);
+                if (trans != null)
+                    AuxTRans_ListaCurvaBarrasFinal_conCurva_Estribo.Add(trans);
+            }
+
+            CurvaMasLargo_WraperEstribo.ptoInicial = trasform.EjecutarTransform( CurvaMasLargo_WraperRebarLargo.ptoInicial);
+            CurvaMasLargo_WraperEstribo.ptoFinal = trasform.EjecutarTransform( CurvaMasLargo_WraperRebarLargo.ptoFinal + _normal * _rebar.Quantity * _rebar.MaxSpacing);
+
+            return new RebarDesglose(_uiapp, _rebar)
+            {
+                contRebar = contRebar,
+                LargoTotalSumaParcialesFoot = LargoTotalSumaParcialesFoot,
+                _tipoBarraEspecifico = _tipoBarraEspecifico,
+
+                ListaParametrosRebar = ListaParametrosRebar,
+                ListaCurvaBarras = AuxTRans_ListaCurvaBarras,
+                ListaCurvaBarrasFinal_Estribo = AuxTRans_ListaCurvaBarrasFinal_Estribo,
+                ListaCurvaBarrasFinal_conCurva_Estribo = AuxTRans_ListaCurvaBarrasFinal_conCurva_Estribo,
+                Diametro_MM = Diametro_MM,
+                _normal = _normal,
+                listaptoInicialConCurva = listaptoInicialConCurva,
+                CurvaMasLargo_WraperRebarLargo = CurvaMasLargo_WraperRebarLargo.GenerarTrasformada(trasform),
+                OrientacionBArra_ = OrientacionBArra_,
+                HookInicial = HookInicial,
+                HookFinal = HookFinal,
+                trasform = trasform,
+                RebarDesgloseSinTraslapo = this
+            };
+
+        }
 
         public bool Ejecutar()
         {
@@ -168,7 +226,6 @@ namespace Desglose.Model
 
         public bool A_ObtenerListaParametros()
         {
-
             try
             {
                 string[] listaLetra = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "K" };
@@ -180,17 +237,13 @@ namespace Desglose.Model
                     double largo = parabet.AsDouble();
                     if (largo != 0)
                     {
-
                         parametrosRebar _newparametrosRebar = (_tipoBarraEspecifico == TipoRebar.NONE
                                                                 ? new parametrosRebar(letra, largo)
                                                                 : new parametrosRebar(letra, largo, _tipoBarraEspecifico));
                         if (_newparametrosRebar.ObtenerLetraNH())
                             ListaParametrosRebar.Add(_newparametrosRebar);
-
-
                     };
                 }
-
             }
             catch (Exception ex)
             {
@@ -351,9 +404,11 @@ namespace Desglose.Model
         {
             try
             {
+              //  CurvaMasLargo_WraperEstribo. 
                 if (!B_ObtenerListaCurvas_InicialSetBArras()) return false;
 
-
+                CurvaMasLargo_WraperEstribo.ptoInicial = CurvaMasLargo_WraperRebarLargo.ptoInicial;
+                CurvaMasLargo_WraperEstribo.ptoFinal = CurvaMasLargo_WraperRebarLargo.ptoFinal + _normal * (_rebar.Quantity-1) * _rebar.MaxSpacing;
 
                 if (!AyudaCurveRebar.GetUtimaRebarCurves(_rebar)) return false;
 

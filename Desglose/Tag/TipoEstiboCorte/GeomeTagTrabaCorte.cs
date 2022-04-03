@@ -7,13 +7,13 @@ using Autodesk.Revit.UI;
 using System;
 using Desglose.Extension;
 
-namespace Desglose.Tag
+namespace Desglose.Tag.TipoEstiboCorte
 {
-    public class GeomeTagTraba : GeomeTagBaseV, IGeometriaTag
+    public class GeomeTagTrabaCorte : GeomeTagBaseV, IGeometriaTag
     {
         private Config_EspecialCorte Config_EspecialCorte;
-
-        public GeomeTagTraba(UIApplication _uiapp, RebarElevDTO _RebarElevDTO) :
+        //de pilar
+        public GeomeTagTrabaCorte(UIApplication _uiapp, RebarElevDTO _RebarElevDTO) :
             base(_uiapp, _RebarElevDTO)
         {
 
@@ -58,7 +58,7 @@ namespace Desglose.Tag
         }
 
         public bool M4_IsFAmiliaValida() => true;
-        public void M5_DefinirRebarShapeAhorro(Action<GeomeTagTraba> rutina)
+        public void M5_DefinirRebarShapeAhorro(Action<GeomeTagTrabaCorte> rutina)
         {
             rutina(this);
         }

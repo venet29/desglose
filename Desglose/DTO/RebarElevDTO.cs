@@ -77,6 +77,7 @@ namespace Desglose.DTO
         public List<ParametroShareNhDTO> listaPArametroSharenh { get;  set; }
         public Config_EspecialElev Config_EspecialElv { get; internal set; }
         public double LargoTotalSumaParcialesFoot { get; internal set; }
+        public Config_DatosEstriboElevVigas Config_DatosEstriboElevVigas { get; internal set; }
 
         public RebarElevDTO(UIApplication _uiapp)
         {

@@ -93,15 +93,11 @@ namespace Desglose.Dibujar2D
             {
                 //3)tag
                 IGeometriaTag _newIGeometriaTag = FactoryGeomTagRebarH.CrearGeometriaTagH(_uiapp, _RebarElevDTO);
-
                 //4)barra
                 IRebarLosa_Desglose rebarLosa = FactoryIRebarDesglose.CrearIRebarLosa(_uiapp, _RebarElevDTO, _newIGeometriaTag);
                 if (!rebarLosa.M1A_IsTodoOK()) return false;
 
                 _ListIRebarLosa.Add(rebarLosa);
-
-
-
             }
             catch (Exception ex)
             {
