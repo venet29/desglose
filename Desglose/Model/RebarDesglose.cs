@@ -29,7 +29,7 @@ namespace Desglose.Model
         public List<WraperRebarLargo> ListaCurvaBarras { get; set; }
         public List<WraperRebarLargo> ListaCurvaBarrasFinal_Estribo { get; set; }
         public List<WraperRebarLargo> ListaCurvaBarrasFinal_conCurva_Estribo { get; set; }
-
+        public TipobarraH TipobarraH_ { get; set; }
         public XYZ _normal { get; set; }
         public int Diametro_MM { get; private set; }
         public List<Curve> listaptoInicialConCurva { get; private set; }
@@ -42,8 +42,9 @@ namespace Desglose.Model
         public CrearTrasformadaSobreVectorDesg trasform { get;  set; }
         public RebarDesglose RebarDesgloseSinTraslapo { get; set; }
 
-        //******* SOLO AUXILIARES PARA TRASFORMADA
-        List<WraperRebarLargo> AuxTRans_ListaCurvaBarras;
+
+      //******* SOLO AUXILIARES PARA TRASFORMADA
+      List<WraperRebarLargo> AuxTRans_ListaCurvaBarras;
         List<WraperRebarLargo> AuxTRans_ListaCurvaBarrasFinal_Estribo;
         List<WraperRebarLargo> AuxTRans_ListaCurvaBarrasFinal_conCurva_Estribo;
         public RebarDesglose(UIApplication uiapp, Rebar _rebar)
@@ -106,6 +107,7 @@ namespace Desglose.Model
                 ListaCurvaBarrasFinal_conCurva_Estribo = AuxTRans_ListaCurvaBarrasFinal_conCurva_Estribo,
                 Diametro_MM =Diametro_MM,
                 _normal = _normal,
+                TipobarraH_= TipobarraH_,
                 listaptoInicialConCurva = listaptoInicialConCurva,
                 CurvaMasLargo_WraperRebarLargo = CurvaMasLargo_WraperRebarLargo.GenerarTrasformada(trasform),
                 OrientacionBArra_ = OrientacionBArra_,
@@ -148,8 +150,8 @@ namespace Desglose.Model
                     AuxTRans_ListaCurvaBarrasFinal_conCurva_Estribo.Add(trans);
             }
 
-            CurvaMasLargo_WraperEstribo.ptoInicial = trasform.EjecutarTransform( CurvaMasLargo_WraperRebarLargo.ptoInicial);
-            CurvaMasLargo_WraperEstribo.ptoFinal = trasform.EjecutarTransform( CurvaMasLargo_WraperRebarLargo.ptoFinal + _normal * _rebar.Quantity * _rebar.MaxSpacing);
+            CurvaMasLargo_WraperEstribo.PtoInicialTransformada = trasform.EjecutarTransform( CurvaMasLargo_WraperRebarLargo.ptoInicial);
+            CurvaMasLargo_WraperEstribo.PtoFinalTransformada = trasform.EjecutarTransform( CurvaMasLargo_WraperRebarLargo.ptoFinal + _normal * _rebar.Quantity * _rebar.MaxSpacing);
 
             return new RebarDesglose(_uiapp, _rebar)
             {
@@ -164,6 +166,7 @@ namespace Desglose.Model
                 Diametro_MM = Diametro_MM,
                 _normal = _normal,
                 listaptoInicialConCurva = listaptoInicialConCurva,
+                CurvaMasLargo_WraperEstribo = CurvaMasLargo_WraperEstribo,
                 CurvaMasLargo_WraperRebarLargo = CurvaMasLargo_WraperRebarLargo.GenerarTrasformada(trasform),
                 OrientacionBArra_ = OrientacionBArra_,
                 HookInicial = HookInicial,

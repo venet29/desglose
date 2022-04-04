@@ -17,10 +17,11 @@ namespace Desglose.Tag.TipoBarraH
     public class GeomeTagBaseH
     {
 
-       // private readonly List<XYZ> _listaPtosPerimetroBarras;
-        
+        // private readonly List<XYZ> _listaPtosPerimetroBarras;
+
         protected readonly XYZ CentroBarra;
         private readonly UIApplication _uiapp;
+        protected RebarElevDTO _rebarElevDTO;
         private View _view;
 
         //pto inical y final de barra( linea inferior)
@@ -29,17 +30,19 @@ namespace Desglose.Tag.TipoBarraH
         protected XYZ _posiciontag;
         protected XYZ _direccionBarra;
 
+        protected XYZ _DesfaseLInea;
+        protected XYZ _DesfaseLInea_F;
 
         protected double _anguloBarraRad;
         protected int _anguloBArraGrado;
         protected string _signoAngulo;
         protected double _largoMedioEnFoot;
         Document _doc;
-      //  private RebarInferiorDTO _rebarInferiorDTO1;
+        //  private RebarInferiorDTO _rebarInferiorDTO1;
         protected int escala;
         protected string nombreDefamiliaBase;
 
-      
+
         //lista con objetos que representan los tag de la barra
         public List<TagBarra> listaTag { get; set; }
         //public TagBarra TagP0_A { get; set; }
@@ -52,11 +55,16 @@ namespace Desglose.Tag.TipoBarraH
         public GeomeTagBaseH(UIApplication _uiapp, RebarElevDTO _RebarElevDTO)
         {
             this._uiapp = _uiapp;
+            _rebarElevDTO = _RebarElevDTO;
             this._doc = _uiapp.ActiveUIDocument.Document;
             this._p1 = _RebarElevDTO.ptoini;// ptoIni;
-            this._p2 = _RebarElevDTO.ptofinal; 
+            this._p2 = _RebarElevDTO.ptofinal;
 
-            _posiciontag = (_p1 + _p2) / 2;   
+            _posiciontag = (_p1 + _p2) / 2;
+
+
+
+
             this.CentroBarra = _posiciontag;// (ptoFin - new XYZ(0, 0, Util.CmToFoot(50)));
             this.CentroBarra = (_p1 + _p2) / 2;
             this._view = _doc.ActiveView;
@@ -64,7 +72,7 @@ namespace Desglose.Tag.TipoBarraH
             this.escala = 50;// _view.Scale;
             //dos opciones  "M_Path Reinforcement Tag(ID_cuantia_largo)"
             this.nombreDefamiliaBase = "MRA Rebar";
-            
+
         }
 
         public virtual void M1_ObtnerPtosInicialYFinalDeBarra(double anguloRoomRad)
@@ -80,8 +88,60 @@ namespace Desglose.Tag.TipoBarraH
 
             _anguloBarraRad = Util.angulo_entre_ptRadXY0(_p1, _p2);
             _largoMedioEnFoot = _p1.DistanceTo(_p2);
-         
+
             listaTag = new List<TagBarra>();
+            _DesfaseLInea = new XYZ(0, 0, 0);
+            if (_rebarElevDTO._rebarDesglose.TipobarraH_.ToString().Contains("INF"))
+            {
+                _DesfaseLInea = new XYZ(0, 0, -0.8);
+            }
+            else
+                _DesfaseLInea = new XYZ(0, 0, 0.5);
+
+            _DesfaseLInea_F = -_direccionBarra*1; //new XYZ(0,.0,0);
+
+            switch (_rebarElevDTO._rebarDesglose.TipobarraH_)
+            {
+                case Ayuda.TipobarraH.Lateral:
+                    break;
+                case Ayuda.TipobarraH.Linea1SUP:
+                    _DesfaseLInea_F =  new XYZ(0, .0, 0);
+                    break;
+                case Ayuda.TipobarraH.Linea2SUP:
+                    _DesfaseLInea = _DesfaseLInea + ConstNH.CONST_DesfaseLine;
+                    break;
+                case Ayuda.TipobarraH.Linea3SUP:
+                    _DesfaseLInea = _DesfaseLInea + ConstNH.CONST_DesfaseLine * 2;
+                    break;
+                case Ayuda.TipobarraH.Linea4SUP:
+                    _DesfaseLInea = _DesfaseLInea + ConstNH.CONST_DesfaseLine * 3;
+                    break;
+                case Ayuda.TipobarraH.Linea5SUP:
+                    break;
+                case Ayuda.TipobarraH.Linea1INF:
+                    _DesfaseLInea_F = new XYZ(0, .0, 0);
+                    break;
+                case Ayuda.TipobarraH.Linea2INF:
+                    _DesfaseLInea = _DesfaseLInea + -ConstNH.CONST_DesfaseLine;
+                    break;
+                case Ayuda.TipobarraH.Linea3INF:
+                    _DesfaseLInea = _DesfaseLInea + -ConstNH.CONST_DesfaseLine * 2;
+                    break;
+                case Ayuda.TipobarraH.Linea4INF:
+                    _DesfaseLInea = _DesfaseLInea + -ConstNH.CONST_DesfaseLine * 3;
+                    break;
+                case Ayuda.TipobarraH.Linea5INF:
+                    break;
+                case Ayuda.TipobarraH.NONE:
+                    break;
+                case Ayuda.TipobarraH.LineaNOLateral:
+                    break;
+                default:
+                    break;
+            }
+
+
+
 
         }
 
@@ -90,19 +150,22 @@ namespace Desglose.Tag.TipoBarraH
         public void M2_CAlcularPtosDeTAg(bool IsGraficarEnForm = false)
         {
 
-            XYZ p0_F = _p1 + _direccionBarra * _largoMedioEnFoot * 0.25;
+            XYZ p0_F = _p1 + _DesfaseLInea + _direccionBarra * _largoMedioEnFoot * 0.25;
+             p0_F = CentroBarra + _DesfaseLInea + _DesfaseLInea_F - _direccionBarra * Util.CmToFoot(80);
             TagP0_F = M2_1_ObtenerTAgBarra(p0_F, "FB", nombreDefamiliaBase + " FBarra", escala);// 2@12
             listaTag.Add(TagP0_F);
 
+            XYZ p0_L = CentroBarra + _DesfaseLInea;
 
-            XYZ p0_C = CentroBarra;
+            TagP0_L = M2_1_ObtenerTAgBarra(p0_L, "LT", nombreDefamiliaBase + " LT", escala);// L=340
+            listaTag.Add(TagP0_L);
+
+            XYZ p0_C = _p2 + _DesfaseLInea - _direccionBarra * _largoMedioEnFoot * 0.25;
+            p0_C = CentroBarra + _DesfaseLInea + _direccionBarra * Util.CmToFoot(70);
             TagP0_C = M2_1_ObtenerTAgBarra(p0_C, "LP", nombreDefamiliaBase + " LP", escala); // (20+300+20)
             listaTag.Add(TagP0_C);
 
 
-            XYZ p0_L = _p2 - _direccionBarra * _largoMedioEnFoot * 0.25; 
-            TagP0_L = M2_1_ObtenerTAgBarra(p0_L, "LT", nombreDefamiliaBase + " LT", escala);// L=340
-            listaTag.Add(TagP0_L);
 
 
         }

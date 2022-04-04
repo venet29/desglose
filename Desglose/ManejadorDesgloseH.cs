@@ -37,10 +37,11 @@ namespace Desglose
             this.CasoAnalisas = CasoAnalisas.AnalisisHorizontal;
         }
 
+        #region 1)Dibujar elevacion
 
 
         //similar alfuncionamiento de generar barra de pilares verticales, pero para elemrntos horizontes
-        public bool EjecutarDibujarBarrasEnElevacionHV2(Config_EspecialElev _Config_EspecialElv)
+        public bool M1_EjecutarDibujarBarrasEnElevacionHV2(Config_EspecialElev _Config_EspecialElv)
         {
             try
             {
@@ -66,13 +67,17 @@ namespace Desglose
 
                 if (!AyudaObtenerListaDesglosada.ObtenerLista(administrador_ReferenciaRoom._ListaRebarSeleccionado, _uiapp)) return false;
 
+                if (!AyudaObtenerListaDesglosada.AgregarPosicionLinea(_Config_EspecialElv.DiamtroLateralMax)) return false;
+
                 //hacer trasformada
 
                 List<RebarDesglose> Lista_RebarDesglose = AyudaObtenerListaDesglosada.Lista_RebarDesglose;
 
-                //*******************  importante
+                //*******************
+                // importante genera transformada
                 GeneradorListaTrasfomardas _GeneradorListaTrasfomardas = new GeneradorListaTrasfomardas(_uiapp, Lista_RebarDesglose);
                 if (!_GeneradorListaTrasfomardas.Ejecutar()) return false;
+              
 
                 _Config_EspecialElv.Trasform_ = _GeneradorListaTrasfomardas._Trasform;
 
@@ -88,8 +93,8 @@ namespace Desglose
                     if (!_GruposListasTraslapo.ObtenerGruposTraslapos()) return false;
 
                     _GruposListasTraslapoIguales = new GruposListasTraslapoIguales_HV2(_uiapp,
-                                                                                                                   _GruposListasTraslapo.GruposRebarMismaLinea_Colineal,
-                                                                                                                   _Config_EspecialElv);
+                                                                                        _GruposListasTraslapo.GruposRebarMismaLinea_Colineal,
+                                                                                        _Config_EspecialElv);
                     if (!_GruposListasTraslapoIguales.M1_ObtenerGruposTraslaposIgualesV2()) return false;
                 }
                 //**************************************************
@@ -98,27 +103,22 @@ namespace Desglose
                 if (!_GeneradorListaTrasfomardas.EjecutarEstribo()) return false;
                 var Lista_RebarDesglose_Estribo_trans = _GeneradorListaTrasfomardas.listaTransformada_RebarDesgloseEstribo;
 
-                GruposListasEstribo_H _GruposListasEstribo = new GruposListasEstribo_H(_uiapp, Lista_RebarDesglose_Estribo_trans);
-                if (!_GruposListasEstribo.ObtenerGruposEstribo()) return false;
-
+                GruposListasEstribo_HElev _GruposListasEstribo_Elev = new GruposListasEstribo_HElev(_uiapp, Lista_RebarDesglose_Estribo_trans);
+                if (!_GruposListasEstribo_Elev.ObtenerGruposEstribo_corte()) return false;
 
                 // en caso de no seeleccionar nada
-                if (_GruposListasTraslapoIguales.soloListaPrincipales.Count == 0 && _GruposListasEstribo.GruposRebarMismaLinea.Count == 0) return true;
-                 
+                if (_GruposListasTraslapoIguales.soloListaPrincipales.Count == 0 && _GruposListasEstribo_Elev.GruposRebarMismaLinea.Count == 0) return true;
+
                 try
                 {
                     using (TransactionGroup t = new TransactionGroup(_doc))
                     {
                         t.Start("Crear Elevacion");
-
-
                         //b)dibujar  barra
-                        if (!DibujarBarras(_Config_EspecialElv, isId, _GruposListasTraslapoIguales))
+                        if (!M1_1_DibujarBarras(_Config_EspecialElv, isId, _GruposListasTraslapoIguales))
                             t.RollBack();
-
-                        if (!DibujarEstribos(_Config_EspecialElv, isId, _GruposListasEstribo))
+                        if (!M1_2_DibujarEstribos(_Config_EspecialElv, isId, _GruposListasEstribo_Elev))
                             t.RollBack();
-
                         t.Assimilate();
                     }
                 }
@@ -126,8 +126,6 @@ namespace Desglose
                 {
                     string msj = ex.Message;
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -137,16 +135,16 @@ namespace Desglose
             return true;
         }
 
-        private bool DibujarBarras(Config_EspecialElev _Config_EspecialElv, bool isId, GruposListasTraslapoIguales_HV2 _GruposListasTraslapoIguales)
+        private bool M1_1_DibujarBarras(Config_EspecialElev _Config_EspecialElv, bool isId, GruposListasTraslapoIguales_HV2 _GruposListasTraslapoIguales)
         {
             try
             {
                 if (_GruposListasTraslapoIguales.soloListaPrincipales.Count == 0) return true;
-                
-                    Dibujar2D_Barra_elevacion_HV2 _Dibujar2D_elevcion = new Dibujar2D_Barra_elevacion_HV2(_uiapp, _GruposListasTraslapoIguales, _Config_EspecialElv);
-                    if (!_Dibujar2D_elevcion.PreDibujar_HV2(isId)) return true;
+
+                Dibujar2D_Barra_elevacion_HV2 _Dibujar2D_elevcion = new Dibujar2D_Barra_elevacion_HV2(_uiapp, _GruposListasTraslapoIguales, _Config_EspecialElv);
+                if (!_Dibujar2D_elevcion.PreDibujar_HV2(isId)) return true;
                 _Dibujar2D_elevcion.Dibujar();
-                
+
             }
             catch (Exception ex)
             {
@@ -156,14 +154,14 @@ namespace Desglose
             return true;
         }
 
-        private bool DibujarEstribos(Config_EspecialElev _Config_EspecialElv, bool isId, GruposListasEstribo_H _GruposListasEstribo)
+        private bool M1_2_DibujarEstribos(Config_EspecialElev _Config_EspecialElv, bool isId, GruposListasEstribo_HElev _GruposListasEstribo)
         {
             //b)dibujar estribo
             try
             {
                 if (_GruposListasEstribo.GruposRebarMismaLinea.Count == 0) return true;
 
-                Dibujar2D_Estribos_elevacion_H _Dibujar2D_Estribo_Elev = new Dibujar2D_Estribos_elevacion_H(_uiapp, _GruposListasEstribo, _Config_EspecialElv);
+                Dibujar2D_Estribos_elevacion_HElev _Dibujar2D_Estribo_Elev = new Dibujar2D_Estribos_elevacion_HElev(_uiapp, _GruposListasEstribo, _Config_EspecialElv);
                 if (!_Dibujar2D_Estribo_Elev.PreDibujar_HV2(isId)) return true;
 
                 _Dibujar2D_Estribo_Elev.Dibujar();
@@ -176,7 +174,12 @@ namespace Desglose
             return true;
         }
 
-        public bool EjecutarDibujarBarrasEncorteH(Config_EspecialCorte _Config_EspecialCorte)
+        #endregion
+
+
+        #region 2) Dibujar Corte
+
+        public bool M2_EjecutarDibujarBarrasEncorteH(Config_EspecialCorte _Config_EspecialCorte)
         {
             try
             {
@@ -221,13 +224,13 @@ namespace Desglose
                 //*********************
 
                 //ESTRIBO
-                GruposListasEstribo_H _GruposListasEstribo = new GruposListasEstribo_H(_uiapp, Lista_RebarDesglose);
-                if (!_GruposListasEstribo.ObtenerGruposEstribo()) return false;
+                GruposListasEstribo_HCorte _GruposListasEstribo = new GruposListasEstribo_HCorte(_uiapp, Lista_RebarDesglose);
+                if (!_GruposListasEstribo.ObtenerGruposEstribo_corte()) return false;
 
-                if (!_GruposListasEstribo.ObteneGruposDeBarraEnELev()) return false;
+                if (!_GruposListasEstribo.ObteneGruposDeBarraEnELev_corte()) return false;
 
 
-                if (!GenerarCorte_H(_GruposListasEstribo)) return false;
+                if (!M2_1_GenerarCorte_H(_GruposListasEstribo)) return false;
 
                 if (_GruposListasEstribo.GruposRebarMismaLinea.Count != 1)
                 {
@@ -282,9 +285,7 @@ namespace Desglose
             return true;
         }
 
-
-
-        private bool GenerarCorte_H(GruposListasEstribo_H _GruposListasEstribo)
+        private bool M2_1_GenerarCorte_H(GruposListasEstribo_HCorte _GruposListasEstribo)
         {
             if (IScrearCorte)
             {
@@ -335,6 +336,7 @@ namespace Desglose
             return true;
         }
 
+        #endregion
     }
 
 

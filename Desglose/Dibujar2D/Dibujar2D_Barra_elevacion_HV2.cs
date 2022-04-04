@@ -47,7 +47,7 @@ namespace Desglose.Dibujar2D
                 foreach (RebarDesglose_GrupoBarras_H itemGRUOP in _GruposListasTraslapoIguales_HV2.soloListaPrincipales)
                 {
                     //   var BarraTipo = item._GrupoRebarDesglose[0];
-                    RebarElevDTO _RebarElevDTOANterior = null;
+                    //RebarElevDTO _RebarElevDTOANterior = null;
                  
                     for (int i = 0; i < itemGRUOP._GrupoRebarDesglose.Count; i++)
                     {
@@ -58,7 +58,7 @@ namespace Desglose.Dibujar2D
 
                         RebarDesglose_Barras_H item1 = itemGRUOP._GrupoRebarDesglose[i];
                         item1.contBarra = itemGRUOP._ListaRebarDesglose_GrupoBarrasRepetidas.Count + 1;
-                        RebarElevDTO _RebarElevDTO = item1.ObtenerRebarElevDTO_HV2(_uiapp, isId, _config_EspecialElv);
+                        RebarElevDTO _RebarElevDTO = item1.ObtenerRebarElevDTO_HV2(_uiapp, isId, _config_EspecialElv, itemGRUOP.CantidadBArras);
 
                         GenerarBarra_2DH2(_RebarElevDTO);
                     }

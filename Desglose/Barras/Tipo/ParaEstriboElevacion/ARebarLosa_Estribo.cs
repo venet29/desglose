@@ -29,8 +29,8 @@ namespace Desglose.Calculos
 
         private void CrearParameter(string _NombrePAra ,string _valor)
         {
-            if (_config_DatosEstriboElevVigas.CantidadEstriboCONF == "") return;
-            if (_config_DatosEstriboElevVigas.CantidadEstriboCONF == null) return;
+            if (_valor == "") return;
+            if (_valor == null) return;
 
             ParametroShareNhDTO _newParaMe_Cantiadabarras = new ParametroShareNhDTO()
             {

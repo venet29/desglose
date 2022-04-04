@@ -44,7 +44,7 @@ namespace Desglose.WPF
                 else
                 {
                     ManejadorDesgloseH _ManejadorDesglose = new ManejadorDesgloseH(_uiapp, _ui);
-                    _ManejadorDesglose.EjecutarDibujarBarrasEnElevacionHV2(_Config_EspecialElv);
+                    _ManejadorDesglose.M1_EjecutarDibujarBarrasEnElevacionHV2(_Config_EspecialElv);
                 }
                 _ui.Show();
             }
@@ -64,7 +64,7 @@ namespace Desglose.WPF
                 else
                 {
                     ManejadorDesgloseH _ManejadorDesglose = new ManejadorDesgloseH(_uiapp, _ui);
-                    _ManejadorDesglose.EjecutarDibujarBarrasEncorteH(_Config_EspecialCorte);
+                    _ManejadorDesglose.M2_EjecutarDibujarBarrasEncorteH(_Config_EspecialCorte);
                 }
                 _ui.Show();
             }

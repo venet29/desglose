@@ -99,10 +99,12 @@
     <Compile Include="BuscarTipos\Tipos_Arrow.cs" />
     <Compile Include="Buscar\GeometriaViga.cs" />
     <Compile Include="Calculos\CalculoPtoTagBArraHorizontal_Corte.cs" />
+    <Compile Include="Calculos\GruposListasEstribo_HElev.cs" />
     <Compile Include="Calculos\GruposListasTraslapoIguales_HV2.cs" />
     <Compile Include="cmd_cargarDesglose.cs" />
     <Compile Include="Creador\CrearFamilySymbolTagRein.cs" />
     <Compile Include="Dibujar2D\Dibujar2D_Barra_elevacion_HV2.cs" />
+    <Compile Include="Dibujar2D\Dibujar2D_Estribos_elevacion_HElev.cs" />
     <Compile Include="Dibujar2D\SeleccionarElementosV.cs" />
     <Compile Include="Dibujar2D\Dibujar2D_Barras_Corte_H.cs" />
     <Compile Include="Dimensiones\CreadorAligneDimensiones.cs" />
@@ -160,7 +162,7 @@
     <Compile Include="Barras\Tipo\ParaPlanta\BarraTrabaEstribo_Plata.cs" />
     <Compile Include="Calculos\CalcularREferenciasCaraPilar.cs" />
     <Compile Include="Calculos\GeneradorListaTrasfomardas.cs" />
-    <Compile Include="Calculos\GruposListasEstribo_H.cs" />
+    <Compile Include="Calculos\GruposListasEstribo_HCorte.cs" />
     <Compile Include="Calculos\GruposListasEstribo_V.cs" />
     <Compile Include="Calculos\GruposListasTraslapoIguales_H.cs" />
     <Compile Include="Calculos\GruposListasTraslapoIguales_V.cs" />
@@ -173,7 +175,7 @@
     <Compile Include="Dibujar2D\Dibujar2D_Barra_elevacion_V.cs" />
     <Compile Include="Dibujar2D\Dibujar2D_Estribos_Corte_H.cs" />
     <Compile Include="Dibujar2D\Dibujar2D_Estribos_Corte_V.cs" />
-    <Compile Include="Dibujar2D\Dibujar2D_Estribos_elevacion_H.cs" />
+    <Compile Include="Dibujar2D\Dibujar2D_Estribos_elevacion_HCorte.cs" />
     <Compile Include="Dibujar2D\Dibujar2D_Estribos_elevacion_V.cs" />
     <Compile Include="DTO\Config_EspecialCorte.cs" />
     <Compile Include="DTO\Config_EspecialElev.cs" />

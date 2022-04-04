@@ -93,7 +93,7 @@ namespace Desglose.Calculos
             {
 
                 //NOTA CODIGO SE PUEDE MEJAR SI NO ENCUENTRO, BUSCAR ESTRIBO O TRABA--> CREAR CLASE APARTE PARA Y QUE DEVUELVA 'DatosHost'
-                var barraAnalizada = lista_RebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VT ||
+                var barraAnalizada = lista_RebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VT || c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VL ||
                                                                     c._tipoBarraEspecifico == TipoRebar.ELEV_ES_V)
                                                         .FirstOrDefault();
 
@@ -126,7 +126,7 @@ namespace Desglose.Calculos
                 for (int i = 0; i < lista_RebarDesglose.Count; i++)
                 {
                     RebarDesglose _RebarDesglose = lista_RebarDesglose[i];
-                    RebarDesglose _COPYRebarDesgloseTrans = _RebarDesglose.CrearCopiarTrans(_Trasform);
+                    RebarDesglose _COPYRebarDesgloseTrans = _RebarDesglose.CrearCopiarTrans_Estribo(_Trasform);
                     listaTransformada_RebarDesgloseEstribo.Add(_COPYRebarDesgloseTrans);
                 }
 

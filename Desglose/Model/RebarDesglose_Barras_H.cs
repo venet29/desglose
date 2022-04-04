@@ -108,8 +108,9 @@ namespace Desglose.Model
                     ptofinal = _config_EspecialElv.Trasform_.EjecutarTransformInvertida(ptoB.AsignarZ(ptoFinal.Z)),
                     DireccionPataEnFierrado = new XYZ(0, 0, 1),
                     diametroMM = diametroMM,
+                    _rebarDesglose= _rebarDesglose,
                     listaCUrvas = AuxTRans_ListaCurvaBarras,
-                    cantidadBarras = contBarra,
+                    cantidadBarras = _rebarDesglose._rebar.Quantity,
                     Rebar_ = _rebarDesglose._rebar,
                     Id = (isId ? _rebarDesglose._rebar.Id.IntegerValue : -1),
                     TipoBarraEspecifico = _tipoBarraEspecifico,
@@ -126,7 +127,7 @@ namespace Desglose.Model
             return _newRebarElevDTO;
         }
 
-        public RebarElevDTO ObtenerRebarElevDTO_HV2(UIApplication _uiapp, bool isId, Config_EspecialElev _config_EspecialElv)
+        public RebarElevDTO ObtenerRebarElevDTO_HV2(UIApplication _uiapp, bool isId, Config_EspecialElev _config_EspecialElv,int cantidadBArras)
         {
             View _view = _uiapp.ActiveUIDocument.Document.ActiveView;
             RebarElevDTO _newRebarElevDTO = null;
@@ -155,7 +156,8 @@ namespace Desglose.Model
                     DireccionPataEnFierrado = new XYZ(0, 0, 1),
                     diametroMM = diametroMM,
                     listaCUrvas = AuxTRans_ListaCurvaBarras,
-                    cantidadBarras = contBarra,
+                    _rebarDesglose = _rebarDesglose,
+                    cantidadBarras = cantidadBArras,
                     Rebar_ = _rebarDesglose._rebar,
                     Id = (isId ? _rebarDesglose._rebar.Id.IntegerValue : -1),
                     TipoBarraEspecifico = _tipoBarraEspecifico,
@@ -201,7 +203,8 @@ namespace Desglose.Model
                     DireccionPataEnFierrado = new XYZ(0, 0, 1),
                     diametroMM = diametroMM,
                     listaCUrvas = AuxTRans_ListaCurvaBarras,
-                    cantidadBarras = contBarra,
+                    _rebarDesglose = _rebarDesglose,
+                    cantidadBarras = _rebarDesglose._rebar.Quantity,
                     Rebar_ = _rebarDesglose._rebar,
                     Id = (isId ? _rebarDesglose._rebar.Id.IntegerValue : -1),
                     TipoBarraEspecifico = _tipoBarraEspecifico,
@@ -259,7 +262,7 @@ namespace Desglose.Model
                     Rebar_ = _rebarDesglose._rebar,
                     Id = _rebarDesglose._rebar.Id.IntegerValue,
                     TipoBarraEspecifico = _tipoBarraEspecifico,
-
+                    _rebarDesglose = _rebarDesglose,
                     _View = _view,
                     _viewOriginal = _viewOriginal,//valido solo arco de estribo y traba para dibujo tranversal
                     ptoMedio = ptoMedio, //valido solo arco de estribo y traba para dibujo tranversal

@@ -29,7 +29,8 @@ namespace Desglose.Ayuda
         Lateral,
         Linea1SUP, Linea2SUP, Linea3SUP, Linea4SUP, Linea5SUP,
         Linea1INF, Linea2INF, Linea3INF, Linea4INF, Linea5INF,
-        NONE
+        NONE,
+        LineaNOLateral
     }
 
     public enum OrientacionBArra

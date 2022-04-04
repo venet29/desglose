@@ -34,6 +34,7 @@ namespace Desglose.Calculos.Tipo.ParaElevVigas
         public bool M1A_IsTodoOK()
         {
             //if (!M1_1_DatosBarra3d()) return false;
+            DesplazamientoSegunLInea();
             if (!M1_2_DatosBarra2d()) return false;
             if (!M1_3_PAthSymbolTAG()) return false;
   
@@ -49,11 +50,11 @@ namespace Desglose.Calculos.Tipo.ParaElevVigas
             List<WraperRebarLargo> listaCuvas = _RebarInferiorDTO.listaCUrvas;
             double pataSuperior = listaCuvas.Find(c=> !c.IsBarraPrincipal)._curve.Length;
             XYZ direcionPAtaSuperiopr = listaCuvas[2].direccion;
-        
 
 
-            ladoAB_pathSym = Line.CreateBound(_RebarInferiorDTO.ptoini, _RebarInferiorDTO.ptofinal);
-            ladoBC_pathSym = Line.CreateBound(_RebarInferiorDTO.ptofinal, direcionPAtaSuperiopr * pataSuperior);
+            ladoAB_pathSym = Line.CreateBound(PtoIniConDesplazamineto, PtoFinConDesplazamineto);
+            ladoBC_pathSym = Line.CreateBound(PtoFinConDesplazamineto, PtoFinConDesplazamineto + direcionPAtaSuperiopr * pataSuperior);
+
 
              _texToLargoParciales = $"({ Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0) }+{ Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0) })";
 

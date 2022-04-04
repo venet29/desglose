@@ -37,12 +37,15 @@ namespace Desglose.ParametrosShare
         {
 
             _lista = new List<EntidadDefinition>();
-
+            
             //solo desglose
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "IdMLB", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "a133d20d-32bf-4780-88e9-9826c3d4a5d2");
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "MLB", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: true, "Tipo de grupo de barra", "0f022cc2-8b49-470a-8687-2d8e4feabd3f");
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "OpcionCuantia", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "d711e591-ffd0-48d9-985b-da3039cbfd6a");
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.ReinforcementLength, "LargoSumaParciales", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: true, "", "014e7044-cdb9-4bba-80e0-5251d13a2dda");
+
+            AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "F_prefijo", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "a9016747-5d31-40a5-99da-7545c3cc5ef4");
+            AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "Temp_Sufijo", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "282df609-a3ec-4187-a1a6-9bab955d2992");
 
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "CantidadBarra", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "0368c956-9e15-41f5-a86b-375c0c55b11e");
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "LargoParciales", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "53530261-a393-46a6-9ae0-01639eb6a3f8");
@@ -54,7 +57,7 @@ namespace Desglose.ParametrosShare
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "CantidadEstriboCONF", "Estribo", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "630baf2e-6d65-4a4c-b331-fcb9e7d63a7a");
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "CantidadEstriboLAT", "Estribo", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "f34f3a0f-de70-4c05-b3c6-2a216d7f758a");
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "CantidadEstriboTRABA", "Estribo", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "c6a11417-9b23-4742-ac77-ac9bf1d4246d");
-
+            
             return _lista;
 
         }

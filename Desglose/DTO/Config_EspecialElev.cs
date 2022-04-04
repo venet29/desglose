@@ -17,7 +17,7 @@ namespace Desglose.DTO
         public CasoAnalisas TipoCasoAnalisis { get;  set; }
         public CrearTrasformadaSobreVectorDesg Trasform_ { get;  set; }
         public XYZ direccionMuevenBarrasFAlsa { get;  set; }
-        public int DiamtroLateralMax { get;  set; }
+        public double DiamtroLateralMax { get;  set; }
 
     }
 }

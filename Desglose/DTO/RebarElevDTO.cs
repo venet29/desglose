@@ -4,6 +4,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.UI;
 using System.Collections.Generic;
+using Desglose.Model;
 
 namespace Desglose.DTO
 {
@@ -13,8 +14,6 @@ namespace Desglose.DTO
 
         public UIApplication uiapp { get; set; }
         public Element floor { get; set; }
-
-        //  public ServicioModificarCoordenadasEscalera ServicioModificarCoordenadasEscalera { get; set; }
 
         //public TipoPataBarra tipobarraV { get; set; }
         public XYZ PtoDirectriz1 { get; set; }
@@ -78,6 +77,7 @@ namespace Desglose.DTO
         public Config_EspecialElev Config_EspecialElv { get; internal set; }
         public double LargoTotalSumaParcialesFoot { get; internal set; }
         public Config_DatosEstriboElevVigas Config_DatosEstriboElevVigas { get; internal set; }
+        public RebarDesglose _rebarDesglose { get;  set; }
 
         public RebarElevDTO(UIApplication _uiapp)
         {

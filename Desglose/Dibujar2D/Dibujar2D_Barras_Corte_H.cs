@@ -21,7 +21,7 @@ namespace Desglose.Dibujar2D
     internal class Dibujar2D_Barras_Corte_H
     {
         private UIApplication _uiapp;
-        private GruposListasEstribo_H _GruposListasEstribo;
+        private GruposListasEstribo_HCorte _GruposListasEstribo;
         private Config_EspecialCorte _Config_EspecialCorte;
         private List<RebarDesglose_Barras_H> listaBArrasEnElev;
 
@@ -30,7 +30,7 @@ namespace Desglose.Dibujar2D
         ViewSection _section;
         private List<RebarDesglose_Barras_H2> listaBArrasEnElev_laterales;
 
-        public Dibujar2D_Barras_Corte_H(UIApplication uiapp, GruposListasEstribo_H gruposListasEstribo, Config_EspecialCorte config_EspecialCorte)
+        public Dibujar2D_Barras_Corte_H(UIApplication uiapp, GruposListasEstribo_HCorte gruposListasEstribo, Config_EspecialCorte config_EspecialCorte)
         {
             _uiapp = uiapp;
             _GruposListasEstribo = gruposListasEstribo;

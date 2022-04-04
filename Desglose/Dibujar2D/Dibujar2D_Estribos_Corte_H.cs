@@ -19,7 +19,7 @@ namespace Desglose.Dibujar2D
         private Document _doc;
         private View _view;
         private GruposListasTraslapoIguales_H _GruposListasTraslapoIguales;
-        private GruposListasEstribo_H _GruposListasEstribo;
+        private GruposListasEstribo_HCorte _GruposListasEstribo;
         private List<IRebarLosa_Desglose> _ListIRebarLosa;
         private RebarDesglose_GrupoBarras_H _rebarDesglose_GrupoBarras;
         private XYZ _puntoCentrealHost;
@@ -27,7 +27,7 @@ namespace Desglose.Dibujar2D
 
         public XYZ ptoCentroPilarAlturaCOrte { get; private set; }
 
-        public Dibujar2D_Estribos_Corte_H(UIApplication uiapp, GruposListasEstribo_H rebarDesglose_GrupoBarras, Config_EspecialCorte _Config_EspecialCorte)
+        public Dibujar2D_Estribos_Corte_H(UIApplication uiapp, GruposListasEstribo_HCorte rebarDesglose_GrupoBarras, Config_EspecialCorte _Config_EspecialCorte)
         {
             _uiapp = uiapp;
             this._config_EspecialCorte = _Config_EspecialCorte;

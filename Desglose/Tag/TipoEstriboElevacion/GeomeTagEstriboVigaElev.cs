@@ -9,12 +9,12 @@ namespace Desglose.Tag.TipoEstriboElevacion
 {
     public class GeomeTagEstriboVigaElev : GeomeTagEstriboBase, IGeometriaTag
     {
-        private readonly TipoEstriboConfig tipoEstriboConfig;
 
         public GeomeTagEstriboVigaElev(UIApplication _uiapp, RebarElevDTO _RebarElevDTO) :
             base(_uiapp, _RebarElevDTO )
         {
-          //  this.tipoEstriboConfig = tipoEstriboConfig;
+
+
         }
 
         public bool Ejecutar(GeomeTagArgs args)
@@ -45,8 +45,11 @@ namespace Desglose.Tag.TipoEstriboElevacion
         public void AsignarPArametros(GeomeTagEstriboBase _geomeTagBase)
         {
 
-            _geomeTagBase.TagP0_Lateral.IsOk = false;
-            _geomeTagBase.TagP0_Traba.IsOk = false;
+            if(rebarElevDTO.Config_DatosEstriboElevVigas.CantidadEstriboLAT=="")
+                _geomeTagBase.TagP0_Lateral.IsOk = false;
+
+            if (rebarElevDTO.Config_DatosEstriboElevVigas.CantidadEstriboTRABA == "")
+                _geomeTagBase.TagP0_Traba.IsOk = false;
          
 
         }

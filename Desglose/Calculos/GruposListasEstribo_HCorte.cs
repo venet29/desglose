@@ -15,7 +15,7 @@ using ADesglose.Ayuda;
 
 namespace Desglose.Calculos
 {
-    public class GruposListasEstribo_H
+    public class GruposListasEstribo_HCorte
     {
         private UIApplication _uiapp;
         private Document _doc;
@@ -31,7 +31,7 @@ namespace Desglose.Calculos
         public List<XYZ> ListaPtoSeccion { get; private set; }
         public List<RebarDesglose_Barras_H> listaBArrasEnElev { get; private set; }
 
-        public GruposListasEstribo_H(UIApplication uiapp, List<RebarDesglose> lista_RebarDesglose)
+        public GruposListasEstribo_HCorte(UIApplication uiapp, List<RebarDesglose> lista_RebarDesglose)
         {
             this._uiapp = uiapp;
             this._doc = uiapp.ActiveUIDocument.Document;
@@ -41,7 +41,7 @@ namespace Desglose.Calculos
         }
 
    
-        public bool ObtenerGruposEstribo()
+        public bool ObtenerGruposEstribo_corte()
         {
 
             List<RebarDesglose_Barras_H> listaBArras = lista_RebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VT ||
@@ -109,7 +109,7 @@ namespace Desglose.Calculos
             return true;
         }
 
-        public bool ObteneGruposDeBarraEnELev()
+        public bool ObteneGruposDeBarraEnELev_corte()
         {
             try
             {

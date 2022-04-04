@@ -17,6 +17,11 @@ namespace Desglose.Ayuda
         // constantes  refuezo de losa
         public static char CARACTER_PTO = '.';
 
+
+        public static XYZ CONST_DesfaseLine= new XYZ(0, 0, Util.CmToFoot(115));
+
+
+
         public static string NOMBRE_VIEW_TEMPLATE_LOSA = "VISTA ARMADURAS DE LOSAS";
         public static string NOMBRE_VIEW_TEMPLATE_ELEV = "ARMADURAS DE ELEVACIONES";
         public static string NOMBRE_VIEW_TEMPLATE_ESTRUC = "PLANTA ESTRUCTURA CIELO (VT)";
@@ -163,8 +168,9 @@ namespace Desglose.Ayuda
 
 
         public static double CONST_1CM_en_Foot = 0.032808398950;// 1 cm    
-            
 
 
+        public static string CONST_FPrefijo = "F_prefijo";// 1 cm    
+        public static string CONST_TempSUFIJO = "Temp_Sufijo";// 1 cm    
     }
 }

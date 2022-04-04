@@ -19,15 +19,16 @@ namespace Desglose.Model
         public XYZ _ptoInicial { get; set; }
         public XYZ _ptoFinal { get; set; }
         public bool Isok { get; set; }
+        public int CantidadBArras { get; set; }
         public Line _curvePrincipal { get; set; }
         public CrearTrasformadaSobreVectorDesg Trasform { get; }
         public casoAgrupar _casoAgrupar { get; set; }
         public TipobarraH TipobarraH_ { get; set; }
         public string replaceWithText { get; set; }
         public string textobelow { get; set; }
-    
 
-      
+
+
 
         public static RebarDesglose_GrupoBarras_H Creador_RebarDesglose_GrupoBarras(List<RebarDesglose_Barras_H> _grupoRebarDesglose, CrearTrasformadaSobreVectorDesg trasform)
         {
@@ -48,9 +49,10 @@ namespace Desglose.Model
             this.contGrupo = nextId;
             this._GrupoRebarDesglose = _grupoRebarDesglose;
             this._curvePrincipal = _curvePrincipal;
+
             Trasform = trasform;
             XYZ p0 = _curvePrincipal.GetEndPoint(0);
-            this._ptoInicial = p0.AsignarZ(Math.Round(p0.Z,5));
+            this._ptoInicial = p0.AsignarZ(Math.Round(p0.Z, 5));
             XYZ p1 = _curvePrincipal.GetEndPoint(1);
             this._ptoFinal = p1.AsignarZ(Math.Round(p1.Z, 5));
             this._ListaRebarDesglose_GrupoBarrasRepetidas = new List<RebarDesglose_GrupoBarras_H>();
@@ -60,6 +62,21 @@ namespace Desglose.Model
 
         }
 
+        //NOTA REVISAR: TOMA LA PRIMERA BARRA PARA ENCOENTRAR LA CANTIDAD DE BARRAS
+        internal bool ObtenerCAntidadBArras()
+        {
+            try
+            {
+                RebarDesglose_Barras_H RebarDesglose = _GrupoRebarDesglose.Find(c=> c._tipoBarraEspecifico== TipoRebar.ELEV_BA_H);
+                CantidadBArras = RebarDesglose._rebarDesglose._rebar.Quantity;
+            }
+            catch (global::System.Exception)
+            {
+
+                throw;
+            }
+            return true;
+        }
         public bool ObtenerTextos()
         {
             try
@@ -72,9 +89,9 @@ namespace Desglose.Model
 
                 if (cantidadEstribo != 0)
                 {
-                    var primer= _GrupoRebarDesglose.Find(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_V);
-                    int diametro=primer._rebarDesglose._rebar.ObtenerDiametroInt();
-                    int Espacia= (int)primer._rebarDesglose._rebar.ObtenerEspaciento_cm();
+                    var primer = _GrupoRebarDesglose.Find(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_V);
+                    int diametro = primer._rebarDesglose._rebar.ObtenerDiametroInt();
+                    int Espacia = (int)primer._rebarDesglose._rebar.ObtenerEspaciento_cm();
                     replaceWithText = $"{cantidadEstribo}E.Ø{diametro}a{Espacia}";
                 }
 
