@@ -80,7 +80,8 @@ namespace Desglose.Anotacion
                 if (tupoanotation == null) return false;
 
                 //2)obtener dimensio
-                DimensionType dmNh = SeleccionarDimensiones.ObtenerPrimerDimensioneTypeLinear(_doc);
+                //DimensionType dmNh = SeleccionarDimensiones.ObtenerPrimerDimensioneTypeLinear(_doc);
+                DimensionType dmNh = SeleccionarDimensiones.ObtenerDimensionTypePorNombre(_doc, "DimensionBarra"); 
                 if (dmNh == null) return false;
            
 

@@ -66,6 +66,51 @@ namespace Desglose.DImensionNh
                     {
 
                         newDimensionType.get_Parameter(BuiltInParameter.TEXT_SIZE).Set(0);
+                    
+                    }
+
+                    t.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return false;
+            }
+
+            return true;
+        }
+
+
+
+
+        public bool CrearTipoDimensionConTrasn_concirculo()
+        {
+            try
+            {
+                DimensionType _dimensionTypedefault = SeleccionarDimensiones.ObtenerPrimerDimensioneTypeLinear_Arial(_doc);
+
+                if (_dimensionTypedefault == null)
+                {
+                    Util.ErrorMsg($"Error al crear Dimension. No se encontro familia '{nombreFamilyaRef}' de referiencia");
+                    return false;
+                }
+
+                using (Transaction t = new Transaction(_doc))
+                {
+                    t.Start("Crear TipoTextNote-NH");
+
+
+                    Element newElem = _dimensionTypedefault.Duplicate(nameTipoTexto);
+
+                    DimensionType newDimensionType = newElem as DimensionType;
+
+                    if (null != newDimensionType)
+                    {
+
+                        newDimensionType.get_Parameter(BuiltInParameter.WITNS_LINE_EXTENSION).Set(0);
+                        newDimensionType.get_Parameter(BuiltInParameter.DIM_LEADER_ARROWHEAD).Set(new ElementId(-1));
+                        newDimensionType.get_Parameter(BuiltInParameter.WITNS_LINE_TICK_MARK).Set(new ElementId(-1));
 
                     }
 

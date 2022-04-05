@@ -114,6 +114,7 @@
     <Compile Include="Ayuda\CrearViewNH.cs" />
     <Compile Include="Buscar\GeometriaBase.cs" />
     <Compile Include="Dimensiones\DimensionesDatosTextoDTO.cs" />
+    <Compile Include="DImensionNh\cmd_Dimension.cs" />
     <Compile Include="DImensionNh\CrearTipoDimension.cs" />
     <Compile Include="DImensionNh\SeleccionarDimensiones.cs" />
     <Compile Include="DTO\ConfiguracionIniciaWPFlBarraVerticalDTO.cs" />

@@ -87,6 +87,52 @@ namespace Desglose.WPF
             }
         }
 
+
+        private System.Windows.Visibility isVisibleElevHorizontal;
+        public System.Windows.Visibility IsVisibleElevHorizontal
+        {
+            get { return isVisibleElevHorizontal; }
+            set
+            {
+                if (isVisibleElevHorizontal != value)
+                {
+                    isVisibleElevHorizontal = value;
+                    RaisePropertyChanged("IsVisibleElevHorizontal");
+                }
+            }
+        }
+
+
+        private System.Windows.Visibility isVisibleCorteHorizontal;
+        public System.Windows.Visibility IsVisibleCorteHorizontal
+        {
+            get { return isVisibleCorteHorizontal; }
+            set
+            {
+                if (isVisibleCorteHorizontal != value)
+                {
+                    isVisibleCorteHorizontal = value;
+                    RaisePropertyChanged("IsVisibleCorteHorizontal");
+                }
+            }
+        }
+
+
+        private System.Windows.Visibility isVisibleElevVertical;
+        public System.Windows.Visibility IsVisibleElevVertical
+        {
+            get { return isVisibleElevVertical; }
+            set
+            {
+                if (isVisibleElevVertical != value)
+                {
+                    isVisibleElevVertical = value;
+                    RaisePropertyChanged("IsVisibleElevVertical");
+                }
+            }
+        }
+
+
         private string espaciamiento;
         public string Espaciamiento
         {
@@ -174,10 +220,17 @@ namespace Desglose.WPF
             this.Topmost = true;
             IsVisibleTolerancia = System.Windows.Visibility.Hidden;
             IsVisibleToleranciaCuantia = System.Windows.Visibility.Hidden;
+
+
+            IsVisibleElevVertical = System.Windows.Visibility.Visible;
+            IsVisibleElevHorizontal = System.Windows.Visibility.Hidden;
+
+            IsVisibleCorteHorizontal = System.Windows.Visibility.Hidden;
             ListaDiam = new ObservableCollection<float>() { 8, 10, 12, 16, 18, 22, 25, 28, 32, 36 };
 
             ListaEstribo = new ObservableCollection<string>() { "Derecha", "Izquierda", "Superior", "Inferior" };
-            // this.TipoBarra_ = TipoBarraTraslapoDereArriba.f1;
+        
+
         }
 
 
@@ -274,7 +327,7 @@ namespace Desglose.WPF
                 tolerancia = Util.ConvertirStringInDouble(dtTole.Text),
                 TipoCasoAnalisis = (cbx_CasoCorte.Text.Contains("Vertical") ? CasoAnalisas.AnalsisVertical : CasoAnalisas.AnalisisHorizontal),
                 DiamtroLateralMax= Util.ConvertirStringInInteger(cbx_diamMaxLat.Text), // falta interfase
-                ParaBarraHorizontalEnCorteViga =TipoTagBArraHorizontalENcorte.mostrarDiamtro, // falta interfase
+                ParaBarraHorizontalEnCorteViga = (cbx_tipocuantiaLong.Text == "Definir" ? TipoTagBArraHorizontalENcorte.segunElevacion : TipoTagBArraHorizontalENcorte.mostrarDiamtro), // falta interfase
                 dire=-1
             };
 
@@ -311,8 +364,8 @@ namespace Desglose.WPF
                 tipoBarraElev = _newParaMe,
                 IsAgregarId = ((bool)chb_id.IsChecked ? true : false),
                 TipoCasoAnalisis = (cbx_CasoElev.Text.Contains("Vertical") ? CasoAnalisas.AnalsisVertical : CasoAnalisas.AnalisisHorizontal),
-                DiamtroLateralMax=12
-            };
+                DiamtroLateralMax= Util.ConvertirStringInInteger(cbx_diamMaxLatElevHor.Text)
+             };
 
             return _Config_EspecialElev;
         }
@@ -364,6 +417,28 @@ namespace Desglose.WPF
                 IsVisibleToleranciaCuantia = System.Windows.Visibility.Visible;
                 dtTextCuantia.Text = "E.Ø S/Elev";
             }
+        }
+
+        private void Cbx_CasoElev_DropDownClosed(object sender, EventArgs e)
+        {
+            if (cbx_CasoElev.Text == "Elemento Vertical")
+            {
+                IsVisibleElevVertical = System.Windows.Visibility.Visible;
+                IsVisibleElevHorizontal = System.Windows.Visibility.Hidden;
+            }
+            else
+            {
+                IsVisibleElevVertical = System.Windows.Visibility.Hidden;
+                IsVisibleElevHorizontal = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void Cbx_CasoCorte_DropDownClosed(object sender, EventArgs e)
+        {
+            if (cbx_CasoCorte.Text == "Elemento Horizontal")
+                IsVisibleCorteHorizontal = System.Windows.Visibility.Visible;
+            else
+                IsVisibleCorteHorizontal = System.Windows.Visibility.Hidden;
         }
     }
 

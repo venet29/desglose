@@ -5,6 +5,7 @@ using System;
 using Desglose.ParametrosShare;
 using Desglose.Familias;
 using Desglose.BuscarTipos;
+using Desglose.DImensionNh;
 
 namespace Desglose
 {
@@ -50,6 +51,9 @@ namespace Desglose
 
                     TiposMultiReferenceAnnotationType.CrearMultiReferenceAnnotationTypeIniciales(_doc);
 
+                    //    
+                    CrearTipoDimension _CrearTipoDimension = new CrearTipoDimension(_uiapp, "DimensionBarra");
+                    _CrearTipoDimension.CrearTipoDimensionConTrasn_concirculo();
                     // familias
                     ManejadorCargarFAmilias _ManejadorCargarFAmilias = new ManejadorCargarFAmilias(_uiapp);
                     _ManejadorCargarFAmilias.cargarFamilias_run();

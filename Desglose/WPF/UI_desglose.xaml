@@ -25,19 +25,20 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="281*" />
+            <ColumnDefinition Width="243*" />
+            <ColumnDefinition Width="38*"/>
             <ColumnDefinition Width="91*"/>
 
             <!--  cambiar este parametro a 1*  para ver columna  y volver Width="700"   -->
         </Grid.ColumnDefinitions>
         <!-- MAIN TAB CONTROLS-->
-        <Border BorderBrush="#FFACACAC" BorderThickness="1" Height="32" VerticalAlignment="Top" Margin="0,0,0,0" Grid.ColumnSpan="2" />
+        <Border BorderBrush="#FFACACAC" BorderThickness="1" Height="32" VerticalAlignment="Top" Margin="0,0,0,0" Grid.ColumnSpan="3" />
 
 
         <TabControl x:Name="tabnh" HorizontalAlignment="Left" BorderBrush="{x:Null}" Background="{x:Null}"
-                   Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,0,0,0" Width="352" Grid.ColumnSpan="2">
+                   Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,0,0,0" Width="352" Grid.ColumnSpan="3">
 
-            <TabItem x:Name="tbDatos" IsSelected="True" BorderBrush="{x:Null}" Background="{x:Null}"  Margin="0,-2,-4,-2"  Padding="5,0,5,0">
+            <TabItem x:Name="tbDatos" IsSelected="True"   Margin="0,-2,-4,-2"  Padding="5,0,5,0">
 
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -71,23 +72,34 @@
                             </Grid.ColumnDefinitions>
 
                             <Label Grid.Row="1" Grid.Column="1">Caso</Label>
-                            <ComboBox Name="cbx_CasoElev" Grid.Row="1"  Grid.Column="2"  Grid.ColumnSpan="3" Height="20" Width="186" HorizontalContentAlignment="Center" HorizontalAlignment="Left" DropDownClosed="Cbx_TipoLargo_DropDownClosed" >
+                            <ComboBox Name="cbx_CasoElev" Grid.Row="1"  Grid.Column="2"  Grid.ColumnSpan="3" Height="20" Width="186" HorizontalContentAlignment="Center" HorizontalAlignment="Left" DropDownClosed="Cbx_CasoElev_DropDownClosed" >
                                 <ComboBoxItem IsSelected="True" >Elemento Vertical</ComboBoxItem>
                                 <ComboBoxItem>Elemento Horizontal</ComboBoxItem>
 
                             </ComboBox>
 
-                            <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">Espaciamiento</Label>
-                            <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center">Nombre</Label>
+                            <!-- caso vertical-->
+                            <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsVisibleElevVertical, UpdateSourceTrigger=PropertyChanged}">Espaciamiento</Label>
+                            <Label Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsVisibleElevVertical, UpdateSourceTrigger=PropertyChanged}">Nombre</Label>
 
-                            <CheckBox Name="chb_id" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"  HorizontalAlignment="Center" Content="Agregar ID?" ToolTip="Agrgar ID" ></CheckBox>
+                            <CheckBox Name="chb_id" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"  HorizontalAlignment="Center" Content="Agregar ID?" ToolTip="Agrgar ID"
+                                      Visibility="{Binding IsVisibleElevVertical, UpdateSourceTrigger=PropertyChanged}"></CheckBox>
 
-                            <TextBox x:Name="dtEsp" Grid.Row="3" Grid.Column="2" Height="30" VerticalAlignment="Center"  Text="50" TextAlignment="Center"    VerticalContentAlignment="Center" ></TextBox>
-                            <TextBox x:Name="dtNombre" Grid.Row="4" Grid.Column="2"  Height="30" Text="A" TextAlignment="Center"  VerticalContentAlignment="Center" ></TextBox>
+                            <TextBox x:Name="dtEsp" Grid.Row="3" Grid.Column="2" Height="30" VerticalAlignment="Center"  Text="50" TextAlignment="Center"    VerticalContentAlignment="Center"
+                                     Visibility="{Binding IsVisibleElevVertical, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBox x:Name="dtNombre" Grid.Row="4" Grid.Column="2"  Height="30" Text="A" TextAlignment="Center"  VerticalContentAlignment="Center"
+                                     Visibility="{Binding IsVisibleElevVertical, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                             <Button x:Name="btnGenerar_Elev" Click="BExternalMethod1_Click" Grid.Row="3" Grid.Column="4" Height="25" Width="80" Content="Generar" ToolTip="Crear barras de elevacion"></Button>
-                            <Button x:Name="btnActualizar" Click="BExternalMethod1_Click" Grid.Row="4" Grid.Column="4" Height="25" Width="80" Content="Actualizar" ToolTip="Actualiza datos de pathReinforment previamente seleccionado"></Button>
+                            <Button x:Name="btnActualizar" Click="BExternalMethod1_Click" Grid.Row="4" Grid.Column="4" Height="25" Width="80" Content="Actualizar" 
+                                    ToolTip="Actualiza datos de pathReinforment previamente seleccionado" Visibility="{Binding IsVisibleElevVertical, UpdateSourceTrigger=PropertyChanged}"></Button>
 
+                            <!-- caso horziotal-->
+                            <Label Content="Ø Max Lat " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"  
+                                   ToolTip="Diamtro maximo de los laterales,para diferencial de barras de borde" Visibility="{Binding IsVisibleElevHorizontal, UpdateSourceTrigger=PropertyChanged}"/>
+                            <ComboBox Name="cbx_diamMaxLatElevHor" Grid.Row="3" Text="12" Grid.Column="2" Height="20" Width="90" HorizontalContentAlignment="Center" IsEditable="True"
+                                      Visibility="{Binding IsVisibleElevHorizontal, UpdateSourceTrigger=PropertyChanged}" 
+                                      ItemsSource="{Binding  Path=ListaDiam}" DropDownClosed="Cbx_tipocuantia_DropDownClosed" ></ComboBox>
 
                         </Grid>
                     </GroupBox>
@@ -95,7 +107,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem x:Name="Editconfig"   BorderBrush="{x:Null}" Background="{x:Null}" Margin="0,-2,-4,-2"    Padding="5,0,5,0">
+            <TabItem x:Name="Editconfig"  Margin="0,-2,-4,-2"    Padding="5,0,5,0">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
 
@@ -128,7 +140,8 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="1" Grid.Column="0">Caso</Label>
-                        <ComboBox Name="cbx_CasoCorte" Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="3" Height="20"  Width="213" HorizontalContentAlignment="Center" HorizontalAlignment="Left" DropDownClosed="Cbx_TipoLargo_DropDownClosed" >
+                        <ComboBox Name="cbx_CasoCorte" Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="3" Height="20"  Width="213" HorizontalContentAlignment="Center" 
+                                  HorizontalAlignment="Left" DropDownClosed="Cbx_CasoCorte_DropDownClosed" >
                             <ComboBoxItem IsSelected="True" >Elemento Vertical</ComboBoxItem>
                             <ComboBoxItem>Elemento Horizontal</ComboBoxItem>
 
@@ -151,15 +164,13 @@
                         </StackPanel>
 
 
-                        <Label Content="Cuantia" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" />
+                        <Label Content="Cuantia Trans" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" />
                         <ComboBox Name="cbx_tipocuantia" Grid.Row="4"  Grid.Column="1" Height="20" Width="90" HorizontalContentAlignment="Center" DropDownClosed="Cbx_tipocuantia_DropDownClosed" >
                             <ComboBoxItem IsSelected="True">Normal</ComboBoxItem>
                             <ComboBoxItem>Definir</ComboBoxItem>
 
                         </ComboBox>
 
-                        <Label Content="Ø Max Lat " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5"  ToolTip="Diamtro maximo de los laterales,para diferencial de barras de borde"/>
-                        <ComboBox Name="cbx_diamMaxLat" Grid.Row="5" Text="12" Grid.Column="1" Height="20" Width="90" HorizontalContentAlignment="Center" IsEditable="True" ItemsSource="{Binding  Path=ListaDiam}" DropDownClosed="Cbx_tipocuantia_DropDownClosed" > </ComboBox>
 
 
                         <StackPanel Orientation="Horizontal" Grid.Column="3"  Grid.Row="4" Visibility="{Binding IsVisibleToleranciaCuantia, UpdateSourceTrigger=PropertyChanged}">
@@ -168,6 +179,28 @@
                             <TextBox x:Name="dtTextCuantia"  Width="75" Height="25" Text="E.Ø S/Elev" TextAlignment="Center"    VerticalContentAlignment="Center" ></TextBox>
                         </StackPanel>
 
+
+                        <!-- caso horizontal-->
+                     
+                        <Label Content="Cuantia Long " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" 
+                               ToolTip="Diamtro maximo de los laterales,para diferencial de barras de borde" Visibility="{Binding IsVisibleCorteHorizontal, UpdateSourceTrigger=PropertyChanged}"/>
+                        <ComboBox Name="cbx_tipocuantiaLong" Grid.Row="5"  Grid.Column="1" Height="20" Width="90" HorizontalContentAlignment="Center"
+                                  DropDownClosed="Cbx_tipocuantia_DropDownClosed"
+                                  Visibility="{Binding IsVisibleCorteHorizontal, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBoxItem IsSelected="True">Normal</ComboBoxItem>
+                            <ComboBoxItem>Definir</ComboBoxItem>
+
+                        </ComboBox>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="3"  Grid.Row="5" Visibility="{Binding IsVisibleCorteHorizontal, UpdateSourceTrigger=PropertyChanged}">
+
+                            <Label Content="Ø Max Lat " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" 
+                               ToolTip="Diamtro maximo de los laterales,para diferencial de barras de borde" Visibility="{Binding IsVisibleCorteHorizontal, UpdateSourceTrigger=PropertyChanged}"/>
+                            <ComboBox Name="cbx_diamMaxLat" Grid.Row="5" Text="12" Grid.Column="1" Height="20" Width="40" HorizontalContentAlignment="Center" IsEditable="True"
+                                  Visibility="{Binding IsVisibleCorteHorizontal, UpdateSourceTrigger=PropertyChanged}"
+                                  ItemsSource="{Binding  Path=ListaDiam}" DropDownClosed="Cbx_tipocuantia_DropDownClosed" ></ComboBox>
+
+                        </StackPanel>
                     </Grid>
                 </GroupBox>
             </TabItem>

@@ -37,7 +37,12 @@ namespace Desglose.DImensionNh
                 .Cast<DimensionType>().Where(q => q.StyleType == DimensionStyleType.Linear).FirstOrDefault();
             return linearDimensions;
         }
-
+        public static DimensionType ObtenerPrimerDimensioneTypeLinear_Arial(Document doc)
+        {
+            DimensionType linearDimensions = new FilteredElementCollector(doc).OfClass(typeof(DimensionType))
+                .Cast<DimensionType>().Where(q => q.StyleType == DimensionStyleType.Linear).Where(c=> c.Name.Contains("Arial")).FirstOrDefault();
+            return linearDimensions;
+        }
         public static DimensionType ObtenerDimensionTypePorNombre(Document doc, string nombre)
         {
 

@@ -43,6 +43,7 @@ namespace Desglose.WPF
                 }
                 else
                 {
+                  //  _Config_EspecialElv.DiamtroLateralMax = 
                     ManejadorDesgloseH _ManejadorDesglose = new ManejadorDesgloseH(_uiapp, _ui);
                     _ManejadorDesglose.M1_EjecutarDibujarBarrasEnElevacionHV2(_Config_EspecialElv);
                 }
@@ -58,6 +59,7 @@ namespace Desglose.WPF
 
                 if (_Config_EspecialCorte.TipoCasoAnalisis == CasoAnalisas.AnalsisVertical)
                 {
+                    
                     ManejadorDesgloseV _ManejadorDesglose = new ManejadorDesgloseV(_uiapp, _ui);
                     _ManejadorDesglose.EjecutarDibujarBarrasEncorteV(_Config_EspecialCorte);
                 }
