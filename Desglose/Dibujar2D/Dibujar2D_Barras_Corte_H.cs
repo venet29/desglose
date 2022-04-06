@@ -58,7 +58,7 @@ namespace Desglose.Dibujar2D
                                                                                   TipobarraH_ = TipobarraH.Linea1INF
                                                                               }).ToList();
 
-                double zMax = listaBArrasEnElev_NOlaterales.Max(c => c.RebarDesglose_Barras_H_._rebarDesglose.trasform.EjecutarTransformInvertida( c.RebarDesglose_Barras_H_.ptoMedio).Z);
+                double zMax = listaBArrasEnElev_NOlaterales.Max(c => c.RebarDesglose_Barras_H_._rebarDesglose.trasform.EjecutarTransformInvertida(c.RebarDesglose_Barras_H_.ptoMedio).Z);
                 double zmin = listaBArrasEnElev_NOlaterales.Min(c => c.RebarDesglose_Barras_H_._rebarDesglose.trasform.EjecutarTransformInvertida(c.RebarDesglose_Barras_H_.ptoMedio).Z);
                 double Zmedio = (zMax + zmin) / 2;
                 ListaBarrasSuperiores = listaBArrasEnElev_NOlaterales.Where(c => c.RebarDesglose_Barras_H_._rebarDesglose.trasform.EjecutarTransformInvertida(c.RebarDesglose_Barras_H_.ptoMedio).Z > Zmedio)
@@ -97,11 +97,14 @@ namespace Desglose.Dibujar2D
             try
             {
                 int _dire = _Config_EspecialCorte.dire;
-                CrearTrasformadaSobreVectorDesg _Trasform =  _Config_EspecialCorte.Trasform_;
+                CrearTrasformadaSobreVectorDesg _Trasform = _Config_EspecialCorte.Trasform_;
                 //1)laterales
                 AnotacionMultipleBarra _AnotacionMultipleBarraLAt = new AnotacionMultipleBarra(_uiapp, _section, _Config_EspecialCorte.dire);
 
-                var resultaLat = CalculoPtoTagBArraHorizontal_Corte.PtoInferior(listaBArrasEnElev_laterales, _section, _Trasform,  _dire);
+          
+
+
+                var resultaLat = CalculoPtoTagBArraHorizontal_Corte.PtoInferior(listaBArrasEnElev_laterales, _section, _Trasform, _dire);
                 if (resultaLat.Isok)
                 {
                     XYZ _origen = resultaLat.resultInserccion + _section.RightDirection * 0.5;
@@ -115,6 +118,7 @@ namespace Desglose.Dibujar2D
                         taghead_ = taghead,
                         nombrefamilia = CONSTFami.NOmbre_FAMILIA_LAT// "M_Structural MRA Rebar SectionLat_"
                     };
+                    _AnotacionMultipleBarraLAt.COpiarParametrosShare(listaBArrasEnElev_laterales);
 
                     _AnotacionMultipleBarraLAt.CreateAnnotation(listat, _AnotacionMultipleBarraDTO);
                 }
@@ -126,16 +130,16 @@ namespace Desglose.Dibujar2D
                 var resultaInf = CalculoPtoTagBArraHorizontal_Corte.PtoInferior(ListaBarrasInferior, _section, _Trasform, _dire);
                 if (resultaInf.Isok)
                 {
-                    XYZ OrigenAUX_ = resultaInf.resultInserccion + _section.RightDirection * 0.3 + new XYZ(0, 0, -0.5) ;
+                    XYZ OrigenAUX_ = resultaInf.resultInserccion + _section.RightDirection * 0.3 + new XYZ(0, 0, -0.5);
 
-                    string _auxNombreFAmili = (_Config_EspecialCorte.ParaBarraHorizontalEnCorteViga == TipoTagBArraHorizontalENcorte.mostrarDiamtro 
+                    string _auxNombreFAmili = (_Config_EspecialCorte.ParaBarraHorizontalEnCorteViga == TipoTagBArraHorizontalENcorte.mostrarDiamtro
                                                 ? CONSTFami.NOmbre_Section_Diam
                                                 : CONSTFami.NOmbre_Section_SegunElev);
 
                     AnotacionMultipleBarraDTO _AnotacionMultipleBarraInfDTO = new AnotacionMultipleBarraDTO()
                     {
                         Origen_ = OrigenAUX_,
-                        taghead_ = OrigenAUX_ + _section.RightDirection*0.3 ,
+                        taghead_ = OrigenAUX_ + _section.RightDirection * 0.3,
                         nombrefamilia = _auxNombreFAmili //"MRA Rebar Section_"
                     };
                     List<ElementId> listaSup = ListaBarrasInferior.Select(c => c.RebarDesglose_Barras_H_._rebarDesglose._rebar.Id).ToList();
@@ -145,7 +149,7 @@ namespace Desglose.Dibujar2D
                 var resultaSup = CalculoPtoTagBArraHorizontal_Corte.PtoSuperior(ListaBarrasSuperiores, _section, _Trasform, _dire);
                 if (resultaSup.Isok)
                 {
-                    XYZ OrigenAUX_ = resultaSup.resultInserccion + _section.RightDirection * 0.3 + new XYZ(0, 0, 0.5) ;
+                    XYZ OrigenAUX_ = resultaSup.resultInserccion + _section.RightDirection * 0.3 + new XYZ(0, 0, 0.5);
 
                     string _auxNombreFAmili = (_Config_EspecialCorte.ParaBarraHorizontalEnCorteViga == TipoTagBArraHorizontalENcorte.mostrarDiamtro
                                                 ? CONSTFami.NOmbre_Section_Diam

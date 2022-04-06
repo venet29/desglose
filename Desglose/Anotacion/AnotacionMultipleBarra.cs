@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Desglose.BuscarTipos;
 using Desglose.DImensionNh;
+using Desglose.Dibujar2D;
 
 namespace Desglose.Anotacion
 {
@@ -18,7 +19,7 @@ namespace Desglose.Anotacion
         public XYZ Origen_ { get; set; }
         public XYZ taghead_ { get; set; }
     }
-        public class AnotacionMultipleBarra
+    public class AnotacionMultipleBarra
     {
         private readonly UIApplication _uiapp;
         private readonly int _dire;
@@ -29,7 +30,7 @@ namespace Desglose.Anotacion
         private XYZ _Taghead;
         private string _nombrefamilia;
 
-        public AnotacionMultipleBarra(UIApplication uiapp, View _section, int  _dire)
+        public AnotacionMultipleBarra(UIApplication uiapp, View _section, int _dire)
         {
             this._uiapp = uiapp;
             this._dire = _dire;
@@ -37,13 +38,13 @@ namespace Desglose.Anotacion
             this._doc = _uiapp.ActiveUIDocument.Document;
         }
 
-        public bool CreateAnnotation(List<ElementId> listaBArras, AnotacionMultipleBarraDTO _AnotacionMultipleBarraDTO )
+        public bool CreateAnnotation(List<ElementId> listaBArras, AnotacionMultipleBarraDTO _AnotacionMultipleBarraDTO)
         {
             try
             {
                 _Origen = _AnotacionMultipleBarraDTO.Origen_;
                 _Taghead = _AnotacionMultipleBarraDTO.taghead_;
-                _nombrefamilia=_AnotacionMultipleBarraDTO.nombrefamilia;
+                _nombrefamilia = _AnotacionMultipleBarraDTO.nombrefamilia;
                 if (!ObtenerMultiRef(listaBArras)) return false;
 
                 DibujarAnnotation();
@@ -81,9 +82,9 @@ namespace Desglose.Anotacion
 
                 //2)obtener dimensio
                 //DimensionType dmNh = SeleccionarDimensiones.ObtenerPrimerDimensioneTypeLinear(_doc);
-                DimensionType dmNh = SeleccionarDimensiones.ObtenerDimensionTypePorNombre(_doc, "DimensionBarra"); 
+                DimensionType dmNh = SeleccionarDimensiones.ObtenerDimensionTypePorNombre(_doc, "DimensionBarra");
                 if (dmNh == null) return false;
-           
+
 
                 //3) obtener tag 
                 Element IndependentTagPath = TiposRebarTag.M1_GetRebarTag(_nombrefamilia, _doc);
@@ -109,8 +110,8 @@ namespace Desglose.Anotacion
                     Util.ErrorMsg($"Error al crear anotacion  EX:{ex.Message}");
                     return false;
                 }
-           
-       
+
+
 
                 //2) crear ale option
                 opt = new MultiReferenceAnnotationOptions(tupoanotation);
@@ -140,6 +141,8 @@ namespace Desglose.Anotacion
                 using (Transaction t = new Transaction(_doc, "MultiReferenceAnnotation"))
                 {
                     t.Start();
+
+
                     MultiReferenceAnnotation mra = MultiReferenceAnnotation.Create(_doc, _view.Id, opt);
 
                     t.Commit();
@@ -148,6 +151,33 @@ namespace Desglose.Anotacion
             catch (Exception ex)
             {
                 Util.ErrorMsg($"Error al crear anotacion  EX:{ex.Message}");
+                return false;
+            }
+            return true;
+        }
+
+        internal bool COpiarParametrosShare(List<RebarDesglose_Barras_H2> listaBArrasEnElev_laterales)
+        {
+            try
+            {
+                if (Util.IsImPar(listaBArrasEnElev_laterales.Count))
+                    Util.ErrorMsg($"Numero de laterales encontrados es impar {listaBArrasEnElev_laterales.Count}");
+                using (Transaction tr = new Transaction(_doc, "CrearDeteilView-NH"))
+                {
+                    tr.Start();
+
+                    int cantidadBArras = listaBArrasEnElev_laterales.Count / 2;
+                    for (int i = 0; i < listaBArrasEnElev_laterales.Count; i++)
+                    {
+                        var _reabLat = listaBArrasEnElev_laterales[i].RebarDesglose_Barras_H_._rebarDesglose._rebar;
+                        ParameterUtil.SetParaStringNH(_reabLat, "CantidadLateralesCorte", cantidadBArras.ToString());
+                    }
+                    tr.Commit();
+                }
+            }
+            catch (Exception)
+            {
+
                 return false;
             }
             return true;

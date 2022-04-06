@@ -47,6 +47,7 @@ namespace Desglose.ParametrosShare
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "F_prefijo", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "a9016747-5d31-40a5-99da-7545c3cc5ef4");
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "Temp_Sufijo", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "282df609-a3ec-4187-a1a6-9bab955d2992");
 
+            AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "CantidadLateralesCorte", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "be87c785-1540-45d7-8bb9-f46b0189824d");
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "CantidadBarra", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "0368c956-9e15-41f5-a86b-375c0c55b11e");
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "LargoParciales", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "53530261-a393-46a6-9ae0-01639eb6a3f8");
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "LargoTotal", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "d0bcbf64-eaca-4d45-92c9-a3a5bda8e75e");

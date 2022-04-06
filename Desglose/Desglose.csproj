@@ -256,7 +256,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config\" />
-    <Folder Include="NewFolder1\" />
     <Folder Include="Servicio\" />
   </ItemGroup>
   <ItemGroup>
