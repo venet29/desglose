@@ -58,8 +58,8 @@ namespace Desglose.Dibujar2D
         }
         protected void CrearDimensionENtreBArras(RebarElevDTO rebarElevDTO, RebarElevDTO rebarElevDTOANterior)
         {
-            XYZ iNICIAL = rebarElevDTOANterior.ptoini.AsignarZ(rebarElevDTO.ptoini.Z)-_view.RightDirection*Util.CmToFoot(5);
-            CreadorDimensiones _CreadorDimensiones = new CreadorDimensiones(_doc, rebarElevDTOANterior.ptofinal - _view.RightDirection * Util.CmToFoot(5), iNICIAL, "SRV-Arial Narrow 2mm Flecha CM");
+            XYZ iNICIAL = rebarElevDTOANterior.ptoini.AsignarZ(rebarElevDTO.ptoini.Z)-_view.RightDirection*Util.CmToFoot(12);
+            CreadorDimensiones _CreadorDimensiones = new CreadorDimensiones(_doc, rebarElevDTOANterior.ptofinal - _view.RightDirection * Util.CmToFoot(12), iNICIAL, "SRV-Arial Narrow 2mm Flecha CM");
             _CreadorDimensiones.Crear_conTrans();
         }
 

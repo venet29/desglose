@@ -138,7 +138,7 @@ namespace Desglose.Dibujar2D
 
                     AnotacionMultipleBarraDTO _AnotacionMultipleBarraInfDTO = new AnotacionMultipleBarraDTO()
                     {
-                        Origen_ = OrigenAUX_,
+                        Origen_ = OrigenAUX_ ,
                         taghead_ = OrigenAUX_ + _section.RightDirection * 0.3,
                         nombrefamilia = _auxNombreFAmili //"MRA Rebar Section_"
                     };
