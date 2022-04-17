@@ -108,9 +108,10 @@ namespace Desglose.Calculos
                             double zmax = Math.Max(Elemento_de_estriboAnalizado.ptoFinal.Z, Elemento_de_estriboAnalizado.ptoInicial.Z);
                             double zmin = Math.Min(Elemento_de_estriboAnalizado.ptoFinal.Z, Elemento_de_estriboAnalizado.ptoInicial.Z);
 
-                            if (EstriboAnalizado.ptoInicial.Z < zmax && EstriboAnalizado.ptoFinal.Z > zmin)
+                            //if (EstriboAnalizado.ptoInicial.Z < zmax && EstriboAnalizado.ptoFinal.Z > zmin)
+                            if (zmin<EstriboAnalizado.ptoInicial.Z  && EstriboAnalizado.ptoFinal.Z < zmax)
                             {
-                                Elemento_de_estriboAnalizado.analizadasuperior = true;
+                                //Elemento_de_estriboAnalizado.analizadasuperior = true;
                                 NuewGrupoEstribo.Add(Elemento_de_estriboAnalizado);
                             }
                         }
