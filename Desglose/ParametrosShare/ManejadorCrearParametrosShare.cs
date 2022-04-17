@@ -160,9 +160,10 @@ namespace Desglose.ParametrosShare
         private Application M2_CrearArchivoDePArametrosCompartidos()
         {
             // create shared parameter file
-            String modulePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string modulePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string datos = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             // String paramFile = _rutaArchivoCompartido; // modulePath + "\\RebarTestParameters.txt";
-            String paramFile = modulePath + $"\\{_rutaArchivoCompartido}.txt";
+            String paramFile = datos + $"\\{_rutaArchivoCompartido}.txt";
             if (File.Exists(paramFile))
             {
                 File.Delete(paramFile);

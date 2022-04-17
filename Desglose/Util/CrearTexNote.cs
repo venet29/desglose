@@ -168,6 +168,9 @@ namespace Desglose.UTILES
                     case TipoCOloresTexto.magenta:
                         color = Util.ToColorParameterValue(255, 0, 250);
                         return true;
+                    case TipoCOloresTexto.negro:
+                        color = Util.ToColorParameterValue(0, 0, 0);
+                        return true;
                     case TipoCOloresTexto.azul:
                         return true;
                     case TipoCOloresTexto.verde:
@@ -281,13 +284,13 @@ namespace Desglose.UTILES
 
                     if (null != noteType)
                     {
-                        int color2 = Util.ToColorParameterValue(255, 0, 0);
+                        int color2 = Util.ToColorParameterValue(0, 0, 0);
 
-                        noteType.get_Parameter(BuiltInParameter.TEXT_FONT).Set("Arial");
+                        noteType.get_Parameter(BuiltInParameter.TEXT_FONT).Set("Arial Narrow");
                         Parameter param = noteType.get_Parameter(BuiltInParameter.LINE_COLOR);
                         param.Set(color2);
                         //noteType.get_Parameter(BuiltInParameter.TEXT_COLOR).Set(color2);
-                        noteType.get_Parameter(BuiltInParameter.TEXT_SIZE).Set(0.00656168);
+                        noteType.get_Parameter(BuiltInParameter.TEXT_SIZE).Set(0.00656168); //2mm
                         noteType.get_Parameter(BuiltInParameter.TEXT_TAB_SIZE).Set(0.04166667);
                     }
 

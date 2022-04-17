@@ -74,11 +74,7 @@ namespace Desglose.BuscarTipos
         {
             try
             {
-                elemetEncontrado = new FilteredElementCollector(doc)
-                   .OfClass(typeof(MultiReferenceAnnotationType))
-                    .Cast<MultiReferenceAnnotationType>()
-                   .FirstOrDefault();
-
+                elemetEncontrado= MultiReferenceAnnotationType.CreateDefault(doc);
             }
             catch (Exception)
             {
@@ -87,7 +83,23 @@ namespace Desglose.BuscarTipos
             }
             return elemetEncontrado;
         }
+        public static MultiReferenceAnnotationType obtenerPrimeroDebaseDatos(Document doc)
+        {
+            try
+            {
+                elemetEncontrado = new FilteredElementCollector(doc)
+                   .OfClass(typeof(MultiReferenceAnnotationType))
+                    .Cast<MultiReferenceAnnotationType>()
+                   .FirstOrDefault();
+    
+            }
+            catch (Exception)
+            {
 
+                return null;
+            }
+            return elemetEncontrado;
+        }
         private static void AgregarDiccionario(string nombre, MultiReferenceAnnotationType element)
         {
             if (element == null) return;

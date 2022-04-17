@@ -128,7 +128,8 @@ namespace Desglose.Ayuda
         rojo,
         ParaMalla,
         Blanco,
-        Amarillo
+        Amarillo,
+        negro
     }
     public enum TipoCOlores
     {

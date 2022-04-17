@@ -6,6 +6,7 @@ using Desglose.ParametrosShare;
 using Desglose.Familias;
 using Desglose.BuscarTipos;
 using Desglose.DImensionNh;
+using Desglose.UTILES;
 
 namespace Desglose
 {
@@ -50,6 +51,10 @@ namespace Desglose
 
 
                     TiposMultiReferenceAnnotationType.CrearMultiReferenceAnnotationTypeIniciales(_doc);
+
+                    //confign texto 
+                    CrearTexNote _CrearTexNote = new CrearTexNote(_uiapp, "2.5mm Arial Narrow", TipoCOloresTexto.negro);
+                    _CrearTexNote.M2_CrearTipoText_ConTrasn();
 
                     //    
                     CrearTipoDimension _CrearTipoDimension = new CrearTipoDimension(_uiapp, "DimensionBarra");

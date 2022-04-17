@@ -155,7 +155,7 @@ namespace Desglose.Ayuda
             {
                 vft = TiposViewFamily.ObtenerTiposViewFamily(ViewFamily.Detail, _doc);
                 section = ViewSection.CreateDetail(_doc, vft.Id, _BoundingBoxXYZ);
-                section.Scale = 20;
+                section.Scale = 25;
                 // section.get_Parameter(BuiltInParameter.VIEWER_CROP_REGION_VISIBLE).Set(0);
                 if (section.IsSplitSection())
                 {

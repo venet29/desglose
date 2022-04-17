@@ -25,11 +25,34 @@ namespace Desglose.Calculos
     {
         public XYZ ptomedioENview { get; set; }
         public double distanciREspectoOtro { get; set; }
+        public RebarDesglose_Barras_H2 BArrasEnElev_laterales { get; internal set; }
     }
 
     class CalculoPtoTagBArraHorizontal_Corte
     {
         private static List<PtoInferiorLAtDTO> ListaPtoDTO;
+
+        internal static List<ElementId> lista2BarrasMAsInferior(List<RebarDesglose_Barras_H2> listaBArrasEnElev_laterales, ViewSection section, CrearTrasformadaSobreVectorDesg trasform_, int dire)
+        {
+            List<ElementId> _lista = new List<ElementId>();
+            try
+            {
+                if (listaBArrasEnElev_laterales.Count == 0) return _lista;
+                ObtenerLista(listaBArrasEnElev_laterales, section, trasform_, dire);
+
+                ListaPtoDTO = ListaPtoDTO.OrderBy(c => c.ptomedioENview.Z).ToList();
+                _lista.Add(ListaPtoDTO[0].BArrasEnElev_laterales.RebarDesglose_Barras_H_._rebarDesglose._rebar.Id);
+                _lista.Add(ListaPtoDTO[1].BArrasEnElev_laterales.RebarDesglose_Barras_H_._rebarDesglose._rebar.Id);
+            }
+            catch (Exception ex)
+            {
+                Util.ErrorMsg($"Error al obtener punto lateral  ex:{ex.Message}");
+                _lista = new List<ElementId>();
+            }
+
+            return _lista;
+        }
+
 
         internal static PtoResult PtoInferior(List<RebarDesglose_Barras_H2> listaBArrasEnElev_laterales, ViewSection section, CrearTrasformadaSobreVectorDesg trasform_, int dire)
         {
@@ -52,6 +75,8 @@ namespace Desglose.Calculos
 
             return _PtoResult;
         }
+
+
         internal static PtoResult PtoSuperior(List<RebarDesglose_Barras_H2> listaBArrasEnElev_laterales, ViewSection section, CrearTrasformadaSobreVectorDesg trasform_, int dire)
         {
             PtoResult _PtoResult = new PtoResult();
@@ -97,7 +122,8 @@ namespace Desglose.Calculos
                 ListaPtoDTO.Add(new PtoInferiorLAtDTO()
                 {
                     ptomedioENview = ptomedioENview_Aux,
-                    distanciREspectoOtro = ptoMedioInicialENview.AsignarZ(0).DistanceTo(ptomedioENview_Aux.AsignarZ(0)) * ObtenerSigno(ptoMedioInicialENview, ptomedioENview_Aux, section.RightDirection)
+                    distanciREspectoOtro = ptoMedioInicialENview.AsignarZ(0).DistanceTo(ptomedioENview_Aux.AsignarZ(0)) * ObtenerSigno(ptoMedioInicialENview, ptomedioENview_Aux, section.RightDirection),
+                    BArrasEnElev_laterales = item
                 });
             }
         }

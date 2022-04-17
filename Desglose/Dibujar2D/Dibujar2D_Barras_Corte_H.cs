@@ -110,7 +110,10 @@ namespace Desglose.Dibujar2D
                     XYZ _origen = resultaLat.resultInserccion + _section.RightDirection * 0.5;
                     XYZ taghead = _origen + _section.RightDirection * 0.5 + new XYZ(0, 0, -0.05);
 
-                    List<ElementId> listat = listaBArrasEnElev_laterales.Select(c => c.RebarDesglose_Barras_H_._rebarDesglose._rebar.Id).ToList();
+                    //con las dos de mas abajo
+                    List<ElementId> listat= CalculoPtoTagBArraHorizontal_Corte.lista2BarrasMAsInferior(listaBArrasEnElev_laterales, _section, _Trasform, _dire);
+                    //con todas las barras
+                    //List<ElementId> listat = listaBArrasEnElev_laterales.Select(c => c.RebarDesglose_Barras_H_._rebarDesglose._rebar.Id).ToList();
 
                     AnotacionMultipleBarraDTO _AnotacionMultipleBarraDTO = new AnotacionMultipleBarraDTO()
                     {

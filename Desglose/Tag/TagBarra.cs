@@ -88,7 +88,8 @@ namespace Desglose.Tag
         {
             if (valorTag != "")
             {
-                AyudaCreartexto.M4_CrearTExtoSinTrans(doc, posicion, valorTag, "2.5mm Arial", 0, TipoCOloresTexto.Blanco);
+                // crea los texto de los lados de los estribos desglosado en corte de pilares
+                AyudaCreartexto.M4_CrearTExtoSinTrans(doc, posicion, valorTag, "2.5mm Arial Narrow", 0, TipoCOloresTexto.negro);
                 return;
             }
             if (!IsOk) return;

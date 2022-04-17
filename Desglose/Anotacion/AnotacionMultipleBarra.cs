@@ -160,17 +160,18 @@ namespace Desglose.Anotacion
         {
             try
             {
-                if (Util.IsImPar(listaBArrasEnElev_laterales.Count))
-                    Util.ErrorMsg($"Numero de laterales encontrados es impar {listaBArrasEnElev_laterales.Count}");
+                int cantidadBArrasLAterales = ObtenercantidadBArrasLAterales( listaBArrasEnElev_laterales);
+                if (Util.IsImPar(cantidadBArrasLAterales))
+                    Util.ErrorMsg($"Numero de laterales encontrados es impar {cantidadBArrasLAterales}");
                 using (Transaction tr = new Transaction(_doc, "CrearDeteilView-NH"))
                 {
                     tr.Start();
 
-                    int cantidadBArras = listaBArrasEnElev_laterales.Count / 2;
+                    int MitadcantidadLaterales = cantidadBArrasLAterales / 2;
                     for (int i = 0; i < listaBArrasEnElev_laterales.Count; i++)
                     {
                         var _reabLat = listaBArrasEnElev_laterales[i].RebarDesglose_Barras_H_._rebarDesglose._rebar;
-                        ParameterUtil.SetParaStringNH(_reabLat, "CantidadLateralesCorte", cantidadBArras.ToString());
+                        ParameterUtil.SetParaStringNH(_reabLat, "CantidadLateralesCorte", MitadcantidadLaterales.ToString());
                     }
                     tr.Commit();
                 }
@@ -181,6 +182,25 @@ namespace Desglose.Anotacion
                 return false;
             }
             return true;
+        }
+
+        private int ObtenercantidadBArrasLAterales(List<RebarDesglose_Barras_H2> listaBArrasEnElev_laterales)
+        {
+            int cantidad = 0;
+            try
+            {
+                foreach (RebarDesglose_Barras_H2 item in listaBArrasEnElev_laterales)
+                {
+                    cantidad +=item.RebarDesglose_Barras_H_._rebarDesglose._rebar.Quantity;
+                }
+            }
+            catch (Exception)
+            {
+
+                return listaBArrasEnElev_laterales.Count;
+            }
+
+            return cantidad;
         }
     }
 }
