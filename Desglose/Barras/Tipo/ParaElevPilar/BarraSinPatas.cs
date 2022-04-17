@@ -6,13 +6,13 @@ using System;
 using Desglose.Ayuda;
 
 
-namespace Desglose.Calculos.Tipo
+namespace Desglose.Calculos.Tipo.ParaElevPilar
 
 {
     public class BarraSinPatas : ARebarLosa_desglose, IRebarLosa_Desglose
     {
         private RebarElevDTO _RebarInferiorDTO;
-        private string _largoTotal;
+        //private string _largoTotal;
         private XYZ direccionMuevenBarrasFAlsa;
 
         public double mayorDistancia { get; set; }
@@ -48,10 +48,12 @@ namespace Desglose.Calculos.Tipo
             _largoTotal = (Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0)).ToString();
 
             _ptoTexto = (_RebarInferiorDTO.ptoini + _RebarInferiorDTO.ptofinal) / 2 + -direccionMuevenBarrasFAlsa * Util.CmToFoot(8);
-            if(_RebarInferiorDTO.Id==-1)
-                _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}";
-            else
-                _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}  id:{_RebarInferiorDTO.Id}";
+
+            //para crear texto
+            //if(_RebarInferiorDTO.Id==-1)
+            //    _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}";
+            //else
+            //    _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}  id:{_RebarInferiorDTO.Id}";
 
             CargarPAratrosSHARE();
 

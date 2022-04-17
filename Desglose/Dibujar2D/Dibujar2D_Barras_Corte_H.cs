@@ -4,6 +4,7 @@ using Desglose.Anotacion;
 using Desglose.Ayuda;
 using Desglose.Calculos;
 using Desglose.DTO;
+using Desglose.Extension;
 using Desglose.Familias;
 using Desglose.Model;
 using System;
@@ -101,7 +102,7 @@ namespace Desglose.Dibujar2D
                 //1)laterales
                 AnotacionMultipleBarra _AnotacionMultipleBarraLAt = new AnotacionMultipleBarra(_uiapp, _section, _Config_EspecialCorte.dire);
 
-          
+
 
 
                 var resultaLat = CalculoPtoTagBArraHorizontal_Corte.PtoInferior(listaBArrasEnElev_laterales, _section, _Trasform, _dire);
@@ -111,7 +112,7 @@ namespace Desglose.Dibujar2D
                     XYZ taghead = _origen + _section.RightDirection * 0.5 + new XYZ(0, 0, -0.05);
 
                     //con las dos de mas abajo
-                    List<ElementId> listat= CalculoPtoTagBArraHorizontal_Corte.lista2BarrasMAsInferior(listaBArrasEnElev_laterales, _section, _Trasform, _dire);
+                    List<ElementId> listat = CalculoPtoTagBArraHorizontal_Corte.lista2BarrasMAsInferior(listaBArrasEnElev_laterales, _section, _Trasform, _dire);
                     //con todas las barras
                     //List<ElementId> listat = listaBArrasEnElev_laterales.Select(c => c.RebarDesglose_Barras_H_._rebarDesglose._rebar.Id).ToList();
 
@@ -131,7 +132,21 @@ namespace Desglose.Dibujar2D
                 AnotacionMultipleBarra _AnotacionMultipleBarra = new AnotacionMultipleBarra(_uiapp, _section, _Config_EspecialCorte.dire);
                 //2)  inferior
                 var resultaInf = CalculoPtoTagBArraHorizontal_Corte.PtoInferior(ListaBarrasInferior, _section, _Trasform, _dire);
-                if (resultaInf.Isok)
+                //3) superiores
+                var resultaSup = CalculoPtoTagBArraHorizontal_Corte.PtoSuperior(ListaBarrasSuperiores, _section, _Trasform, _dire);
+
+                XYZ ptoInserccion = XYZ.Zero;
+                if (Util.GetProductoEscalar((resultaSup.resultInserccion - resultaInf.resultInserccion).Normalize(), _section.RightDirection) > 0)
+                {
+                    resultaInf.resultInserccion = resultaSup.resultInserccion.AsignarZ(resultaInf.resultInserccion.Z);
+                }
+                else
+                {
+                    resultaSup.resultInserccion = resultaInf.resultInserccion.AsignarZ(resultaSup.resultInserccion.Z);
+                }
+
+                    //2)  inferior
+                    if (resultaInf.Isok)
                 {
                     XYZ OrigenAUX_ = resultaInf.resultInserccion + _section.RightDirection * 0.3 + new XYZ(0, 0, -0.5);
 
@@ -148,10 +163,12 @@ namespace Desglose.Dibujar2D
                     List<ElementId> listaSup = ListaBarrasInferior.Select(c => c.RebarDesglose_Barras_H_._rebarDesglose._rebar.Id).ToList();
                     _AnotacionMultipleBarra.CreateAnnotation(listaSup, _AnotacionMultipleBarraInfDTO);
                 }
+
                 //3) superiores
-                var resultaSup = CalculoPtoTagBArraHorizontal_Corte.PtoSuperior(ListaBarrasSuperiores, _section, _Trasform, _dire);
+        
                 if (resultaSup.Isok)
                 {
+
                     XYZ OrigenAUX_ = resultaSup.resultInserccion + _section.RightDirection * 0.3 + new XYZ(0, 0, 0.5);
 
                     string _auxNombreFAmili = (_Config_EspecialCorte.ParaBarraHorizontalEnCorteViga == TipoTagBArraHorizontalENcorte.mostrarDiamtro

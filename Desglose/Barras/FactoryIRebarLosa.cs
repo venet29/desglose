@@ -1,11 +1,12 @@
 ﻿using Desglose.Ayuda;
 using Desglose.Calculos.Tipo;
-using Desglose.Calculos.Tipo.ParaElev;
+using Desglose.Calculos.Tipo.ParaElevEstriboPilar;
 using Desglose.Calculos.Tipo.ParaPlanta;
 using Desglose.DTO;
 using Autodesk.Revit.UI;
 using Desglose.Tag;
 using Desglose.Calculos.Tipo.ParaElevVigas;
+using Desglose.Calculos.Tipo.ParaElevPilar;
 
 namespace Desglose.Calculos
 {

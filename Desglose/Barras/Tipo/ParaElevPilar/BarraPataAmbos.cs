@@ -7,14 +7,14 @@ using System.Collections.Generic;
 using Desglose.Ayuda;
 using Desglose.Entidades;
 
-namespace Desglose.Calculos.Tipo
+namespace Desglose.Calculos.Tipo.ParaElevPilar
 
 {
     public class BarraPataAmbos : ARebarLosa_desglose, IRebarLosa_Desglose
     {
         private RebarElevDTO _RebarInferiorDTO;
-        public string _texToLargoParciales { get; private set; }
-        public string _largoTotal { get; private set; }
+        //public string _texToLargoParciales { get; private set; }
+        //public string _largoTotal { get; private set; }
 
         public double mayorDistancia { get; set; }
 
@@ -59,10 +59,12 @@ namespace Desglose.Calculos.Tipo
 
 
             _ptoTexto = (_RebarInferiorDTO.ptoini + _RebarInferiorDTO.ptofinal) / 2;
-            if (_RebarInferiorDTO.Id == -1)
-                _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}\n {_texToLargoParciales} ";
-            else
-                _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}  id:{_RebarInferiorDTO.Id}\n {_texToLargoParciales} ";
+          
+            //para crear texto
+            //if (_RebarInferiorDTO.Id == -1)
+            //    _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}\n {_texToLargoParciales} ";
+            //else
+            //    _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}  id:{_RebarInferiorDTO.Id}\n {_texToLargoParciales} ";
 
 
             CargarPAratrosSHARE();

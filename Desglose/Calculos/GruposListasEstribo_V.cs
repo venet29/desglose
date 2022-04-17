@@ -101,6 +101,19 @@ namespace Desglose.Calculos
                     _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_V.Creador_RebarDesglose_GrupoBarras(NuewGrupoBarras);
                     GruposRebarMismaLinea.Add(_RebarDesglose_GrupoBarrasNew);
                 }
+
+
+                // extender estribo solo para que se vean juntos
+
+                ExtenderSOloEstribo _ExtenderSOloEstribo = new ExtenderSOloEstribo(_uiapp, GruposRebarMismaLinea);
+                if (_ExtenderSOloEstribo.Extender())
+                {
+                    GruposRebarMismaLinea = _ExtenderSOloEstribo.GruposRebarMismaLinea;
+
+
+                }
+
+
             }
             catch (Exception ex)
             {
