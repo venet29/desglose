@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -59,7 +60,7 @@ namespace Desglose
 
                 InfoSystema_validar _InfoSystema = new InfoSystema_validar();
                 _InfoSystema.M1_EjecutarInfoSistem();
-                _InfoSystema.M3_GetMacAddress2();
+                _InfoSystema.M3_getMacAddress3();
 
 
                 BitacoraDTO _usuariosDTO = new BitacoraDTO()
@@ -340,7 +341,7 @@ namespace Desglose
     {
         #region 0)propieades
         public string disco { get; set; }
-        public string mac { get; set; }
+        public string mac { get; set; } //realmente es la direccion o numero de la placa madre
         public string IpPublic { get; set; }
         public string usuario { get; set; }
         public string ruta { get; set; }
@@ -364,7 +365,7 @@ namespace Desglose
 
                 if (!M1_EjecutarInfoSistem()) return false;
                 if (!M2_ObtenerIp()) return false;
-                if (!M3_GetMacAddress2()) return false;
+                if (!M3_getMacAddress3()) return false;
             }
             catch (Exception ex)
             {
@@ -450,11 +451,16 @@ namespace Desglose
             return true;
         }
 
+        // problemna de la mac (numero de tarjeta de red conectada)es que varia segun el dispositovo q este conectado
+        //cable o wifi -- entonces estenumero varia
         public bool M3_GetMacAddress2()
         {
 
             try
             {
+
+                M3_getMacAddress3();
+
                 const int MIN_MAC_ADDR_LENGTH = 12;
                 string macAddress = string.Empty;
                 long maxSpeed = -1;
@@ -464,6 +470,7 @@ namespace Desglose
                     Debug.WriteLine("Found MAC Address: " + nic.GetPhysicalAddress() + " Type: " + nic.NetworkInterfaceType);
 
                     string tempMac = nic.GetPhysicalAddress().ToString();
+                    string nombre = nic.Name;
                     if (nic.Speed > maxSpeed &&
                         !string.IsNullOrEmpty(tempMac) &&
                         tempMac.Length >= MIN_MAC_ADDR_LENGTH)
@@ -481,6 +488,25 @@ namespace Desglose
             }
             return true;
 
+        }
+
+
+        public bool M3_getMacAddress3()
+        {
+            try
+            {
+                ManagementObjectSearcher MOS = new ManagementObjectSearcher("Select * From Win32_BaseBoard");
+                foreach (ManagementObject getserial in MOS.Get())
+                {
+                    mac = getserial["SerialNumber"].ToString();  // realmente placa madre
+                }
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            return true;
         }
         #endregion
 
