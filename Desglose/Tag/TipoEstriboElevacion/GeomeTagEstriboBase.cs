@@ -4,6 +4,7 @@ using Autodesk.Revit.UI;
 using Desglose.Ayuda;
 using Desglose.BuscarTipos;
 using Desglose.DTO;
+using Desglose.Extension;
 using System;
 using System.Collections.Generic;
 
@@ -49,7 +50,7 @@ namespace Desglose.Tag.TipoEstriboElevacion
             this._doc = _uiapp.ActiveUIDocument.Document;
             uiapp = _uiapp;
             rebarElevDTO = _RebarElevDTO;
-            this._posiciontag = (_RebarElevDTO.ptoini + _RebarElevDTO.ptofinal) / 2;
+            this._posiciontag = (_RebarElevDTO.ptoini + _RebarElevDTO.ptofinal) / 2;         
             //this.CentroBarra = (ptoIni + new XYZ(0, 0, Util.CmToFoot(150)));
             this.CentroBarra = _posiciontag;// (ptoFin - new XYZ(0, 0, Util.CmToFoot(50)));
                                             //this._view = _doc.ActiveView;

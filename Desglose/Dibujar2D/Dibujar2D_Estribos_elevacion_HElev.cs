@@ -59,7 +59,7 @@ namespace Desglose.Dibujar2D
 
                     Config_DatosEstriboElevVigas _Config_DatosEstriboElevVigas = new Config_DatosEstriboElevVigas()
                     {
-                        CantidadEstriboCONF = ObtenerTExtoEstribo(cantidadEstribo, _RebarElevDTO),// "2ED.",
+                        CantidadEstriboCONF = ObtenerTExtoEstribo_SIN_CantidadBarras(cantidadEstribo, _RebarElevDTO),// "2ED.",
                         CantidadEstriboLAT = ObtenerLat(cantidadLateral, itemGRUOP),
                         CantidadEstriboTRABA = ObtenerTraba(cantidadTraba, itemGRUOP),
                     };
@@ -84,7 +84,7 @@ namespace Desglose.Dibujar2D
 
 
 
-        private string ObtenerTExtoEstribo(int cantidadEstribo, RebarElevDTO _RebarElevDTO)
+        private string ObtenerTExtoEstriboConCantidadBarras(int cantidadEstribo, RebarElevDTO _RebarElevDTO)
         {
             if (cantidadEstribo == 0)
                 return "";
@@ -97,8 +97,24 @@ namespace Desglose.Dibujar2D
             else
                 return "";
         }
+
+        private string ObtenerTExtoEstribo_SIN_CantidadBarras(int cantidadEstribo, RebarElevDTO _RebarElevDTO)
+        {
+            if (cantidadEstribo == 0)
+                return "";
+            else if (cantidadEstribo == 1)
+                return  "E.";
+            else if (cantidadEstribo == 2)
+                return "ED.";
+            else if (cantidadEstribo == 3)
+                return "ET.";
+            else
+                return "";
+        }
+
         private string ObtenerLat(int cantidadLateral, RebarDesglose_GrupoBarras_H itemGRUOP)
         {
+   
             var primerLat = itemGRUOP._GrupoRebarDesglose.Find(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VL);
             if (primerLat == null) return "";
 
@@ -106,7 +122,7 @@ namespace Desglose.Dibujar2D
             if (cantidadLateral == 0)
                 return "";
             else
-                return "L:" + cantidadLateral + "+" + cantidadLateral + "Ø" + _rebar.ObtenerDiametroInt() + "a" + _rebar.ObtenerEspaciento_cm();
+                return "L:" + cantidadLateral + "+" + cantidadLateral + "Ø" + _rebar.ObtenerDiametroInt() ;
 
         }
         private string ObtenerTraba(int cantidadLateral, RebarDesglose_GrupoBarras_H itemGRUOP)

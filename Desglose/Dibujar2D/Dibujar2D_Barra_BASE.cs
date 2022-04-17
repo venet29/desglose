@@ -113,16 +113,16 @@ namespace Desglose.Dibujar2D
             try
             {
                 if (_ListIRebarLosa.Count == 0) return false;
-                using (TransactionGroup t = new TransactionGroup(_uiapp.ActiveUIDocument.Document))
-                {
-                    t.Start("CrearBarraInclinada-NH");
+                //using (TransactionGroup t = new TransactionGroup(_uiapp.ActiveUIDocument.Document))
+                //{
+                //    t.Start("CrearBarraInclinada-NH");
                     foreach (var rebarLosa in _ListIRebarLosa)
                     {
                         rebarLosa.M2A_GenerarBarra();
                        
                     }
-                    t.Assimilate();
-                }
+                //    t.Assimilate();
+                //}
             }
             catch (Exception)
             {

@@ -123,6 +123,14 @@ namespace Desglose.Calculos
         protected double _tolerancia;
         #endregion
 
+
+        protected string _texToLargoParciales { get; set; }
+        protected string _largoTotal { get; set; }
+        protected int cantidadBArras { get; set; }
+
+
+
+
         #region 'metodos M1A_IsTodoOK()'
         public ARebarLosa_desglose(RebarElevDTO _RebarInferiorDTO)
         {
@@ -151,6 +159,11 @@ namespace Desglose.Calculos
                 _configLargo = _RebarInferiorDTO.Config_EspecialCorte.TipoCOnfigLargo;
                 _tolerancia = _RebarInferiorDTO.Config_EspecialCorte.tolerancia;
             }
+
+            cantidadBArras = _RebarInferiorDTO.cantidadBarras;
+            _largoTotal = "";
+            _texToLargoParciales = "";
+
             CalculosIniciales();
         }
 
@@ -196,7 +209,7 @@ namespace Desglose.Calculos
             line_styles_srv = TiposLinea.ObtenerTipoLinea(graphic_stylesName, _doc);
             if (line_styles_srv == null)
             {
-                CrearLineStyle CrearLineStyle = new CrearLineStyle(_doc, graphic_stylesName, 1, new Color(255, 255, 255), "IMPORT-CENTER");
+                CrearLineStyle CrearLineStyle = new CrearLineStyle(_doc, graphic_stylesName, 1, new Color(0, 0, 0), "IMPORT-CENTER");
                 CrearLineStyle.CreateLineStyleConTrans();
 
                 line_styles_srv = TiposLinea.ObtenerTipoLinea(graphic_stylesName, _doc);
@@ -627,6 +640,7 @@ namespace Desglose.Calculos
                         foreach (TagBarra item in _newGeometriaTag.listaTag)
                         {
                             if (item == null) continue;
+                            if (!item.IsOk) continue;
                             item.DibujarTagrREbarLosa(_rebar, _doc, _view, new XYZ(0, 0, 0));
                             if (item.ElementIndependentTagPath != null) listaGrupo_Tag.Add(item.ElementIndependentTagPath.Id);
                         }
@@ -712,6 +726,27 @@ namespace Desglose.Calculos
                 return false;
             }
             return true;
+        }
+
+        protected void CargarPAratrosSHARE()
+        {
+            CrearParameter("CantidadBarra", cantidadBArras.ToString());
+            CrearParameter("LargoTotal", _largoTotal.ToString());
+            CrearParameter("LargoParciales", _texToLargoParciales.ToString());
+        }
+
+        protected void CrearParameter(string _NombrePAra, string _valor)
+        {
+            if (_valor == "") return;
+            if (_valor == null) return;
+
+            ParametroShareNhDTO _newParaMe_Cantiadabarras = new ParametroShareNhDTO()
+            {
+                Isok = true,
+                NombrePAra = _NombrePAra,
+                valor = _valor
+            };
+            listaPArametroSharenh.Add(_newParaMe_Cantiadabarras);
         }
     }
 }

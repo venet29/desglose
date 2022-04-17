@@ -361,7 +361,7 @@ namespace Desglose.WPF
 
             _Config_EspecialElev = new Config_EspecialElev()
             {
-                tipoBarraElev = _newParaMe,
+                tipoBarraElev_parameterShare = _newParaMe,
                 IsAgregarId = ((bool)chb_id.IsChecked ? true : false),
                 TipoCasoAnalisis = (cbx_CasoElev.Text.Contains("Vertical") ? CasoAnalisas.AnalsisVertical : CasoAnalisas.AnalisisHorizontal),
                 DiamtroLateralMax= Util.ConvertirStringInInteger(cbx_diamMaxLatElevHor.Text)

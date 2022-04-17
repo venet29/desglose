@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Desglose.WPF;
+using Desglose.BuscarTipos;
 
 namespace Desglose
 {
@@ -127,6 +128,14 @@ namespace Desglose
                 else if (!_ManejadorUsuarios.resultnh.Isok)
                 {
                     Util.ErrorMsg("Error al validar Usuario");
+                    return false;
+                }
+
+
+
+                if (TiposView.BusarView(_doc, _ui.dtnameCorte.Text) != null)
+                {
+                    Util.InfoMsg($"Nombre de corte '{_ui.dtnameCorte.Text}', ya existe. Renombrar y ejecutar nuevamente");
                     return false;
                 }
                 _CrearView = null;

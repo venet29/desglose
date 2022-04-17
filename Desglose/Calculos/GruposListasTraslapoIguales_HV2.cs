@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Desglose.Dibujar2D;
+using Desglose.Extension;
 
 namespace Desglose.Calculos
 {
@@ -15,6 +16,7 @@ namespace Desglose.Calculos
     {
         private UIApplication uiapp;
         private Document _doc;
+        private View _view;
         private List<RebarDesglose_GrupoBarras_H> GruposRebarMismaLinea;
         private readonly Config_EspecialElev _config_EspecialElv;
 
@@ -31,6 +33,7 @@ namespace Desglose.Calculos
         {
             this.uiapp = uiapp;
             this._doc = uiapp.ActiveUIDocument.Document;
+            this._view = _doc.ActiveView;
             this.GruposRebarMismaLinea = lista_RebarDesglose;
             this._config_EspecialElv = _Config_EspecialElv;
         }
@@ -60,13 +63,15 @@ namespace Desglose.Calculos
 
         private void m1_1_crearGruposIgualesDeBarraColineal()
         {
+            
             for (int k = 0; k < GruposRebarMismaLinea.Count; k++)
             {
                 RebarDesglose_GrupoBarras_H itemGrup = GruposRebarMismaLinea[k];
                 if (itemGrup._casoAgrupar != casoAgrupar.NoAnalizada) continue;
                 List<RebarDesglose_GrupoBarras_H> _ListRebarDesglose_GrupoBarras =
                     GruposRebarMismaLinea.Where(c => Util.IsEqual(c._ptoInicial.Z, itemGrup._ptoInicial.Z, c._curvePrincipal.Length * ConstNH.CONST_porcentajeErrorRespectoLArgoBArras) &&
-                                                    Util.IsEqual(c._ptoFinal.Z, itemGrup._ptoFinal.Z, c._curvePrincipal.Length * ConstNH.CONST_porcentajeErrorRespectoLArgoBArras)).ToList();
+                                                     Util.IsEqual(c._ptoFinal.Z, itemGrup._ptoFinal.Z, c._curvePrincipal.Length * ConstNH.CONST_porcentajeErrorRespectoLArgoBArras) &&
+                                                     BarrasMismaDireccion_ViewSecction(c._ptoInicial.GetXY0()- itemGrup._ptoInicial.GetXY0())).ToList();
 
                 // foreach principal
                 for (int j = 0; j < _ListRebarDesglose_GrupoBarras.Count; j++)
@@ -101,13 +106,23 @@ namespace Desglose.Calculos
             }
         }
 
+        private bool BarrasMismaDireccion_ViewSecction(XYZ xYZ)
+        {
+            if (xYZ.IsAlmostEqualTo(XYZ.Zero)) return true;
+
+            if (Math.Abs(Util.GetProductoEscalar(_view.ViewDirection, xYZ)) > 0.9)
+                return true;
+            else
+                return false;
+        }
+
         private void M1_2_CopiarPArametros()
         {
 
             
 
-            ParametroShareNhDTO _Paratipobarra = _config_EspecialElv.tipoBarraElev;
-            char letra = char.Parse(_config_EspecialElv.tipoBarraElev.valor);
+            ParametroShareNhDTO _Paratipobarra = _config_EspecialElv.tipoBarraElev_parameterShare;
+            char letra = char.Parse(_config_EspecialElv.tipoBarraElev_parameterShare.valor);
             string idLetra = letra + DateTime.Now.ToString("yyyyMMddHHmmss");
 
             try

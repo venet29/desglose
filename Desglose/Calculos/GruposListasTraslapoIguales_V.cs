@@ -68,8 +68,8 @@ namespace Desglose.Calculos
 
                 soloListaPrincipales = GruposRebarMismaLinea.Where(c => c._casoAgrupar == casoAgrupar.Principal).ToList();
 
-                ParametroShareNhDTO _Paratipobarra = _Config_EspecialElv.tipoBarraElev;
-                char letra = char.Parse(_Config_EspecialElv.tipoBarraElev.valor);
+                ParametroShareNhDTO _Paratipobarra = _Config_EspecialElv.tipoBarraElev_parameterShare;
+                char letra = char.Parse(_Config_EspecialElv.tipoBarraElev_parameterShare.valor);
                 string idLetra = letra+ DateTime.Now.ToString("yyyyMMddHHmmss");
 
                 try

@@ -85,7 +85,7 @@
     <Compile Include="Barras\Tipo\ParaElevVigas\ARebarLosa_desgloseH.cs" />
     <Compile Include="Barras\Tipo\ParaElevVigas\BarraPataAmbosH.cs" />
     <Compile Include="Barras\Tipo\ParaElevVigas\BarraPataInicialH.cs" />
-    <Compile Include="Barras\Tipo\ParaElevVigas\BarraPataSuperior.cs" />
+    <Compile Include="Barras\Tipo\ParaElevVigas\BarraPataSuperiorH.cs" />
     <Compile Include="Barras\Tipo\ParaElevVigas\BarraSinPatas.cs" />
     <Compile Include="Barras\Tipo\ParaEstriboElevacion\ARebarLosa_Estribo.cs" />
     <Compile Include="Barras\Tipo\ParaEstriboElevacion\EstriboVigaTrabaElev.cs" />
@@ -96,6 +96,7 @@
     <Compile Include="BuscarTipos\TiposPathReinTagsFamilia.cs" />
     <Compile Include="BuscarTipos\TiposMultiReferenceAnnotationType.cs" />
     <Compile Include="BuscarTipos\TiposRebarTag.cs" />
+    <Compile Include="BuscarTipos\TiposView.cs" />
     <Compile Include="BuscarTipos\Tipos_Arrow.cs" />
     <Compile Include="Buscar\GeometriaViga.cs" />
     <Compile Include="Calculos\CalculoPtoTagBArraHorizontal_Corte.cs" />

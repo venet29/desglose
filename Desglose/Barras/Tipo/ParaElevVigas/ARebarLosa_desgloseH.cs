@@ -9,9 +9,6 @@ namespace Desglose.Calculos.Tipo.ParaElevVigas
         protected XYZ PtoIniConDesplazamineto;
         protected XYZ PtoFinConDesplazamineto;
 
-        protected string _texToLargoParciales { get; set; }
-        protected string _largoTotal { get; set; }
-        protected int cantidadBArras { get; set; }
 
         protected XYZ DesplazamietoPOrLInea { get; set; }
 
@@ -22,12 +19,12 @@ namespace Desglose.Calculos.Tipo.ParaElevVigas
             _texToLargoParciales = "";
         }
 
-        protected void CargarPAratrosSHARE()
-        {
-            CrearParameter("CantidadBarra", cantidadBArras.ToString());
-            CrearParameter("LargoTotal", _largoTotal.ToString());
-            CrearParameter("LargoParciales", _texToLargoParciales.ToString());
-        }
+        //protected void CargarPAratrosSHARE()
+        //{
+        //    CrearParameter("CantidadBarra", cantidadBArras.ToString());
+        //    CrearParameter("LargoTotal", _largoTotal.ToString());
+        //    CrearParameter("LargoParciales", _texToLargoParciales.ToString());
+        //}
 
         internal bool DesplazamientoSegunLInea()        
         {
@@ -108,18 +105,18 @@ namespace Desglose.Calculos.Tipo.ParaElevVigas
             return true;
         }
     
-        private void CrearParameter(string _NombrePAra, string _valor)
-        {
-            if (_valor == "") return;
-            if (_valor == null) return;
+        //private void CrearParameter(string _NombrePAra, string _valor)
+        //{
+        //    if (_valor == "") return;
+        //    if (_valor == null) return;
 
-            ParametroShareNhDTO _newParaMe_Cantiadabarras = new ParametroShareNhDTO()
-            {
-                Isok = true,
-                NombrePAra = _NombrePAra,
-                valor = _valor
-            };
-            listaPArametroSharenh.Add(_newParaMe_Cantiadabarras);
-        }
+        //    ParametroShareNhDTO _newParaMe_Cantiadabarras = new ParametroShareNhDTO()
+        //    {
+        //        Isok = true,
+        //        NombrePAra = _NombrePAra,
+        //        valor = _valor
+        //    };
+        //    listaPArametroSharenh.Add(_newParaMe_Cantiadabarras);
+        //}
     }
 }

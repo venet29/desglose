@@ -21,13 +21,13 @@ namespace Desglose.Calculos
         private Document _doc;
         private View _view;
         private List<RebarDesglose> lista_RebarDesglose;
-    
+
         public DatosHost _DatosHost { get; set; }
 
         public List<RebarDesglose_GrupoBarras_H> GruposRebarMismaLinea { get; set; }
-      //  public PlanarFace CaraInferior { get; private set; }
-      //  public XYZ CentroHost { get; private set; }
-       // public double LargoMAximoHost_foot { get; private set; }
+        //  public PlanarFace CaraInferior { get; private set; }
+        //  public XYZ CentroHost { get; private set; }
+        // public double LargoMAximoHost_foot { get; private set; }
         public List<XYZ> ListaPtoSeccion { get; private set; }
         public List<RebarDesglose_Barras_H> listaBArrasEnElev { get; private set; }
 
@@ -40,64 +40,88 @@ namespace Desglose.Calculos
             this.GruposRebarMismaLinea = new List<RebarDesglose_GrupoBarras_H>();
         }
 
-   
-        public bool ObtenerGruposEstribo_corte()
+
+        public bool ObtenerGruposEstribo_Viga()
         {
 
-            List<RebarDesglose_Barras_H> listaBArras = lista_RebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VT || c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VL ||
+            List<RebarDesglose_Barras_H> listaBArras_pertenecenEstriboViga = lista_RebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VT || c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VL ||
                                                                                     c._tipoBarraEspecifico == TipoRebar.ELEV_ES_V)
                                                                          .Select(c => new RebarDesglose_Barras_H(c, _uiapp)).ToList();
 
-            if (listaBArras.Count == 0) return true;
+            if (listaBArras_pertenecenEstriboViga.Count == 0) return true;
             //obtener RebarDesglose_Barras
-            foreach (RebarDesglose_Barras_H item in listaBArras)
+            foreach (RebarDesglose_Barras_H item in listaBArras_pertenecenEstriboViga)
             {
+
                 // item.Ordenar_UltimaCurvaMayorZ();
                 // item.Ordenar_Analizar();
-                item.Ordenar_AnalizarEstribo();
+                if (item._tipoBarraEspecifico == TipoRebar.ELEV_ES_VL)
+                    item.Ordenar_Analizar();
+                else
+                    item.Ordenar_AnalizarEstribo();
             }
 
             //
 
-            _DatosHost = new DatosHost( _uiapp, listaBArras[0]._rebarDesglose);
+            var unEstribo = listaBArras_pertenecenEstriboViga.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_V).FirstOrDefault();
+
+            if (unEstribo == null) return false; //no encuentra estribo
+
+            _DatosHost = new DatosHost(_uiapp, unEstribo._rebarDesglose);
             if (!_DatosHost.ObtenerPtoMedio_conestribo()) return false;
             if (!_DatosHost.ObtenerCentroPilarOmUro()) return false;
 
             //ObtenerCentroPilarOmUro();
-            Obtener2PTOSCrearSeccion(listaBArras[0]);
+            Obtener2PTOSCrearSeccion(unEstribo);
             // ordenar de los inicial menor y solo verticales
 
-            listaBArras = listaBArras.OrderBy(c => c.ptoInicial.Z).ToList();
+            //listaBArras_pertenecenEstriboViga = listaBArras_pertenecenEstriboViga.Where(c=> c._tipoBarraEspecifico== TipoRebar.ELEV_ES_V)
+            //                                                                     .OrderBy(c => c.ptoInicial.Z).ToList();
+
+            listaBArras_pertenecenEstriboViga = listaBArras_pertenecenEstriboViga.OrderBy(c => c.ptoInicial.Z).ToList();
 
             try
             {
-                for (int i = 0; i < listaBArras.Count; i++)
+                for (int i = 0; i < listaBArras_pertenecenEstriboViga.Count; i++)
                 {
-                    RebarDesglose_Barras_H item = listaBArras[i];
+                    RebarDesglose_Barras_H EstriboAnalizado = listaBArras_pertenecenEstriboViga[i];
 
-                    RebarDesglose_Barras_H BarraAnalizada = item;
-                    List<RebarDesglose_Barras_H> NuewGrupoBarras = new List<RebarDesglose_Barras_H>();
-                    if (item.analizadasuperior) continue;
+                    RebarDesglose_Barras_H BarraAnalizada = EstriboAnalizado;
+                    List<RebarDesglose_Barras_H> NuewGrupoEstribo = new List<RebarDesglose_Barras_H>();  /// si el grupo tiene mas estribo es pq son E.D. o E.T.
+                    if (EstriboAnalizado.analizadasuperior) continue;
 
-                    item.analizadasuperior = true;
-                    NuewGrupoBarras.Add(item);
+                    if (EstriboAnalizado._tipoBarraEspecifico != TipoRebar.ELEV_ES_V) continue; //salta si  no es estribo
+
+                    EstriboAnalizado.analizadasuperior = true;
+                    NuewGrupoEstribo.Add(EstriboAnalizado);
                     RebarDesglose_GrupoBarras_H _RebarDesglose_GrupoBarrasNew = null;
 
                     //busca dentro del gurpo colineal
-                    for (int j = 0; j < listaBArras.Count; j++)
+                    for (int j = 0; j < listaBArras_pertenecenEstriboViga.Count; j++)
                     {
-                        RebarDesglose_Barras_H estriboAnalizado = listaBArras[j];
-                        if (estriboAnalizado.analizadasuperior) continue;
+                        RebarDesglose_Barras_H Elemento_de_estriboAnalizado = listaBArras_pertenecenEstriboViga[j];
+                        if (Elemento_de_estriboAnalizado.analizadasuperior) continue;
                         // cuando el pto inicial de la sigueinte barra no esta contendia en la actual
 
-                        if (item.ptoInicial.Z < estriboAnalizado.ptoMedio.Z && item.ptoFinal.Z > estriboAnalizado.ptoMedio.Z)
+                        if (Elemento_de_estriboAnalizado._tipoBarraEspecifico == TipoRebar.ELEV_ES_VL)
                         {
-                            estriboAnalizado.analizadasuperior = true;
-                            NuewGrupoBarras.Add(estriboAnalizado);
+                            double zmax = Math.Max(Elemento_de_estriboAnalizado.ptoFinal.Z, Elemento_de_estriboAnalizado.ptoInicial.Z);
+                            double zmin = Math.Min(Elemento_de_estriboAnalizado.ptoFinal.Z, Elemento_de_estriboAnalizado.ptoInicial.Z);
+
+                            if (EstriboAnalizado.ptoInicial.Z < zmax && EstriboAnalizado.ptoFinal.Z > zmin)
+                            {
+                                Elemento_de_estriboAnalizado.analizadasuperior = true;
+                                NuewGrupoEstribo.Add(Elemento_de_estriboAnalizado);
+                            }
+                        }
+                        else if (EstriboAnalizado.ptoInicial.Z < Elemento_de_estriboAnalizado.ptoMedio.Z && EstriboAnalizado.ptoFinal.Z > Elemento_de_estriboAnalizado.ptoMedio.Z)
+                        {
+                            Elemento_de_estriboAnalizado.analizadasuperior = true;
+                            NuewGrupoEstribo.Add(Elemento_de_estriboAnalizado);
                         }
                     }
 
-                    _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuewGrupoBarras, item._rebarDesglose.trasform);
+                    _RebarDesglose_GrupoBarrasNew = RebarDesglose_GrupoBarras_H.Creador_RebarDesglose_GrupoBarras(NuewGrupoEstribo, EstriboAnalizado._rebarDesglose.trasform);
                     GruposRebarMismaLinea.Add(_RebarDesglose_GrupoBarrasNew);
                 }
             }
@@ -114,7 +138,7 @@ namespace Desglose.Calculos
             try
             {
                 listaBArrasEnElev = lista_RebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_BA_H)
-                                                                         .Select(c => new RebarDesglose_Barras_H(c,_uiapp)).ToList();
+                                                                         .Select(c => new RebarDesglose_Barras_H(c, _uiapp)).ToList();
                 //obtener RebarDesglose_Barras
                 foreach (RebarDesglose_Barras_H item in listaBArrasEnElev)
                 {
@@ -131,14 +155,8 @@ namespace Desglose.Calculos
             return true;
 
         }
-
-
-
-
         private void Obtener2PTOSCrearSeccion(RebarDesglose_Barras_H _RebarDesglose_Barras)
         {
-
-
 
             XYZ ptoInicia = _DatosHost.CentroHost - _DatosHost.Direccion_ParalelaView * _DatosHost.LargoMAximoHost_foot * 1;
             XYZ ptoFin = _DatosHost.CentroHost + _DatosHost.Direccion_ParalelaView * _DatosHost.LargoMAximoHost_foot * 3;
@@ -161,13 +179,9 @@ namespace Desglose.Calculos
                 //ptoInicia = ptoInicia.AsignarZ(zaltura);
                 // ptoFin = ptoFin.AsignarZ(zaltura);
             }
-
-
             ListaPtoSeccion = new List<XYZ>();
             ListaPtoSeccion.Add(ptoInicia);
             ListaPtoSeccion.Add(ptoFin);
-
         }
-
     }
 }

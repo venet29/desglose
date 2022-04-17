@@ -62,6 +62,8 @@ namespace Desglose.Calculos.Tipo
                 _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}\n {_texToLargoParciales} ";
             else
                 _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}  id:{_RebarInferiorDTO.Id}\n {_texToLargoParciales} ";
+
+            CargarPAratrosSHARE();
             OBtenerListaFalsoPAthSymbol();
 
             return true;

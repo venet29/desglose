@@ -11,7 +11,7 @@ namespace Desglose.DTO
     public class Config_EspecialElev
     {
 
-        public ParametroShareNhDTO tipoBarraElev { get;  set; }
+        public ParametroShareNhDTO tipoBarraElev_parameterShare { get;  set; }
         public List<ParametroShareNhDTO> ListaPAraShare { get;  set; }
         public bool IsAgregarId { get; set; }
         public CasoAnalisas TipoCasoAnalisis { get;  set; }

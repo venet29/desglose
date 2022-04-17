@@ -53,6 +53,8 @@ namespace Desglose.Calculos.Tipo
             else
                 _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}  id:{_RebarInferiorDTO.Id}";
 
+            CargarPAratrosSHARE();
+
             OBtenerListaFalsoPAthSymbol();
             return true;
 

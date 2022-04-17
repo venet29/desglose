@@ -92,9 +92,11 @@ namespace Desglose.Tag
                 return;
             }
             if (!IsOk) return;
+
             IndependentTag independentTag = IndependentTag.Create(doc, ElementIndependentTagPath.Id, viewActual.Id, new Reference(element), false,
                                                       TagOrientation.Horizontal, desplazamientoPathReinSpanSymbol); //new XYZ(0, 0, 0)
             independentTag.TagHeadPosition = posicion;
+
         }
 
 

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Desglose.WPF;
+using Desglose.BuscarTipos;
 
 namespace Desglose
 {
@@ -61,7 +62,7 @@ namespace Desglose
                 }
 
 
-                bool isId = false;// (bool)_ui.chb_id.IsChecked;  //para mostrar ide barras no aplica en esta seccion
+                bool isId = false;// (bool)_ui.chb_id.IsChecked;  //para mostrar ide barras no aplica en esta seccionNN
                 SeleccionarRebarRectangulo administrador_ReferenciaRoom = new SeleccionarRebarRectangulo(_uiapp);
                 if (!administrador_ReferenciaRoom.GetUnicamenteRebarSeleccionadosConRectaguloYFiltros()) return false;
 
@@ -77,7 +78,7 @@ namespace Desglose
                 // importante genera transformada
                 GeneradorListaTrasfomardas _GeneradorListaTrasfomardas = new GeneradorListaTrasfomardas(_uiapp, Lista_RebarDesglose);
                 if (!_GeneradorListaTrasfomardas.Ejecutar()) return false;
-              
+
 
                 _Config_EspecialElv.Trasform_ = _GeneradorListaTrasfomardas._Trasform;
 
@@ -104,23 +105,25 @@ namespace Desglose
                 var Lista_RebarDesglose_Estribo_trans = _GeneradorListaTrasfomardas.listaTransformada_RebarDesgloseEstribo;
 
                 GruposListasEstribo_HElev _GruposListasEstribo_Elev = new GruposListasEstribo_HElev(_uiapp, Lista_RebarDesglose_Estribo_trans);
-                if (!_GruposListasEstribo_Elev.ObtenerGruposEstribo_corte()) return false;
+                if (!_GruposListasEstribo_Elev.ObtenerGruposEstribo_Viga()) return false;
 
                 // en caso de no seeleccionar nada
                 if (_GruposListasTraslapoIguales.soloListaPrincipales.Count == 0 && _GruposListasEstribo_Elev.GruposRebarMismaLinea.Count == 0) return true;
 
                 try
                 {
+
                     using (TransactionGroup t = new TransactionGroup(_doc))
                     {
                         t.Start("Crear Elevacion");
-                        //b)dibujar  barra
+                        // b)dibujar barra
                         if (!M1_1_DibujarBarras(_Config_EspecialElv, isId, _GruposListasTraslapoIguales))
                             t.RollBack();
                         if (!M1_2_DibujarEstribos(_Config_EspecialElv, isId, _GruposListasEstribo_Elev))
                             t.RollBack();
                         t.Assimilate();
                     }
+
                 }
                 catch (Exception ex)
                 {
@@ -197,6 +200,11 @@ namespace Desglose
                     return false;
                 }
 
+                if (TiposView.BusarView(_doc, _ui.dtnameCorte.Text) != null)
+                {
+                    Util.InfoMsg($"Nombre de corte '{_ui.dtnameCorte.Text}', ya existe. Renombrar y ejecutar nuevamente");
+                    return false;
+                }
 
                 _CrearView = null;
                 // ThisApplication _ThisApplication = new ThisApplication(_uiapp);

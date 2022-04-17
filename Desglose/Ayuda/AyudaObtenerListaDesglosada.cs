@@ -53,6 +53,7 @@ namespace Desglose.Ayuda
 
                 var lista_laterales = ListaBarrasAnalizadas.Where(c => c.Diametro_MM <= diamLaterales).ToList();
                 lista_laterales.ForEach(c => c.TipobarraH_ = TipobarraH.Lateral);
+                lista_laterales.ForEach(c => c._tipoBarraEspecifico =TipoRebar.ELEV_ES_VL);
 
                 var lista_Nolaterales = ListaBarrasAnalizadas.Where(c => c.Diametro_MM > diamLaterales).ToList();
                 lista_Nolaterales.ForEach(c => c.TipobarraH_ = TipobarraH.LineaNOLateral);
