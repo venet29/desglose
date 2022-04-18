@@ -109,11 +109,7 @@ namespace Desglose.Calculos
                 if (_ExtenderSOloEstribo.Extender())
                 {
                     GruposRebarMismaLinea = _ExtenderSOloEstribo.GruposRebarMismaLinea;
-
-
                 }
-
-
             }
             catch (Exception ex)
             {

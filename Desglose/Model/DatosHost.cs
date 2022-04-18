@@ -20,6 +20,7 @@ namespace Desglose.Model
         private XYZ aux_ptoMedio;
         private XYZ aux_direccion;
 
+        public Element host { get; set; }
         public PlanarFace CaraCentral { get; set; }
         public XYZ CentroHost { get; set; }
         public double LargoMAximoHost_foot { get; set; }
@@ -32,6 +33,9 @@ namespace Desglose.Model
             this._view = _doc.ActiveView;
             this.rebarDesglose = rebarDesglose;
         }
+
+
+
 
         public bool ObtenerPtoMedioYDireccion()
         {
@@ -80,7 +84,7 @@ namespace Desglose.Model
             try
             {
                 //WraperRebarLargo curvaPrinciplar =rebarDesglose.ListaCurvaBarras.Find(c=>c.IsBarraPrincipal);
-                Element host = _doc.GetElement(rebarDesglose._rebar.GetHostId());
+                if (!ObtenerHost()) return false;
 
                 //XYZ _ptoMedio=rebarDesglose.trasform.EjecutarTransformInvertida(curvaPrinciplar.ptoMedio);
                 //en pilares carainferior: caraabajo  //  en vigas cara vertical inicial izquioerda o derecha final
@@ -115,5 +119,21 @@ namespace Desglose.Model
         }
 
 
+        public bool ObtenerHost()
+        {
+            try
+            {
+                if (_doc == null) return false;
+                if (rebarDesglose == null) return false;
+                
+                host = _doc.GetElement(rebarDesglose._rebar?.GetHostId());
+            }
+            catch (Exception)
+            {
+
+                return false; ;
+            }
+            return true;
+        }
     }
 }

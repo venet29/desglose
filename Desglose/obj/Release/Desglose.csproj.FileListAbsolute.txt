@@ -35,3 +35,4 @@ J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Rele
 J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Release\Desglose.csproj.CopyComplete
 J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Release\Desglose.dll
 J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Release\Desglose.pdb
+J:\_revit\PROYECTOS_REVIT\Desglosar\PROYECTO DESGLOSE\Desglose\Desglose\obj\Release\Desglose.csprojAssemblyReference.cache
