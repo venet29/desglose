@@ -384,7 +384,7 @@ namespace Desglose.Model
                         _tipoBarraEspecifico = TipoRebar.ELEV_BA_V;  // estribo pilar vertical -> 
                         OrientacionBArra_ = OrientacionBArra.Vertical;
                     }
-
+                    _normal = CurvaMasLargo_WraperRebarLargo.direccion;
                 }
             }
             catch (Exception ex)

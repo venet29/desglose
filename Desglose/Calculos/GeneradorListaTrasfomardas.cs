@@ -91,10 +91,14 @@ namespace Desglose.Calculos
         {
             try
             {
-
+                //lista_RebarDesglose = lista_RebarDesglose.Where(c => (c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VT || c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VL ||
+                //                                                ))
+                //                                                 )
+                //                                     .FirstOrDefault();
                 //NOTA CODIGO SE PUEDE MEJAR SI NO ENCUENTRO, BUSCAR ESTRIBO O TRABA--> CREAR CLASE APARTE PARA Y QUE DEVUELVA 'DatosHost'
-                var barraAnalizada = lista_RebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VT || c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VL ||
-                                                                    c._tipoBarraEspecifico == TipoRebar.ELEV_ES_V)
+                var barraAnalizada = lista_RebarDesglose.Where(c => (c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VT || c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VL ||
+                                                                    c._tipoBarraEspecifico == TipoRebar.ELEV_ES_V )
+                                                                    )
                                                         .FirstOrDefault();
 
                 if (barraAnalizada == null)
@@ -126,6 +130,12 @@ namespace Desglose.Calculos
                 for (int i = 0; i < lista_RebarDesglose.Count; i++)
                 {
                     RebarDesglose _RebarDesglose = lista_RebarDesglose[i];
+
+                    XYZ direcciotion=((Line)_RebarDesglose.CurvaMasLargo_WraperRebarLargo._curve).Direction;
+                    if (_RebarDesglose._tipoBarraEspecifico == TipoRebar.ELEV_ES_V)
+                        if( !Util.IsParallel(_RebarDesglose._rebar.GetShapeDrivenAccessor().Normal, _view.RightDirection))
+                                continue;
+
                     RebarDesglose _COPYRebarDesgloseTrans = _RebarDesglose.CrearCopiarTrans_Estribo(_Trasform);
                     listaTransformada_RebarDesgloseEstribo.Add(_COPYRebarDesgloseTrans);
                 }

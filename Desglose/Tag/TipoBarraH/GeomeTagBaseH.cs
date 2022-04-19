@@ -42,7 +42,7 @@ namespace Desglose.Tag.TipoBarraH
         protected int escala;
         protected string nombreDefamiliaBase;
 
-
+        protected bool IsTagCompletoENLinea;
         //lista con objetos que representan los tag de la barra
         public List<TagBarra> listaTag { get; set; }
         //public TagBarra TagP0_A { get; set; }
@@ -98,14 +98,14 @@ namespace Desglose.Tag.TipoBarraH
             else
                 _DesfaseLInea = new XYZ(0, 0, 0.5);
 
-            _DesfaseLInea_F = -_direccionBarra*1; //new XYZ(0,.0,0);
+            _DesfaseLInea_F = -_direccionBarra * 1; //new XYZ(0,.0,0);
 
             switch (_rebarElevDTO._rebarDesglose.TipobarraH_)
             {
                 case Ayuda.TipobarraH.Lateral:
                     break;
                 case Ayuda.TipobarraH.Linea1SUP:
-                    _DesfaseLInea_F =  new XYZ(0, .0, 0);
+                    _DesfaseLInea_F = new XYZ(0, .0, 0);
                     break;
                 case Ayuda.TipobarraH.Linea2SUP:
                     _DesfaseLInea = _DesfaseLInea + ConstNH.CONST_DesfaseLine;
@@ -150,22 +150,32 @@ namespace Desglose.Tag.TipoBarraH
         public void M2_CAlcularPtosDeTAg(bool IsGraficarEnForm = false)
         {
 
-            XYZ p0_F = _p1 + _DesfaseLInea + _direccionBarra * _largoMedioEnFoot * 0.25;
-             p0_F = CentroBarra + _DesfaseLInea + _DesfaseLInea_F - _direccionBarra * Util.CmToFoot(80);
-            TagP0_F = M2_1_ObtenerTAgBarra(p0_F, "FB", nombreDefamiliaBase + " FBarra", escala);// 2@12
-            listaTag.Add(TagP0_F);
+            if (IsTagCompletoENLinea)
+            {
+                XYZ p0_FTC = _p1 + _DesfaseLInea + _direccionBarra * _largoMedioEnFoot * 0.25;
+                p0_FTC = CentroBarra + _DesfaseLInea + _DesfaseLInea_F - _direccionBarra * Util.CmToFoot(80);
+                TagP0_F = M2_1_ObtenerTAgBarra(p0_FTC, "FBCompleto", nombreDefamiliaBase + " FBarraCompleto", escala);// 2@12
+                listaTag.Add(TagP0_F);
+            }
+            else
+            {
 
-            XYZ p0_L = CentroBarra + _DesfaseLInea;
+                XYZ p0_F = _p1 + _DesfaseLInea + _direccionBarra * _largoMedioEnFoot * 0.25;
+                p0_F = CentroBarra + _DesfaseLInea + _DesfaseLInea_F - _direccionBarra * Util.CmToFoot(80);
+                TagP0_F = M2_1_ObtenerTAgBarra(p0_F, "FB", nombreDefamiliaBase + " FBarra", escala);// 2@12
+                listaTag.Add(TagP0_F);
 
-            TagP0_L = M2_1_ObtenerTAgBarra(p0_L, "LT", nombreDefamiliaBase + " LT", escala);// L=340
-            listaTag.Add(TagP0_L);
+                XYZ p0_L = CentroBarra + _DesfaseLInea;
 
-            XYZ p0_C = _p2 + _DesfaseLInea - _direccionBarra * _largoMedioEnFoot * 0.25;
-            p0_C = CentroBarra + _DesfaseLInea + _direccionBarra * Util.CmToFoot(70);
-            TagP0_C = M2_1_ObtenerTAgBarra(p0_C, "LP", nombreDefamiliaBase + " LP", escala); // (20+300+20)
-            listaTag.Add(TagP0_C);
+                TagP0_L = M2_1_ObtenerTAgBarra(p0_L, "LT", nombreDefamiliaBase + " LT", escala);// L=340
+                listaTag.Add(TagP0_L);
 
+                XYZ p0_C = _p2 + _DesfaseLInea - _direccionBarra * _largoMedioEnFoot * 0.25;
+                p0_C = CentroBarra + _DesfaseLInea + _direccionBarra * Util.CmToFoot(70);
+                TagP0_C = M2_1_ObtenerTAgBarra(p0_C, "LP", nombreDefamiliaBase + " LP", escala); // (20+300+20)
+                listaTag.Add(TagP0_C);
 
+            }
 
 
         }

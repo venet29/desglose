@@ -12,7 +12,9 @@ namespace Desglose.Tag.TipoBarraH
 
         public GeomeTagPataFinalH(UIApplication _uiapp, RebarElevDTO _RebarElevDTO) :
             base(_uiapp, _RebarElevDTO)
-        { }
+        {
+            IsTagCompletoENLinea = true;
+        }
 
         public GeomeTagPataFinalH() { }
 
