@@ -315,6 +315,7 @@ namespace Desglose.Calculos
             //   return;
             // }
 
+
             //M3A_1_CopiarParametrosCOmpartidos();
             //parametros no son correctos
             M4_ConfigurarAsignarParametrosRebarshape();

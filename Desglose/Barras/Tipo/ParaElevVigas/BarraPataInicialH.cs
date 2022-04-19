@@ -65,7 +65,9 @@ namespace Desglose.Calculos.Tipo.ParaElevVigas
             
             CargarPAratrosSHARE();
 
-            OBtenerListaFalsoPAthSymbol();
+            //ivitar dibujar la primeralinea
+            if (!(_RebarInferiorDTO._rebarDesglose.TipobarraH_ == TipobarraH.Linea1INF || _RebarInferiorDTO._rebarDesglose.TipobarraH_ == TipobarraH.Linea1SUP))
+                OBtenerListaFalsoPAthSymbol();
 
             return true;
 

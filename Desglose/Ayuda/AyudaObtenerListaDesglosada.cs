@@ -73,11 +73,11 @@ namespace Desglose.Ayuda
                 var ListaBarraSuperiore = lista_Nolaterales.Where(c => c.CurvaMasLargo_WraperRebarLargo.ptoFinal.Z >= Zmedio - 0.01).ToList();
 
 
-                double rangoInicialL2 = Util.CmToFoot(3);
+                double rangoInicialL2 = Util.CmToFoot(2);
                 double rangoInicialL3 = Util.CmToFoot(15);
                 double rangoInicialL4 = Util.CmToFoot(26);
                 //superior configurar primera linea
-                ListaBarraSuperiore.Where(c => Util.IsSimilarValor(c.CurvaMasLargo_WraperRebarLargo.ptoFinal.Z, zMax, Util.CmToFoot(c.Diametro_MM) * 2))
+                ListaBarraSuperiore.Where(c => Util.IsSimilarValor(c.CurvaMasLargo_WraperRebarLargo.ptoFinal.Z, zMax, Util.CmToFoot(c.Diametro_MM) * 1))
                                     .ToList().ForEach(c => c.TipobarraH_ = TipobarraH.Linea1SUP);
 
                 ListaBarraSuperiore.Where(c => zMax - rangoInicialL2 > c.CurvaMasLargo_WraperRebarLargo.ptoFinal.Z &&
@@ -95,7 +95,7 @@ namespace Desglose.Ayuda
                 //inferior configurar primera linea
                 var ListaBarraInferior = lista_Nolaterales.Where(c => c.CurvaMasLargo_WraperRebarLargo.ptoFinal.Z < Zmedio - 0.01).ToList();
 
-                ListaBarraInferior.Where(c => Util.IsSimilarValor(c.CurvaMasLargo_WraperRebarLargo.ptoFinal.Z, zmin, Util.CmToFoot(c.Diametro_MM) * 2))
+                ListaBarraInferior.Where(c => Util.IsSimilarValor(c.CurvaMasLargo_WraperRebarLargo.ptoFinal.Z, zmin, Util.CmToFoot(c.Diametro_MM) * 1))
                                 .ToList().ForEach(c => c.TipobarraH_ = TipobarraH.Linea1INF);
 
                 ListaBarraSuperiore.Where(c => zmin + rangoInicialL2 < c.CurvaMasLargo_WraperRebarLargo.ptoFinal.Z &&

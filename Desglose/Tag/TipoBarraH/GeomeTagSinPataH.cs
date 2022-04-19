@@ -50,8 +50,9 @@ namespace Desglose.Tag.TipoBarraH
             //_geomeTagBase.TagP0_B.IsOk = false;
             //_geomeTagBase.TagP0_D.IsOk = false;
             //_geomeTagBase.TagP0_E.IsOk = false;
-            _geomeTagBase.TagP0_C.IsOk = false;
+           // _geomeTagBase.TagP0_C.IsOk = false;
             // _geomeTagBase.TagP0_L.IsOk = false;
+
             //_geomeTagBase.TagP0_C.CAmbiar(_geomeTagBase.TagP0_A);
         }
     }

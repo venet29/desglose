@@ -115,6 +115,13 @@ namespace Desglose.Ayuda
                 {
                     section.get_Parameter(BuiltInParameter.VIEW_DESCRIPTION).Set(_name);
                     section.get_Parameter(BuiltInParameter.VIEW_NAME).Set(_name);
+                    //               1 Wireframe
+                    //               2 Hidden line
+                    //               3 Shaded
+                    //               4 Shaded with Edges
+                    //               5 Consistent Colors
+                    //               6  Realistic
+                    section.get_Parameter(BuiltInParameter.MODEL_GRAPHICS_STYLE).Set(1);
                 }
 
             }
@@ -167,6 +174,14 @@ namespace Desglose.Ayuda
                 {
                     section.get_Parameter(BuiltInParameter.VIEW_DESCRIPTION).Set(_name);
                     section.get_Parameter(BuiltInParameter.VIEW_NAME).Set(_name);
+
+    //               1 Wireframe
+    //               2 Hidden line
+    //               3 Shaded
+    //               4 Shaded with Edges
+    //               5 Consistent Colors
+    //               6  Realistic
+                    section.get_Parameter(   BuiltInParameter.MODEL_GRAPHICS_STYLE).Set(1);
                 }
 
             }
