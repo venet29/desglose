@@ -123,6 +123,7 @@
     <Compile Include="DTO\ConfiguracionTAgBarraDTo.CS" />
     <Compile Include="DTO\ConfiguracionTAgEstriboDTo.CS" />
     <Compile Include="DTO\Config_DatosEstriboElevVigas.cs" />
+    <Compile Include="DTO\TraslapoBarrasH.cs" />
     <Compile Include="enumNh\enumDesglose.cs" />
     <Compile Include="enumNh\Enumeracion.cs" />
     <Compile Include="enumNh\EnumeracionBuscador.cs" />

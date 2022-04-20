@@ -9,6 +9,7 @@ using System.Linq;
 using Desglose.Entidades;
 using ADesglose.Ayuda;
 using Desglose.Extension;
+using Desglose.DTO;
 
 namespace Desglose.Model
 {
@@ -41,10 +42,11 @@ namespace Desglose.Model
         public RebarHookType HookFinal { get; private set; }
         public CrearTrasformadaSobreVectorDesg trasform { get;  set; }
         public RebarDesglose RebarDesgloseSinTraslapo { get; set; }
+        internal TraslapoBarrasH TraslapoCOnbarras { get; set; }
 
 
-      //******* SOLO AUXILIARES PARA TRASFORMADA
-      List<WraperRebarLargo> AuxTRans_ListaCurvaBarras;
+        //******* SOLO AUXILIARES PARA TRASFORMADA
+        List<WraperRebarLargo> AuxTRans_ListaCurvaBarras;
         List<WraperRebarLargo> AuxTRans_ListaCurvaBarrasFinal_Estribo;
         List<WraperRebarLargo> AuxTRans_ListaCurvaBarrasFinal_conCurva_Estribo;
         public RebarDesglose(UIApplication uiapp, Rebar _rebar)

@@ -52,6 +52,7 @@ namespace Desglose.ParametrosShare
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "LargoParciales", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "53530261-a393-46a6-9ae0-01639eb6a3f8");
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "LargoTotal", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "d0bcbf64-eaca-4d45-92c9-a3a5bda8e75e");
 
+            AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "LargoTraslapo", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "dd5855fa-ca8c-442a-9a05-525cffbd3544");
             //CantidadEstriboCONF
             AsignarNuevoParametroALista(uiapp, BuiltInCategory.OST_Rebar, ParameterType.Text, "CantidadEstriboCONF", "Rebar", IsModificable: true, EsOcultoCuandoNOvalor: false, EsVisible: false, "", "630baf2e-6d65-4a4c-b331-fcb9e7d63a7a");
 

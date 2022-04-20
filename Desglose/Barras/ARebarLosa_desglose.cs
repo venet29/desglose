@@ -734,6 +734,10 @@ namespace Desglose.Calculos
             CrearParameter("CantidadBarra", cantidadBArras.ToString());
             CrearParameter("LargoTotal", _largoTotal.ToString());
             CrearParameter("LargoParciales", _texToLargoParciales.ToString());
+
+            if(_rebarInferiorDTO._rebarDesglose.TraslapoCOnbarras!=null)
+                CrearParameter("LargoTraslapo", Math.Round( Util.FootToCm(_rebarInferiorDTO._rebarDesglose.TraslapoCOnbarras.largoTraslapo),0).ToString());
+
         }
 
         protected void CrearParameter(string _NombrePAra, string _valor)

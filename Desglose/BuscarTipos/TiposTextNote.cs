@@ -74,6 +74,15 @@ namespace Desglose.BuscarTipos
             FilteredElementCollector collectorUsed   = new FilteredElementCollector(_doc);
             return collectorUsed.OfClass(typeof(TextNote)) .FirstOrDefault();
         }
+        public static TextNoteType ObtenerPrimeroTextNoteTypeEncontrado(Document _doc)
+        {
+            // Get access to all the TextNote Elements
+
+            FilteredElementCollector collectorUsed = new FilteredElementCollector(_doc);
+            var type = collectorUsed.OfClass(typeof(TextNoteType)).FirstOrDefault();
+
+            return (type != null ? type as TextNoteType : null);
+        }
 
         private static TextNoteType M2_BuscarEnColecctor(string name, Document _doc)
         {

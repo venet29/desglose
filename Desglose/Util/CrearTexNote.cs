@@ -223,9 +223,8 @@ namespace Desglose.UTILES
                 else
                 {
                     Util.ErrorMsg($"Error al crear tipoTexnote '{nameTipoTexto}'. Se utiliza ValorPordefecto");
-                    Element textNoteDefol = TiposTextNote.ObtenerPrimeroEncontrado(_doc);
-                    //TextNote textNote = _doc.GetElement(textNoteDefol.GetTypeId()) as TextNote;
-                    txtNoteType = (textNoteDefol as TextNote).TextNoteType;
+                    txtNoteType = TiposTextNote.ObtenerPrimeroTextNoteTypeEncontrado(_doc);
+
                 }
 
 
@@ -261,10 +260,6 @@ namespace Desglose.UTILES
         public bool M2_CrearTipoText_ConTrasn()
         {
 
-
-
-
-
             var textNoteElement = TiposTextNote.ObtenerTextNote(nameTipoTexto, _doc);
             if (textNoteElement != null) return true;
 
@@ -274,11 +269,19 @@ namespace Desglose.UTILES
                 {
                     t.Start("Crear TipoTextNote-NH");
 
-                    Element textNoteDefol = TiposTextNote.ObtenerPrimeroEncontrado(_doc);
+                    TextNoteType textNoteDefol = TiposTextNote.ObtenerPrimeroTextNoteTypeEncontrado(_doc);
                     //TextNote textNote = _doc.GetElement(textNoteDefol.GetTypeId()) as TextNote;
-                    TextNote textNote = textNoteDefol as TextNote;
+                
+
+                    if (textNoteDefol == null)
+                    {
+        
+                        Util.ErrorMsg("No se encuentra algun  tipo de  'TextNoteType' para generar textnote personalizado");
+                        t.RollBack();
+                        return false;
+                    }
                     // Create a duplicate
-                    Element ele = textNote.TextNoteType.Duplicate(nameTipoTexto);
+                    Element ele = textNoteDefol.Duplicate(nameTipoTexto);
 
                     TextNoteType noteType = ele as TextNoteType;
 
@@ -322,11 +325,11 @@ namespace Desglose.UTILES
                         if (textNoteElement != null) continue;
 
 
-                        Element textNoteDefol = TiposTextNote.ObtenerPrimeroEncontrado(_doc);
+                        TextNoteType _textNoteType = TiposTextNote.ObtenerPrimeroTextNoteTypeEncontrado(_doc);
                         //TextNote textNote = _doc.GetElement(textNoteDefol.GetTypeId()) as TextNote;
-                        TextNote textNote = textNoteDefol as TextNote;
+                        
                         // Create a duplicate
-                        Element ele = textNote.TextNoteType.Duplicate(item._Nombre);
+                        Element ele = _textNoteType.Duplicate(item._Nombre);
 
                         TextNoteType noteType = ele as TextNoteType;
 

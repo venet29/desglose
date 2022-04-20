@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Desglose.DTO;
+using Autodesk.Revit.DB;
+using System.Diagnostics;
 
 namespace Desglose.Calculos
 {
@@ -15,21 +17,24 @@ namespace Desglose.Calculos
     {
         private UIApplication _uiapp;
         private List<RebarDesglose> lista_RebarDesglose;
-        private  Config_EspecialElev config_EspecialElv;
+        private Config_EspecialElev config_EspecialElv;
+        private TraslapoBarrasH _newTraslapoBarrasH;
 
         public List<RebarDesglose_GrupoBarras_H> GruposRebarMismaLinea_Colineal { get; set; }
+        public List<TraslapoBarrasH> ListaTraslapoBarrasH { get; set; }
         public GruposListasTraslapo_H(UIApplication uiapp, List<RebarDesglose> lista_RebarDesglose, Config_EspecialElev _Config_EspecialElv)
         {
             this._uiapp = uiapp;
             this.lista_RebarDesglose = lista_RebarDesglose;
             config_EspecialElv = _Config_EspecialElv;
             this.GruposRebarMismaLinea_Colineal = new List<RebarDesglose_GrupoBarras_H>();
+            ListaTraslapoBarrasH = new List<TraslapoBarrasH>();
         }
 
         public bool ObtenerGruposTraslapos()
         {
             List<RebarDesglose_Barras_H> listaBArras_sinLat = lista_RebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_BA_H &&
-                                                                                             config_EspecialElv.DiamtroLateralMax<c.Diametro_MM)
+                                                                                             config_EspecialElv.DiamtroLateralMax < c.Diametro_MM)
                                                                          .Select(c => new RebarDesglose_Barras_H(c, _uiapp)).ToList();
             //obtener RebarDesglose_Barras
             foreach (RebarDesglose_Barras_H item in listaBArras_sinLat)
@@ -75,8 +80,8 @@ namespace Desglose.Calculos
 
                     var listaGrupo_Colineal = listaBArras_sinLat
                         .Where(c => (!c.ptoInicial.IsAlmostEqualTo(item.ptoInicial)) && // para no selecionar el mismo
-                                    c.IsTraslapable && 
-                                    UtilDesglose.IsCollinear_barraDesglose(item.curvePrincipal, c.curvePrincipal, Util.MmToFoot( Math.Max(item.diametroMM,c.diametroMM))))
+                                    c.IsTraslapable &&
+                                    UtilDesglose.IsCollinear_barraDesglose(item.curvePrincipal, c.curvePrincipal, Util.MmToFoot(Math.Max(item.diametroMM, c.diametroMM))))
                         .OrderBy(c => c.ptoInicial.Z)
                         .ToList();
 
@@ -87,9 +92,11 @@ namespace Desglose.Calculos
                         RebarDesglose_Barras_H barra_colineales = listaGrupo_Colineal[j];
 
                         // cuando el pto inicial de la sigueinte barra no esta contendia en la actual
-                        if (!BarraAnalizada.curvePrincipal.Contains(barra_colineales.ptoInicial, 
-                                                                    Util.MmToFoot(Math.Max(barra_colineales.diametroMM, item.diametroMM)))) break;
+                        if (!BarraAnalizada.curvePrincipal.Contains((barra_colineales.ptoFinal.Z> barra_colineales.ptoInicial.Z? barra_colineales.ptoInicial: barra_colineales.ptoFinal),
+                                                                    Util.MmToFoot(Math.Max(barra_colineales.diametroMM, item.diametroMM)))) continue;
 
+                        if (AgregarTraslapoToLista(BarraAnalizada, barra_colineales))
+                            BarraAnalizada._rebarDesglose.TraslapoCOnbarras = _newTraslapoBarrasH;
                         //cambiar barra sigueinte a actual
                         BarraAnalizada = barra_colineales;
 
@@ -105,6 +112,37 @@ namespace Desglose.Calculos
             catch (Exception ex)
             {
                 UtilDesglose.ErrorMsg($"Error al obtener grupos de barras  ex:{ ex.Message} ");
+                return false;
+            }
+            return true;
+        }
+
+        private bool AgregarTraslapoToLista(RebarDesglose_Barras_H barraAnalizada_inf, RebarDesglose_Barras_H barra_colineales_supe)
+        {
+            _newTraslapoBarrasH = null;
+            try
+            {
+                CrearTrasformadaSobreVectorDesg Trasform = barraAnalizada_inf._rebarDesglose.trasform;
+                XYZ ptoInicial_trans = (barraAnalizada_inf.ptoInicial.Z < barraAnalizada_inf.ptoFinal.Z ? barraAnalizada_inf.ptoFinal : barraAnalizada_inf.ptoInicial); 
+                XYZ ptofinal_trans = (barra_colineales_supe.ptoInicial.Z< barra_colineales_supe.ptoFinal.Z? barra_colineales_supe.ptoInicial: barra_colineales_supe.ptoFinal);
+
+                XYZ ptoInicial = Trasform.EjecutarTransformInvertida(ptoInicial_trans);
+                XYZ ptofinal = Trasform.EjecutarTransformInvertida(ptofinal_trans);
+
+                TipobarraH tipobarr = barraAnalizada_inf._rebarDesglose.TipobarraH_;
+                double largoTraslapo = ptoInicial.DistanceTo(ptofinal);
+
+                if (largoTraslapo < Util.CmToFoot(3)) return false;
+
+                 _newTraslapoBarrasH = new TraslapoBarrasH(ptoInicial_trans, ptofinal_trans, ptoInicial, ptofinal, tipobarr, largoTraslapo);
+
+                if (_newTraslapoBarrasH == null) return false;
+
+                ListaTraslapoBarrasH.Add(_newTraslapoBarrasH);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
                 return false;
             }
             return true;

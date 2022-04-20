@@ -50,6 +50,8 @@ namespace Desglose.Tag.TipoBarraH
         public TagBarra TagP0_C { get; set; }
         public TagBarra TagP0_F { get; set; }
         public TagBarra TagP0_L { get; set; }
+        public TagBarra TagP0_Traslapo { get; set; }
+        
 
         public GeomeTagBaseH() { }
         public GeomeTagBaseH(UIApplication _uiapp, RebarElevDTO _RebarElevDTO)
@@ -153,7 +155,7 @@ namespace Desglose.Tag.TipoBarraH
             if (IsTagCompletoENLinea)
             {
                 XYZ p0_FTC = _p1 + _DesfaseLInea + _direccionBarra * _largoMedioEnFoot * 0.25;
-                p0_FTC = CentroBarra + _DesfaseLInea + _DesfaseLInea_F - _direccionBarra * Util.CmToFoot(80);
+                p0_FTC = CentroBarra + _DesfaseLInea + _DesfaseLInea_F - _direccionBarra * Util.CmToFoot(100);
                 TagP0_F = M2_1_ObtenerTAgBarra(p0_FTC, "FBCompleto", nombreDefamiliaBase + " FBarraCompleto", escala);// 2@12
                 listaTag.Add(TagP0_F);
             }
@@ -177,6 +179,15 @@ namespace Desglose.Tag.TipoBarraH
 
             }
 
+            if (_rebarElevDTO._rebarDesglose.TraslapoCOnbarras != null)
+            {
+   
+               // XYZ p0_traslapo = _p2 + _DesfaseLInea - _direccionBarra * _largoMedioEnFoot * 0.25;
+                //p0_traslapo = CentroBarra + _DesfaseLInea + _direccionBarra * Util.CmToFoot(70);
+                XYZ p0_traslapo=_rebarElevDTO._rebarDesglose.TraslapoCOnbarras.ObtenerPtoInserccion() + _DesfaseLInea ; 
+                TagP0_Traslapo = M2_1_ObtenerTAgBarra(p0_traslapo, "TR", nombreDefamiliaBase + " TR", escala); // (160)
+                listaTag.Add(TagP0_Traslapo);
+            }
 
         }
 

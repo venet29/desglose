@@ -49,7 +49,7 @@ namespace Desglose.Calculos.Tipo.ParaElevVigas
 
             List<WraperRebarLargo> listaCuvas = _RebarInferiorDTO.listaCUrvas;
             double pataSuperior = listaCuvas.Find(c=> !c.IsBarraPrincipal)._curve.Length;
-            XYZ direcionPAtaSuperiopr = listaCuvas[2].direccion;
+            XYZ direcionPAtaSuperiopr = listaCuvas[1].direccion;
 
 
             ladoAB_pathSym = Line.CreateBound(PtoIniConDesplazamineto, PtoFinConDesplazamineto);
@@ -61,12 +61,7 @@ namespace Desglose.Calculos.Tipo.ParaElevVigas
              _largoTotal = (Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0) + Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0)).ToString();
 
             _ptoTexto = (_RebarInferiorDTO.ptoini + _RebarInferiorDTO.ptofinal) / 2;
-            if (_RebarInferiorDTO.Id == -1)
-                _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}\n {_texToLargoParciales} ";
-            else
-                _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal} id:{_RebarInferiorDTO.Id}\n {_texToLargoParciales} ";
 
-            
             CargarPAratrosSHARE();
 
             //ivitar dibujar la primeralinea
