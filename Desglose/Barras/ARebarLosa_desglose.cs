@@ -40,6 +40,7 @@ namespace Desglose.Calculos
         public List<Curve> listcurve { get; set; }
 
         private string graphic_stylesName;
+        private string graphic_stylesName_traslapo;
         protected string _Prefijo_F;
         public XYZ xvec { get; set; }
         public XYZ yvec { get; set; }
@@ -73,6 +74,8 @@ namespace Desglose.Calculos
         protected double _EspesorMuro_Dere_abajo = Util.CmToFoot(15);
         protected double _patabarra;
         public List<Curve> ListaFalsoPAthSymbol { get; set; }
+
+        public List<Curve> ListaTraslapo { get; set; }
         public double elevacionVIew { get; set; }
 
         protected BarraParametrosCompartidos barraParametrosCompartidos;
@@ -108,6 +111,7 @@ namespace Desglose.Calculos
         protected Curve ladoJK_pathSym;
         protected Curve ladoKL_pathSym;
 
+        protected Curve ladoTraslapo_pathSym;
 
         protected double offInferiorHaciaArribaLosa;
         protected double offSuperiorhaciaBajoLosa;
@@ -119,6 +123,8 @@ namespace Desglose.Calculos
         protected XYZ _ptoTexto;
         protected string _textoBArras;
         private Element line_styles_srv;
+        private Element line_styles_Traslapo;
+
         protected TipoCOnfLargo _configLargo;
         protected double _tolerancia;
         #endregion
@@ -143,15 +149,17 @@ namespace Desglose.Calculos
             this.listaPArametroSharenh = new List<ParametroShareNhDTO>();
 
             this.LargoTotalSumaParcialesFoot = _RebarInferiorDTO.LargoTotalSumaParcialesFoot;
-            
-           listaGrupo_LineaRebar = new List<ElementId>();
+
+            listaGrupo_LineaRebar = new List<ElementId>();
             listaGrupo_DimensionCirculo = new List<ElementId>();
             listaGrupo_Tag = new List<ElementId>();
 
             barraParametrosCompartidos = new BarraParametrosCompartidos(this._doc);
             ListaFalsoPAthSymbol = new List<Curve>();
+            ListaTraslapo = new List<Curve>();
             listcurve = new List<Curve>();
             graphic_stylesName = "SRV-3";
+            graphic_stylesName_traslapo = "Rebar Splice Line";
             _VectorMover = new XYZ(0, 0, -ConstNH.DESPLAZAMIENTO_BAJO_Z_REBAR_FOOT);
 
             if (_RebarInferiorDTO.Config_EspecialCorte != null)
@@ -213,6 +221,16 @@ namespace Desglose.Calculos
                 CrearLineStyle.CreateLineStyleConTrans();
 
                 line_styles_srv = TiposLinea.ObtenerTipoLinea(graphic_stylesName, _doc);
+            }
+
+
+            line_styles_Traslapo = TiposLinea.ObtenerTipoLinea(graphic_stylesName_traslapo, _doc);
+            if (line_styles_Traslapo == null)
+            {
+                CrearLineStyle CrearLineStyle = new CrearLineStyle(_doc, graphic_stylesName_traslapo, 7, new Color(0, 0, 0), "Solid");
+                CrearLineStyle.CreateLineStyleConTrans();
+
+                line_styles_Traslapo = TiposLinea.ObtenerTipoLinea(graphic_stylesName_traslapo, _doc);
             }
         }
         private void M8_1_ObtenerLineStyle_Barra()
@@ -327,7 +345,7 @@ namespace Desglose.Calculos
 
             //M10_CreaDimension();
             // M11_CreaCirculo();
-             M11_CrearGrupo();
+            M11_CrearGrupo();
             //  M12_MOverHaciaBajo();
 
         }
@@ -339,7 +357,7 @@ namespace Desglose.Calculos
             M4_ConfigurarAsignarParametrosRebarshape();
             M8_CrearPatSymbolFalso();
             M9_CreaTAg();
-           // M4_CrearTExto(_ptoTexto, _textoBArras, angleRADNormalHostYEJeZ);
+            // M4_CrearTExto(_ptoTexto, _textoBArras, angleRADNormalHostYEJeZ);
             M11_CrearGrupo();
 
         }
@@ -595,7 +613,7 @@ namespace Desglose.Calculos
             {
 
 
-                if (ListaFalsoPAthSymbol.Count == 0) return;
+                if (ListaFalsoPAthSymbol.Count == 0 && ListaTraslapo.Count == 0) return;
 
                 // M8_1_ObtenerLineStyle_Barra();
 
@@ -603,6 +621,7 @@ namespace Desglose.Calculos
                 using (Transaction tx = new Transaction(_doc))
                 {
                     tx.Start("Creata PatSymbolFalso-NH");
+
                     foreach (Curve item in ListaFalsoPAthSymbol)
                     {
                         if (item is Line)
@@ -616,6 +635,16 @@ namespace Desglose.Calculos
                             DetailArc lineafalsa = _doc.Create.NewDetailCurve(_view, item) as DetailArc;
                             lineafalsa.LineStyle = line_styles_srv;// line_styles_BARRA;
                             if (lineafalsa != null) listaGrupo_LineaRebar.Add(lineafalsa.Id);
+                        }
+                    }
+
+                    foreach (var item in ListaTraslapo)
+                    {
+                        if (item is Line)
+                        {
+                            DetailLine lineafalsa = _doc.Create.NewDetailCurve(_view, item) as DetailLine;
+                            lineafalsa.LineStyle = line_styles_Traslapo;
+                            //if (lineafalsa != null) listaGrupo_LineaRebar.Add(lineafalsa.Id);
                         }
                     }
                     tx.Commit();
@@ -682,7 +711,7 @@ namespace Desglose.Calculos
         }
         public void M11_CrearGrupo()
         {
-            if (listaGrupo_LineaRebar.Count < 1 ) return;
+            if (listaGrupo_LineaRebar.Count < 1) return;
 
             if (listaGrupo_DimensionCirculo.Count > 0)
                 listaGrupo_LineaRebar.AddRange(listaGrupo_DimensionCirculo);
@@ -695,10 +724,6 @@ namespace Desglose.Calculos
 
                     if (listaGrupo_LineaRebar.Count > 1)
                         _doc.Create.NewGroup(listaGrupo_LineaRebar);
-
-                    //  if(listaGrupo_DimensionCirculo.Count>1)
-                    //_doc.Create.NewGroup(listaGrupo_DimensionCirculo); 
-                    //var grouptag = _doc.Create.NewGroup(listaGrupo_Tag);
                     tx.Commit();
                 }
             }
@@ -735,8 +760,17 @@ namespace Desglose.Calculos
             CrearParameter("LargoTotal", _largoTotal.ToString());
             CrearParameter("LargoParciales", _texToLargoParciales.ToString());
 
-            if(_rebarInferiorDTO._rebarDesglose.TraslapoCOnbarras!=null)
-                CrearParameter("LargoTraslapo", Math.Round( Util.FootToCm(_rebarInferiorDTO._rebarDesglose.TraslapoCOnbarras.largoTraslapo),0).ToString());
+            // si hay traslapo
+            if (_rebarInferiorDTO._rebarDesglose.TraslapoCOnbarras != null)
+            {
+                //genera barras
+                ladoTraslapo_pathSym = Line.CreateBound(_rebarInferiorDTO._rebarDesglose.TraslapoCOnbarras.ptofinal, _rebarInferiorDTO._rebarDesglose.TraslapoCOnbarras.ptoInicial);
+                ListaTraslapo.Add(ladoTraslapo_pathSym);
+
+                //genera parametershare para tag
+                CrearParameter("LargoTraslapo", Math.Round(Util.FootToCm(_rebarInferiorDTO._rebarDesglose.TraslapoCOnbarras.largoTraslapo), 0).ToString());
+
+            }
 
         }
 

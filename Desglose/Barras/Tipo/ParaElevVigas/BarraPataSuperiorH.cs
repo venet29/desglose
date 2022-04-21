@@ -55,9 +55,10 @@ namespace Desglose.Calculos.Tipo.ParaElevVigas
             ladoAB_pathSym = Line.CreateBound(PtoIniConDesplazamineto, PtoFinConDesplazamineto);
             ladoBC_pathSym = Line.CreateBound(PtoFinConDesplazamineto, PtoFinConDesplazamineto + direcionPAtaSuperiopr * pataSuperior);
 
+            ///
+  
 
              _texToLargoParciales = $"({ Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0) }+{ Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0) })";
-
              _largoTotal = (Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0) + Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0)).ToString();
 
             _ptoTexto = (_RebarInferiorDTO.ptoini + _RebarInferiorDTO.ptofinal) / 2;

@@ -151,11 +151,34 @@ namespace Desglose.Tag.TipoBarraH
         //obs4
         public void M2_CAlcularPtosDeTAg(bool IsGraficarEnForm = false)
         {
+            XYZ p0_traslapo = XYZ.Zero;
+            bool Istraslapo = false;
+            if (_rebarElevDTO._rebarDesglose.TraslapoCOnbarras != null)
+            {
+                // XYZ p0_traslapo = _p2 + _DesfaseLInea - _direccionBarra * _largoMedioEnFoot * 0.25;
+                //p0_traslapo = CentroBarra + _DesfaseLInea + _direccionBarra * Util.CmToFoot(70);
+                 p0_traslapo = _rebarElevDTO._rebarDesglose.TraslapoCOnbarras.ObtenerPtoInserccion() + _DesfaseLInea;
+                TagP0_Traslapo = M2_1_ObtenerTAgBarra(p0_traslapo, "TR", nombreDefamiliaBase + " TR", escala); // (160)
+                listaTag.Add(TagP0_Traslapo);
+                Istraslapo = true;
+            }
+
+
 
             if (IsTagCompletoENLinea)
             {
                 XYZ p0_FTC = _p1 + _DesfaseLInea + _direccionBarra * _largoMedioEnFoot * 0.25;
                 p0_FTC = CentroBarra + _DesfaseLInea + _DesfaseLInea_F - _direccionBarra * Util.CmToFoot(100);
+
+                if (Istraslapo)//busca sepra el tag con el texto de traslapo
+                {
+                    double distanciaENtreTag = p0_FTC.DistanceTo(p0_traslapo);
+                    if (distanciaENtreTag > Util.CmToFoot(250))
+                    {
+                        //p0_FTC = p0_FTC - _view.RightDirection * distanciaENtreTag*1.1;
+                    }                
+                }
+
                 TagP0_F = M2_1_ObtenerTAgBarra(p0_FTC, "FBCompleto", nombreDefamiliaBase + " FBarraCompleto", escala);// 2@12
                 listaTag.Add(TagP0_F);
             }
@@ -179,15 +202,7 @@ namespace Desglose.Tag.TipoBarraH
 
             }
 
-            if (_rebarElevDTO._rebarDesglose.TraslapoCOnbarras != null)
-            {
-   
-               // XYZ p0_traslapo = _p2 + _DesfaseLInea - _direccionBarra * _largoMedioEnFoot * 0.25;
-                //p0_traslapo = CentroBarra + _DesfaseLInea + _direccionBarra * Util.CmToFoot(70);
-                XYZ p0_traslapo=_rebarElevDTO._rebarDesglose.TraslapoCOnbarras.ObtenerPtoInserccion() + _DesfaseLInea ; 
-                TagP0_Traslapo = M2_1_ObtenerTAgBarra(p0_traslapo, "TR", nombreDefamiliaBase + " TR", escala); // (160)
-                listaTag.Add(TagP0_Traslapo);
-            }
+ 
 
         }
 

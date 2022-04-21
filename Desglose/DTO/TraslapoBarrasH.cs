@@ -13,10 +13,11 @@ namespace Desglose.DTO
     {
         private XYZ ptoInicial_trans;
         private XYZ ptofinal_trans1;
-        private XYZ ptoInicial;
-        private XYZ ptofinal;
+
         private TipobarraH tipobarr;
 
+        public XYZ ptoInicial { get; set; }
+        public XYZ ptofinal { get; set; }
         public double largoTraslapo { get; set; }
         public TraslapoBarrasH(XYZ ptoInicial_trans, XYZ ptofinal_trans1, XYZ ptoInicial, XYZ ptofinal, TipobarraH tipobarr, double largoTraslapo)
         {

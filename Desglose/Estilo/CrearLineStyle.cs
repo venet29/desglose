@@ -35,15 +35,25 @@ namespace Desglose.Estilo
             // Find existing linestyle.  Can also opt to
             // create one with LinePatternElement.Create()
 
-            FilteredElementCollector fec = new FilteredElementCollector(_doc).OfClass(typeof(LinePatternElement));
-            var ListlinePatternElem = fec.Where(c => c != null).ToList();
-            LinePatternElement linePatternElem = fec.Where(c => c.Name == _linePattern).FirstOrDefault() as LinePatternElement;
-            // LinePatternElement linePatternElem = fec.Cast<LinePatternElement>().First<LinePatternElement>(linePattern => linePattern.Name == "Solid");
-            if (linePatternElem == null)
+            ElementId IdlinePatternElem = LinePatternElement.GetSolidPatternId();
+
+            if (_linePattern != "Solid")
             {
-                Util.ErrorMsg($"No se pudo crear linea '{_nombreNuevaLinea}', porque No se encontro 'LinePattern' de nombre '{_linePattern}'.");
-                return;
+                FilteredElementCollector fec = new FilteredElementCollector(_doc).OfClass(typeof(LinePatternElement));
+                var ListlinePatternElem = fec.Where(c => c != null).ToList();
+                LinePatternElement linePatternElem = fec.Where(c => c.Name == _linePattern).FirstOrDefault() as LinePatternElement;
+                // LinePatternElement linePatternElem = fec.Cast<LinePatternElement>().First<LinePatternElement>(linePattern => linePattern.Name == "Solid");
+                if (linePatternElem == null)
+                {
+                    Util.ErrorMsg($"No se pudo crear linea '{_nombreNuevaLinea}', porque No se encontro 'LinePattern' de nombre '{_linePattern}'.");
+                    return;
+                }
+
+                IdlinePatternElem = linePatternElem.Id;
             }
+
+   
+           
             // The new linestyle will be a subcategory 
             // of the Lines category        
 
@@ -69,7 +79,7 @@ namespace Desglose.Estilo
 
                     newLineStyleCat.LineColor = color;
 
-                    newLineStyleCat.SetLinePatternId(linePatternElem.Id, GraphicsStyleType.Projection);
+                    newLineStyleCat.SetLinePatternId(IdlinePatternElem, GraphicsStyleType.Projection);
 
                     //OverrideGraphicSettings overrides = _doc.ActiveView.GetCategoryOverrides(newLineStyleCat.Id);
                     //ElementId elId = new ElementId(-3000010);
