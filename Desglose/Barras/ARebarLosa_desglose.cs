@@ -761,7 +761,7 @@ namespace Desglose.Calculos
             CrearParameter("LargoParciales", _texToLargoParciales.ToString());
 
             // si hay traslapo
-            if (_rebarInferiorDTO._rebarDesglose.TraslapoCOnbarras != null)
+            if (_rebarInferiorDTO?._rebarDesglose?.TraslapoCOnbarras != null)
             {
                 //genera barras
                 ladoTraslapo_pathSym = Line.CreateBound(_rebarInferiorDTO._rebarDesglose.TraslapoCOnbarras.ptofinal, _rebarInferiorDTO._rebarDesglose.TraslapoCOnbarras.ptoInicial);

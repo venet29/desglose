@@ -87,7 +87,7 @@ namespace Desglose.Anotacion
 
 
                 //3) obtener tag 
-                Element IndependentTagPath = TiposRebarTag.M1_GetRebarTag(_nombrefamilia, _doc);
+                Element IndependentTagPath = TiposRebarTag.M1_GetRebarTag(_nombrefamilia + "_" + Util.ObtenerValorEscala(_view), _doc);
                 if (IndependentTagPath == null) return false;
 
                 try
@@ -95,6 +95,7 @@ namespace Desglose.Anotacion
                     using (Transaction t = new Transaction(_doc, "MultiReferenceAnnotation_config"))
                     {
                         t.Start();
+
                         tupoanotation.DimensionStyleId = dmNh.Id; // definir un dimensiones sin flecha ni nada simple
                         tupoanotation.TagTypeId = IndependentTagPath.Id; // generar tag por ejemplo 'MRA Rebar Section'
 

@@ -30,26 +30,26 @@ namespace Desglose.Tag.TipoEstiboCorte
                 //  double Zrefe = CentroBarra.Z;
                 CentroBarra = _EstribosRectagularesHortogonales.UbicacionDeF;//.AsignarZ(Zrefe);
 
-                string familiaF = "_F_normal_";
+                string familiaF = "_F_normal";
                 if (Config_EspecialCorte.TipoCOnfigCuantia == TipoCOnfCuantia.SegunPlano)
-                    familiaF = "_F_segun_";
+                    familiaF = "_F_segun";
 
-                TagP0_F = M1_1_ObtenerTAgBarra(CentroBarra, "FCorte", nombreDefamiliaBase + familiaF + escala, escala);
+                TagP0_F = M1_1_ObtenerTAgBarra(CentroBarra, "FCorte", nombreDefamiliaBase + familiaF , escala);
                 listaTag.Add(TagP0_F);
 
                 //largo
                 LBarra = _EstribosRectagularesHortogonales.UbicacionDeL;//.AsignarZ(Zrefe);
-                string familiaL = "_L_normal_";
+                string familiaL = "_L_normal";
                 if (Config_EspecialCorte.TipoCOnfigLargo == TipoCOnfLargo.Aprox5)
-                    familiaL = "_L_normal_";//_L_5aprox_
+                    familiaL = "_L_normal";//_L_5aprox_
                 else if (Config_EspecialCorte.TipoCOnfigLargo == TipoCOnfLargo.Aprox10)
-                    familiaL = "_L_normal_";//_L_10aprox_
-                TagP0_L = M1_1_ObtenerTAgBarra(LBarra, "LCorte", nombreDefamiliaBase + familiaL + escala, escala);
+                    familiaL = "_L_normal";//_L_10aprox_
+                TagP0_L = M1_1_ObtenerTAgBarra(LBarra, "LCorte", nombreDefamiliaBase + familiaL , escala);
                 listaTag.Add(TagP0_L);
 
                 //parte
                 XYZ textoSup = _EstribosRectagularesHortogonales.UbicacionSup;
-                TagP0_ancho_ = M1_1_ObtenerTAgBarra(textoSup, "Ancho", nombreDefamiliaBase + "_F_normal_" + escala, escala);
+                TagP0_ancho_ = M1_1_ObtenerTAgBarra(textoSup, "Ancho", nombreDefamiliaBase + "_F_normal" , escala);
                 TagP0_ancho_.valorTag = _EstribosRectagularesHortogonales.UbicacionSup_ValorLArgo;
                 listaTag.Add(TagP0_ancho_);
             }

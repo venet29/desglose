@@ -89,7 +89,7 @@ namespace Desglose.Dibujar2D
             catch (Exception ex)
             {
                 UtilDesglose.ErrorMsg($"Error al generar tag de barras verticales ex:{ex.Message}");
-                throw;
+               
             }        
         }
 

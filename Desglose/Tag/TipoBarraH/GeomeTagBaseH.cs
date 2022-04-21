@@ -71,7 +71,7 @@ namespace Desglose.Tag.TipoBarraH
             this.CentroBarra = (_p1 + _p2) / 2;
             this._view = _doc.ActiveView;
             this.escala = ConstNH.CONST_ESCALA_BASE;// _view.Scale;
-            this.escala = 50;// _view.Scale;
+            this.escala = Util.ObtenerValorEscala(_view);// _view.Scale;
             //dos opciones  "M_Path Reinforcement Tag(ID_cuantia_largo)"
             this.nombreDefamiliaBase = "MRA Rebar";
 
@@ -209,7 +209,7 @@ namespace Desglose.Tag.TipoBarraH
         protected TagBarra M2_1_ObtenerTAgBarra(XYZ posicion, string nombreLetra, string NombreFamilia, int escala)
         {
             //caso sin giraR
-            Element IndependentTagPath = TiposRebarTag.M1_GetRebarTag(NombreFamilia, _doc);
+            Element IndependentTagPath = TiposRebarTag.M1_GetRebarTag(NombreFamilia+"_"+escala, _doc);
 
             //si no la cuentr lCRE
             if (IndependentTagPath == null)
@@ -217,7 +217,7 @@ namespace Desglose.Tag.TipoBarraH
                 IndependentTagPath = M2_1_1_ObtenertTagGirado(nombreLetra, NombreFamilia, escala);
             }
 
-            if (IndependentTagPath == null) { Util.ErrorMsg($"NO se puedo encontrar  familia de letra del tag de barra :{nombreLetra}"); }
+            if (IndependentTagPath == null) { Util.ErrorMsg($"NO se pudo encontrar familia de letra del tag de barra :{nombreLetra}"); }
 
             TagBarra newTagBarra = new TagBarra(posicion, nombreLetra, NombreFamilia, IndependentTagPath);
             return newTagBarra;

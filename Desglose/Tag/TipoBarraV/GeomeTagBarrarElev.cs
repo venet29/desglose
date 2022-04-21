@@ -30,7 +30,7 @@ namespace Desglose.Tag.TipoBarraV
                                  - direccionBArra* defaseTag - _rebarElevDTO.Config_EspecialElv.direccionMuevenBarrasFAlsa * 0.25;
 
 
-            TagP0_Tipo = M1_1_ObtenerTAgBarra(_ptoTexto, "MLB", nombreDefamiliaBase + "_MLB_" + escala, escala);
+            TagP0_Tipo = M1_1_ObtenerTAgBarra(_ptoTexto, "MLBLetra", nombreDefamiliaBase + "_MLBLetra", escala);
             listaTag.Add(TagP0_Tipo);
 
             AsignarPArametros(this);

@@ -21,6 +21,9 @@ namespace Desglose.Tag.TipoEstriboElevacion
 
         protected readonly XYZ CentroBarra;
         private readonly UIApplication uiapp;
+
+        public View _view { get; private set; }
+
         protected readonly RebarElevDTO rebarElevDTO;
         protected XYZ _posiciontag;
 
@@ -49,13 +52,14 @@ namespace Desglose.Tag.TipoEstriboElevacion
         {
             this._doc = _uiapp.ActiveUIDocument.Document;
             uiapp = _uiapp;
+            this._view = _uiapp.ActiveUIDocument.ActiveView;
             rebarElevDTO = _RebarElevDTO;
             this._posiciontag = (_RebarElevDTO.ptoini + _RebarElevDTO.ptofinal) / 2;         
             //this.CentroBarra = (ptoIni + new XYZ(0, 0, Util.CmToFoot(150)));
             this.CentroBarra = _posiciontag;// (ptoFin - new XYZ(0, 0, Util.CmToFoot(50)));
                                             //this._view = _doc.ActiveView;
                                             // this.escala = ConstantesGenerales.CONST_ESCALA_BASE;// _view.Scale;
-            this.escala = 50;// _doc.ActiveView.Scale;
+            this.escala = Util.ObtenerValorEscala(_view);// _doc.ActiveView.Scale;
             this.escala_realview = _doc.ActiveView.Scale;
 
             //dos opciones  "M_Path Reinforcement Tag(ID_cuantia_largo)"
@@ -95,9 +99,9 @@ namespace Desglose.Tag.TipoEstriboElevacion
         protected TagBarra M1_1_ObtenerTAgBarra(XYZ posicion, string nombreLetra, string NombreFamilia)
         {
             //caso sin giraR
-            Element IndependentTagPath = TiposRebarTag.M1_GetRebarTag(NombreFamilia, _doc);
+            Element IndependentTagPath = TiposRebarTag.M1_GetRebarTag(NombreFamilia + "_" + escala, _doc);
 
-            if (IndependentTagPath == null) { Util.ErrorMsg($"NO se puedo encontrar  familia de letra del tag de barra :{nombreLetra}"); }
+            if (IndependentTagPath == null) { Util.ErrorMsg($"NO se pudo encontrar familia de letra del tag de barra :{nombreLetra}"); }
 
             TagBarra newTagBarra = new TagBarra(posicion, nombreLetra, NombreFamilia, IndependentTagPath);
             return newTagBarra;

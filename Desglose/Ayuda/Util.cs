@@ -33,7 +33,21 @@ namespace Desglose.Ayuda
     public class Util
     {
 
-
+        public static int ObtenerValorEscala(View _view )
+        {
+            try
+            {
+                if (_view.Scale == 100)
+                    return 15;
+                else
+                    return 20;
+            }
+            catch (Exception ex)
+            {
+                return 20;
+            }
+         
+        }
 
         public static bool IsInteger(string cadena)
         {

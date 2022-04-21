@@ -30,34 +30,34 @@ namespace Desglose.Tag.TipoEstiboCorte
                 double Zrefe = CentroBarra.Z;
                 CentroBarra = _EstribosRectagularesHortogonales.UbicacionDeF.AsignarZ(Zrefe);
 
-                string familiaF = "_F_normal_";
+                string familiaF = "_F_normal";
                 if (Config_EspecialCorte.TipoCOnfigCuantia == TipoCOnfCuantia.SegunPlano)
-                    familiaF = "_F_segun_";
+                    familiaF = "_F_segun";
 
-                TagP0_F = M1_1_ObtenerTAgBarra(CentroBarra, "FCorte", nombreDefamiliaBase + familiaF + escala, escala);
+                TagP0_F = M1_1_ObtenerTAgBarra(CentroBarra, "FCorte", nombreDefamiliaBase + familiaF , escala);
                 listaTag.Add(TagP0_F);
 
 
                 //largo
                 LBarra = _EstribosRectagularesHortogonales.UbicacionDeL.AsignarZ(Zrefe);
-                string familiaL = "_L_normal_";
+                string familiaL = "_L_normal";
                if (Config_EspecialCorte.TipoCOnfigLargo == TipoCOnfLargo.Aprox5)
-                    familiaL = "_L_normal_";
+                    familiaL = "_L_normal";
                 else if (Config_EspecialCorte.TipoCOnfigLargo == TipoCOnfLargo.Aprox10)
-                    familiaL = "_L_normal_";
-                TagP0_L = M1_1_ObtenerTAgBarra(LBarra, "LCorte", nombreDefamiliaBase + familiaL + escala, escala);
+                    familiaL = "_L_normal";
+                TagP0_L = M1_1_ObtenerTAgBarra(LBarra, "LCorte", nombreDefamiliaBase + familiaL , escala);
                 listaTag.Add(TagP0_L);
 
                 if (true)
                 { 
                     XYZ p0_sup = _EstribosRectagularesHortogonales.UbicacionSup.AsignarZ(Zrefe);
-                    TagP0_ancho_ = M1_1_ObtenerTAgBarra(p0_sup, "Ancho", nombreDefamiliaBase + "_F_normal_" + escala, escala);//uso '_F_normal_' solo par acargar tl tag
+                    TagP0_ancho_ = M1_1_ObtenerTAgBarra(p0_sup, "Ancho", nombreDefamiliaBase + "_F_normal", escala);//uso '_F_normal_' solo par acargar tl tag
                     TagP0_ancho_.valorTag = _EstribosRectagularesHortogonales.UbicacionSup_ValorLArgo;
                     listaTag.Add(TagP0_ancho_);
 
 
                     XYZ p0_izq = _EstribosRectagularesHortogonales.UbicacionIZq.AsignarZ(Zrefe);
-                    TagP0_Prof_ = M1_1_ObtenerTAgBarra(p0_izq, "Ancho", nombreDefamiliaBase + "_F_normal_" + escala, escala);//uso '_F_normal_' solo par acargar tl tag
+                    TagP0_Prof_ = M1_1_ObtenerTAgBarra(p0_izq, "Ancho", nombreDefamiliaBase + "_F_normal" , escala);//uso '_F_normal_' solo par acargar tl tag
                     TagP0_Prof_.valorTag = _EstribosRectagularesHortogonales.UbicacionIZq_ValorLArgo;
                     listaTag.Add(TagP0_Prof_);
                 }
