@@ -51,8 +51,10 @@ namespace Desglose.Geometria
                 if (Lisinferior.Count== 0)
                     return false;
 
-                UbicacionDeF = Lisinferior[0].PtoMedio + Util.CmToFoot(7) * unitariZ;// rebarElevDTO._View.RightDirection*Util.CmToFoot(10); // cambiar '_View.ViewDirection' si se selecciona a la izquierda o derecha
-                UbicacionDeL = Lisinferior[0].PtoMedio + Util.CmToFoot(12) * unitariZ;// rebarElevDTO._View.RightDirection * Util.CmToFoot(15);
+                XYZ ptomedioMAsBajo = Lisinferior.MinBy(c => c.PtoMedio.Z).PtoMedio;
+
+                UbicacionDeF = ptomedioMAsBajo + Util.CmToFoot(7) * unitariZ;// rebarElevDTO._View.RightDirection*Util.CmToFoot(10); // cambiar '_View.ViewDirection' si se selecciona a la izquierda o derecha
+                UbicacionDeL = ptomedioMAsBajo + Util.CmToFoot(15) * unitariZ;// rebarElevDTO._View.RightDirection * Util.CmToFoot(15);
 
 
                 //2)sup
@@ -60,7 +62,9 @@ namespace Desglose.Geometria
 
                 if (superior.Count == 0)
                     return false;
-                UbicacionSup = superior[0].PtoMedio -unitariZ* Util.CmToFoot(5);
+                XYZ ptoSupMAsAlto = superior.MinBy(c => -c.PtoMedio.Z).PtoMedio;
+
+                UbicacionSup = ptoSupMAsAlto - unitariZ* Util.CmToFoot(5);
                 UbicacionSup_ValorLArgo = Math.Round(Util.FootToCm(superior[0].largoCurve+ Delta), 0).ToString(); //largo no real
 
                 //3 izq

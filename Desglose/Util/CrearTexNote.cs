@@ -216,13 +216,14 @@ namespace Desglose.UTILES
         {
             if (txtNoteType == null)
             {
-                if (M2_CrearTipoText_ConTrasn())
+                if (M2_CrearTipoText_ConSin())
+
                 {
                     GetTipoTexto(nameTipoTexto);
                 }
                 else
                 {
-                    Util.ErrorMsg($"Error al crear tipoTexnote '{nameTipoTexto}'. Se utiliza ValorPordefecto");
+                    Util.ErrorMsg($"Error al crear tipoTextnote '{nameTipoTexto}'. Se utiliza ValorPordefecto");
                     txtNoteType = TiposTextNote.ObtenerPrimeroTextNoteTypeEncontrado(_doc);
 
                 }
@@ -268,35 +269,11 @@ namespace Desglose.UTILES
                 using (Transaction t = new Transaction(_doc))
                 {
                     t.Start("Crear TipoTextNote-NH");
-
-                    TextNoteType textNoteDefol = TiposTextNote.ObtenerPrimeroTextNoteTypeEncontrado(_doc);
-                    //TextNote textNote = _doc.GetElement(textNoteDefol.GetTypeId()) as TextNote;
-                
-
-                    if (textNoteDefol == null)
-                    {
-        
-                        Util.ErrorMsg("No se encuentra algun  tipo de  'TextNoteType' para generar textnote personalizado");
+                    if (!CrearTipoTextNote())
+                    { 
                         t.RollBack();
                         return false;
                     }
-                    // Create a duplicate
-                    Element ele = textNoteDefol.Duplicate(nameTipoTexto);
-
-                    TextNoteType noteType = ele as TextNoteType;
-
-                    if (null != noteType)
-                    {
-                        int color2 = Util.ToColorParameterValue(0, 0, 0);
-
-                        noteType.get_Parameter(BuiltInParameter.TEXT_FONT).Set("Arial Narrow");
-                        Parameter param = noteType.get_Parameter(BuiltInParameter.LINE_COLOR);
-                        param.Set(color2);
-                        //noteType.get_Parameter(BuiltInParameter.TEXT_COLOR).Set(color2);
-                        noteType.get_Parameter(BuiltInParameter.TEXT_SIZE).Set(0.00656168); //2mm
-                        noteType.get_Parameter(BuiltInParameter.TEXT_TAB_SIZE).Set(0.04166667);
-                    }
-
                     t.Commit();
                 }
             }
@@ -308,8 +285,57 @@ namespace Desglose.UTILES
 
             return true;
         }
+        public bool M2_CrearTipoText_ConSin()
+        {
+
+            var textNoteElement = TiposTextNote.ObtenerTextNote(nameTipoTexto, _doc);
+            if (textNoteElement != null) return true;
+
+            try
+            {
+
+                CrearTipoTextNote();
+            }
+            catch (Exception ex)
+            {
+
+                return false;
+            }
+
+            return true;
+        }
+        private bool CrearTipoTextNote()
+        {
+            TextNoteType textNoteDefol = TiposTextNote.ObtenerPrimeroTextNoteTypeEncontrado(_doc);
+            //TextNote textNote = _doc.GetElement(textNoteDefol.GetTypeId()) as TextNote;
 
 
+            if (textNoteDefol == null)
+            {
+
+                Util.ErrorMsg("No se encuentra algun  tipo de  'TextNoteType' para generar textnote personalizado");
+                return false;
+            }
+            // Create a duplicate
+            Element ele = textNoteDefol.Duplicate(nameTipoTexto);
+
+            TextNoteType noteType = ele as TextNoteType;
+
+            if (null != noteType)
+            {
+                int color2 = Util.ToColorParameterValue(0, 0, 0);
+
+                noteType.get_Parameter(BuiltInParameter.TEXT_FONT).Set("Arial Narrow");
+                Parameter param = noteType.get_Parameter(BuiltInParameter.LINE_COLOR);
+                param.Set(color2);
+                //noteType.get_Parameter(BuiltInParameter.TEXT_COLOR).Set(color2);
+                noteType.get_Parameter(BuiltInParameter.TEXT_SIZE).Set(0.00656168); //2mm
+                noteType.get_Parameter(BuiltInParameter.TEXT_TAB_SIZE).Set(0.04166667);
+            }
+            return false;
+        }
+
+      
         public bool M2_CrearListaTipoText_ConTrans()
         {
 
@@ -327,7 +353,7 @@ namespace Desglose.UTILES
 
                         TextNoteType _textNoteType = TiposTextNote.ObtenerPrimeroTextNoteTypeEncontrado(_doc);
                         //TextNote textNote = _doc.GetElement(textNoteDefol.GetTypeId()) as TextNote;
-                        
+
                         // Create a duplicate
                         Element ele = _textNoteType.Duplicate(item._Nombre);
 

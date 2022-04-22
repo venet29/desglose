@@ -20,7 +20,7 @@ namespace Desglose.Ayuda
     {
 
 
-        public static List<XYZ> M2_ListaPtoSimple(UIApplication uiapp, int contador = 100000)
+        public static List<XYZ> M2_ListaPtoSimple(UIApplication uiapp, int contador = 100000, string Mensaje = "Seleccionar Punto ")
         {
 
             List<XYZ> _listaptoTramo = new List<XYZ>();
@@ -37,7 +37,7 @@ namespace Desglose.Ayuda
                         continuar = false;
                         ObjectSnapTypes snapTypes = ObjectSnapTypes.Nearest;
                         //Nos permite seleccionar un punto en una posición cualquiera y nos da el dato XYZ
-                        _ptoIntervalo = uiapp.ActiveUIDocument.Selection.PickPoint(snapTypes, "Seleccionar Punto ");
+                        _ptoIntervalo = uiapp.ActiveUIDocument.Selection.PickPoint(snapTypes, Mensaje);
 
                         _listaptoTramo.Add(_ptoIntervalo);
                         cont += 1;

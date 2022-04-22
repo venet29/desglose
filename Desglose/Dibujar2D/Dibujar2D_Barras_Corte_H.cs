@@ -23,6 +23,7 @@ namespace Desglose.Dibujar2D
     {
         private UIApplication _uiapp;
         private GruposListasEstribo_HCorte _GruposListasEstribo;
+        private DatosHost _dtosHost;
         private Config_EspecialCorte _Config_EspecialCorte;
         private List<RebarDesglose_Barras_H> listaBArrasEnElev;
 
@@ -35,6 +36,7 @@ namespace Desglose.Dibujar2D
         {
             _uiapp = uiapp;
             _GruposListasEstribo = gruposListasEstribo;
+            _dtosHost = _GruposListasEstribo._DatosHost;
             _Config_EspecialCorte = config_EspecialCorte;
             listaBArrasEnElev = gruposListasEstribo.listaBArrasEnElev;
         }
@@ -93,23 +95,20 @@ namespace Desglose.Dibujar2D
             return true;
         }
 
-        internal bool Dibujar()
+        internal bool Dibujar(XYZ posicionInicialbarras)
         {
             try
-            {
+            {           
                 int _dire = _Config_EspecialCorte.dire;
                 CrearTrasformadaSobreVectorDesg _Trasform = _Config_EspecialCorte.Trasform_;
                 //1)laterales
                 AnotacionMultipleBarra _AnotacionMultipleBarraLAt = new AnotacionMultipleBarra(_uiapp, _section, _Config_EspecialCorte.dire);
 
-
-
-
                 var resultaLat = CalculoPtoTagBArraHorizontal_Corte.PtoInferior(listaBArrasEnElev_laterales, _section, _Trasform, _dire);
                 if (resultaLat.Isok)
                 {
-                    XYZ _origen = resultaLat.resultInserccion + _section.RightDirection * 0.5;
-                    XYZ taghead = _origen + _section.RightDirection * 0.5 + new XYZ(0, 0, -0.05);
+                    XYZ _origen = posicionInicialbarras + _section.RightDirection * 0;
+                    XYZ taghead = _origen + _section.RightDirection * 0.3 + new XYZ(0, 0, -0.05);
 
                     //con las dos de mas abajo
                     List<ElementId> listat = CalculoPtoTagBArraHorizontal_Corte.lista2BarrasMAsInferior(listaBArrasEnElev_laterales, _section, _Trasform, _dire);
@@ -130,25 +129,21 @@ namespace Desglose.Dibujar2D
 
 
                 AnotacionMultipleBarra _AnotacionMultipleBarra = new AnotacionMultipleBarra(_uiapp, _section, _Config_EspecialCorte.dire);
-                //2)  inferior
+                //2)  a)inferior
                 var resultaInf = CalculoPtoTagBArraHorizontal_Corte.PtoInferior(ListaBarrasInferior, _section, _Trasform, _dire);
-                //3) superiores
+                //3) a)superiores
                 var resultaSup = CalculoPtoTagBArraHorizontal_Corte.PtoSuperior(ListaBarrasSuperiores, _section, _Trasform, _dire);
 
-                XYZ ptoInserccion = XYZ.Zero;
-                if (Util.GetProductoEscalar((resultaSup.resultInserccion - resultaInf.resultInserccion).Normalize(), _section.RightDirection) > 0)
-                {
-                    resultaInf.resultInserccion = resultaSup.resultInserccion.AsignarZ(resultaInf.resultInserccion.Z);
-                }
-                else
-                {
-                    resultaSup.resultInserccion = resultaInf.resultInserccion.AsignarZ(resultaSup.resultInserccion.Z);
-                }
 
-                    //2)  inferior
-                    if (resultaInf.Isok)
+
+
+                resultaInf.resultInserccion = posicionInicialbarras.AsignarZ(resultaInf.resultInserccion.Z);
+                resultaSup.resultInserccion = posicionInicialbarras.AsignarZ(resultaSup.resultInserccion.Z);
+
+                //2)  b)inferior
+                if (resultaInf.Isok)
                 {
-                    XYZ OrigenAUX_ = resultaInf.resultInserccion + _section.RightDirection * 0.3 + new XYZ(0, 0, -0.5);
+                    XYZ OrigenAUX_ = resultaInf.resultInserccion + _section.RightDirection * 0 + new XYZ(0, 0, -0.5);
 
                     string _auxNombreFAmili = (_Config_EspecialCorte.ParaBarraHorizontalEnCorteViga == TipoTagBArraHorizontalENcorte.mostrarDiamtro
                                                 ? CONSTFami.NOmbre_Section_Diam
@@ -156,7 +151,7 @@ namespace Desglose.Dibujar2D
 
                     AnotacionMultipleBarraDTO _AnotacionMultipleBarraInfDTO = new AnotacionMultipleBarraDTO()
                     {
-                        Origen_ = OrigenAUX_ ,
+                        Origen_ = OrigenAUX_,
                         taghead_ = OrigenAUX_ + _section.RightDirection * 0.3,
                         nombrefamilia = _auxNombreFAmili //"MRA Rebar Section_"
                     };
@@ -164,12 +159,12 @@ namespace Desglose.Dibujar2D
                     _AnotacionMultipleBarra.CreateAnnotation(listaSup, _AnotacionMultipleBarraInfDTO);
                 }
 
-                //3) superiores
-        
+                //3) b)superiores
+
                 if (resultaSup.Isok)
                 {
 
-                    XYZ OrigenAUX_ = resultaSup.resultInserccion + _section.RightDirection * 0.3 + new XYZ(0, 0, 0.5);
+                    XYZ OrigenAUX_ = resultaSup.resultInserccion + _section.RightDirection * 0 + new XYZ(0, 0, 0.5);
 
                     string _auxNombreFAmili = (_Config_EspecialCorte.ParaBarraHorizontalEnCorteViga == TipoTagBArraHorizontalENcorte.mostrarDiamtro
                                                 ? CONSTFami.NOmbre_Section_Diam

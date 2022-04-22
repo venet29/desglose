@@ -157,7 +157,7 @@ namespace Desglose.Extension
         {
             CalcularALargosVU_maximoYmoin(MyFace);
 
-            return Math.Max(CurvePoints_Umax - CurvePoints_Umin, CurvePoints_Vmax - CurvePoints_Vmin);
+            return   Math.Max(CurvePoints_Umax - CurvePoints_Umin, CurvePoints_Vmax - CurvePoints_Vmin);
         }
 
         private static void CalcularALargosVU_maximoYmoin(Face MyFace)

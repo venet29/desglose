@@ -29,8 +29,10 @@ namespace Desglose.Tag.TipoBarraV
             XYZ _ptoTexto = (_rebarElevDTO.ptoini + _rebarElevDTO.ptofinal) / 2
                                  - direccionBArra* defaseTag - _rebarElevDTO.Config_EspecialElv.direccionMuevenBarrasFAlsa * 0.25;
 
-
-            TagP0_Tipo = M1_1_ObtenerTAgBarra(_ptoTexto, "MLBLetra", nombreDefamiliaBase + "_MLBLetra", escala);
+            if(_rebarElevDTO.Config_EspecialElv.TipoCasoAnalisis==Ayuda.CasoAnalisas.AnalisisHorizontal)
+                TagP0_Tipo = M1_1_ObtenerTAgBarra(_ptoTexto, "MLBLetra", nombreDefamiliaBase + "_MLBLetra", escala);
+            else
+                TagP0_Tipo = M1_1_ObtenerTAgBarra(_ptoTexto, "MLB", nombreDefamiliaBase + "_MLB", escala);
             listaTag.Add(TagP0_Tipo);
 
             AsignarPArametros(this);

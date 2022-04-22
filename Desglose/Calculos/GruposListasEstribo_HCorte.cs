@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ADesglose.Ayuda;
+using Desglose.Servicio;
 
 namespace Desglose.Calculos
 {
@@ -57,9 +58,13 @@ namespace Desglose.Calculos
                 item.Ordenar_AnalizarEstribo();
             }
 
-            //
+            
+            RebarDesglose _rebarDesglose_paraObteneHost = listaBArras[0]._rebarDesglose;
+            if (AyudsBuscarHost.BuscarHostMAsRepetido(listaBArras))
+                _rebarDesglose_paraObteneHost = AyudsBuscarHost._Result_HostDTo;
 
-            _DatosHost = new DatosHost( _uiapp, listaBArras[0]._rebarDesglose);
+
+            _DatosHost = new DatosHost( _uiapp, _rebarDesglose_paraObteneHost);
             if (!_DatosHost.ObtenerPtoMedio_conestribo()) return false;
             if (!_DatosHost.ObtenerCentroPilarOmUro()) return false;
 

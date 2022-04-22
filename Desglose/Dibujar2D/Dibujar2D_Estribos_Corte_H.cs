@@ -43,20 +43,14 @@ namespace Desglose.Dibujar2D
 
         public bool PreDibujar(View _view, View _viewOriginal, XYZ posicionInicial)
         {
-
             try
             {
-           
-
-        
                 XYZ posicionAUX = XYZ.Zero;
 
                 var listaEstribo= _rebarDesglose_GrupoBarras._GrupoRebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_V).ToList();
                 var listaTrabas = _rebarDesglose_GrupoBarras._GrupoRebarDesglose.Where(c => c._tipoBarraEspecifico == TipoRebar.ELEV_ES_VT).ToList();
 
-
                 double ZSleccion = posicionInicial.Z;
-
                 //ptoCentroPilarAlturaCOrte= _puntoCentrealHost.ProjectExtendidaXY0(_view.RightDirection, posicionInicial).AsignarZ(ZSleccion);
                 posicionInicial = _puntoCentrealHost.ProjectExtendidaXY0(_view.RightDirection, posicionInicial).AsignarZ(_puntoCentrealHost.Z);
 

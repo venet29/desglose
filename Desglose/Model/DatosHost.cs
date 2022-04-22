@@ -25,6 +25,8 @@ namespace Desglose.Model
         public XYZ CentroHost { get; set; }
         public double LargoMAximoHost_foot { get; set; }
         public XYZ Direccion_ParalelaView { get; internal set; }
+        public XYZ ptoInicia_CentroHost { get; private set; }
+        public XYZ ptoFin_CentroHost { get; private set; }
 
         public DatosHost(UIApplication _uiapp, RebarDesglose rebarDesglose)
         {
@@ -109,6 +111,10 @@ namespace Desglose.Model
 
                 var aux_Direccion_ParalelaView = CaraCentral.ObtenerListaCurvas().Where(c => !UtilDesglose.IsParallel(((Line)c).Direction, _view.ViewDirection)).FirstOrDefault();
                 Direccion_ParalelaView = ((Line)aux_Direccion_ParalelaView).Direction;
+
+
+                ptoInicia_CentroHost = CentroHost - Direccion_ParalelaView * LargoMAximoHost_foot / 2;
+                ptoFin_CentroHost = CentroHost + Direccion_ParalelaView * LargoMAximoHost_foot / 2;
             }
             catch (Exception ex)
             {
@@ -125,7 +131,7 @@ namespace Desglose.Model
             {
                 if (_doc == null) return false;
                 if (rebarDesglose == null) return false;
-                
+
                 host = _doc.GetElement(rebarDesglose._rebar?.GetHostId());
             }
             catch (Exception)

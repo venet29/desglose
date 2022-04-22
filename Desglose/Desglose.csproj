@@ -221,6 +221,7 @@
     <Compile Include="ParametrosShare\ManejadorCrearParametrosShare.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Seleccionar\SeleccionarDimensiones.cs" />
+    <Compile Include="Servicio\AyudsBuscarHost.cs" />
     <Compile Include="Tag\TipoEstiboCorte\FactoryGeomTagEstriboCorte.cs" />
     <Compile Include="Tag\GeomeTagArgs.cs" />
     <Compile Include="Tag\TipoBarraH\FactoryGeomTagRebarH.cs" />
@@ -259,7 +260,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config\" />
-    <Folder Include="Servicio\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Revit-icon_DESG.png" />

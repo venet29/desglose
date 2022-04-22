@@ -42,9 +42,9 @@ namespace Desglose.Tag.TipoEstiboCorte
                 LBarra = _EstribosRectagularesHortogonales.UbicacionDeL.AsignarZ(Zrefe);
                 string familiaL = "_L_normal";
                if (Config_EspecialCorte.TipoCOnfigLargo == TipoCOnfLargo.Aprox5)
-                    familiaL = "_L_normal";
+                    familiaL = "_L_5aprox";
                 else if (Config_EspecialCorte.TipoCOnfigLargo == TipoCOnfLargo.Aprox10)
-                    familiaL = "_L_normal";
+                    familiaL = "_L_10aprox";
                 TagP0_L = M1_1_ObtenerTAgBarra(LBarra, "LCorte", nombreDefamiliaBase + familiaL , escala);
                 listaTag.Add(TagP0_L);
 

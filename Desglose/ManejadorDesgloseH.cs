@@ -248,10 +248,11 @@ namespace Desglose
                 //seleccionar pto
                 SeleccionarElementosV _SeleccionarElementosV = new SeleccionarElementosV(_uiapp, true);
                 _SeleccionarElementosV.M1_1_CrearWorkPLane_EnCentroViewSecction();
-                var lista = CrearListaPtos.M2_ListaPtoSimple(_uiapp, 1);
+                var lista = CrearListaPtos.M2_ListaPtoSimple(_uiapp, 1, "1) Seleccionar punto para detalle barras");
+             
                 if (lista.Count == 0) return false;
-
-                XYZ posicionInicial = lista[0];
+                XYZ posicionInicialbarras = lista[0]+ -_CrearView.section.RightDirection*2;
+                XYZ posicionInicialEstribo = lista[0];
 
                 try
                 {
@@ -264,14 +265,14 @@ namespace Desglose
                         {
                             _Dibujar2D_Estribos_Corte.Dibujar();
                         }
-                        Dibujar2D_Barra_Corte_TAg_H _dibujar2D_Barra_Corte_TAg = new Dibujar2D_Barra_Corte_TAg_H(_uiapp,
-                                                            _GruposListasEstribo.listaBArrasEnElev, _GruposListasEstribo._DatosHost.CaraCentral, _Config_EspecialCorte);
+                        //Dibujar2D_Barra_Corte_TAg_H _dibujar2D_Barra_Corte_TAg = new Dibujar2D_Barra_Corte_TAg_H(_uiapp,
+                        //                                    _GruposListasEstribo.listaBArrasEnElev, _GruposListasEstribo._DatosHost.CaraCentral, _Config_EspecialCorte);
 
                         //   dibujar detalle de barras transversales
                         Dibujar2D_Barras_Corte_H _Dibujar2D_Barras_Corte_H = new Dibujar2D_Barras_Corte_H(_uiapp, _GruposListasEstribo, _Config_EspecialCorte);
                         if (_Dibujar2D_Barras_Corte_H.PreDibujar(_CrearView.section, _ViewOriginal))
                         {
-                            _Dibujar2D_Barras_Corte_H.Dibujar();
+                            _Dibujar2D_Barras_Corte_H.Dibujar(posicionInicialbarras);
                         }
 
                         t.Assimilate();
@@ -298,6 +299,9 @@ namespace Desglose
             if (IScrearCorte)
             {
                 List<XYZ> listaPto = _GruposListasEstribo.ListaPtoSeccion;// ()  CrearListaPtos.M2_ListaPtoSimple(_uiapp, 2);
+
+                if (listaPto==null) return false;
+
                 _CrearView = new CrearViewNH(_doc, _ui.dtnameCorte.Text);
 
                 XYZ origen = (listaPto[0] + listaPto[1]) * 0.5;
