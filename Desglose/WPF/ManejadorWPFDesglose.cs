@@ -18,10 +18,12 @@ namespace Desglose.WPF
         // ModelessForm instance
         private UI_desglose _mMyForm;
         private UIApplication _UIapp;
+        private string _caso;
 
-        public ManejadorWPFDesglose(UIApplication _uiapp)
+        public ManejadorWPFDesglose(UIApplication _uiapp, string caso)
         {
             _UIapp = _uiapp;
+            _caso = caso;
 
         }
 
@@ -48,7 +50,7 @@ namespace Desglose.WPF
             EventHandlerWithWpfArg evWpf = new EventHandlerWithWpfArg();
 
             // The dialog becomes the owner responsible for disposing the objects given to it.
-            _mMyForm = new UI_desglose(_UIapp, evStr, evWpf);
+            _mMyForm = new UI_desglose(_UIapp, evStr, evWpf, _caso);
            // _mMyForm.dtTipo.SelectedItem = TipoBarraTraslapoDereArriba.f1;
             _mMyForm.Show();
         }

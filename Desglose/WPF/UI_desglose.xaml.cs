@@ -195,15 +195,21 @@ namespace Desglose.WPF
         }
 
 
+
+
+        public System.Windows.Visibility IsVisibleDesglose { get; set; }
+        public System.Windows.Visibility IsVisibleConfiguracion { get; set; }
+        public int AnchoTab { get; set; }
+        public bool IsTabActivaDesglose { get; set; }
+        public bool IsTabActivaCOnfig { get; set; }
         //private readonly UIApplication _uiApp;
         //private readonly Autodesk.Revit.ApplicationServices.Application _app;
         private readonly UIDocument _uiDoc;
 
         private readonly EventHandlerWithStringArg _mExternalMethodStringArg;
         private readonly EventHandlerWithWpfArg _mExternalMethodWpfArg;
-     //  public SeleccionarPathReinfomentConPto _seleccionarPathReinfomentConPto { get; set; }
-        public UI_desglose(UIApplication uiApp, EventHandlerWithStringArg evExternalMethodStringArg,
-            EventHandlerWithWpfArg eExternalMethodWpfArg)
+        //  public SeleccionarPathReinfomentConPto _seleccionarPathReinfomentConPto { get; set; }
+        public UI_desglose(UIApplication uiApp, EventHandlerWithStringArg evExternalMethodStringArg, EventHandlerWithWpfArg eExternalMethodWpfArg, string caso)
         {
             _uiApp = uiApp;
             _uiDoc = uiApp.ActiveUIDocument;
@@ -218,6 +224,9 @@ namespace Desglose.WPF
             _mExternalMethodWpfArg = eExternalMethodWpfArg;
 
             this.Topmost = true;
+
+
+
             IsVisibleTolerancia = System.Windows.Visibility.Hidden;
             IsVisibleToleranciaCuantia = System.Windows.Visibility.Hidden;
 
@@ -229,8 +238,23 @@ namespace Desglose.WPF
             ListaDiam = new ObservableCollection<float>() { 8, 10, 12, 16, 18, 22, 25, 28, 32, 36 };
 
             ListaEstribo = new ObservableCollection<string>() { "Derecha", "Izquierda", "Superior", "Inferior" };
-        
 
+            if (caso == "Desglose")
+            {
+                IsVisibleDesglose = System.Windows.Visibility.Visible;
+                IsVisibleConfiguracion = System.Windows.Visibility.Hidden;
+                IsTabActivaDesglose = true;
+                IsTabActivaCOnfig = false;
+                AnchoTab = 100;
+            }
+            else if (caso == "Configuracion")
+            {
+                IsVisibleDesglose = System.Windows.Visibility.Hidden;
+                IsVisibleConfiguracion = System.Windows.Visibility.Visible;
+                AnchoTab = 0;
+                IsTabActivaDesglose = false;
+                IsTabActivaCOnfig = true;
+            }
         }
 
 
@@ -326,9 +350,9 @@ namespace Desglose.WPF
                 ListaPAraShare = listaPAra,
                 tolerancia = Util.ConvertirStringInDouble(dtTole.Text),
                 TipoCasoAnalisis = (cbx_CasoCorte.Text.Contains("Vertical") ? CasoAnalisas.AnalsisVertical : CasoAnalisas.AnalisisHorizontal),
-                DiamtroLateralMax= Util.ConvertirStringInInteger(cbx_diamMaxLat.Text), // falta interfase
+                DiamtroLateralMax = Util.ConvertirStringInInteger(cbx_diamMaxLat.Text), // falta interfase
                 ParaBarraHorizontalEnCorteViga = (cbx_tipocuantiaLong.Text == "Definir" ? TipoTagBArraHorizontalENcorte.segunElevacion : TipoTagBArraHorizontalENcorte.mostrarDiamtro), // falta interfase
-                dire=-1
+                dire = -1
             };
 
             return _Config_EspecialCorte;
@@ -364,8 +388,8 @@ namespace Desglose.WPF
                 tipoBarraElev_parameterShare = _newParaMe,
                 IsAgregarId = ((bool)chb_id.IsChecked ? true : false),
                 TipoCasoAnalisis = (cbx_CasoElev.Text.Contains("Vertical") ? CasoAnalisas.AnalsisVertical : CasoAnalisas.AnalisisHorizontal),
-                DiamtroLateralMax= Util.ConvertirStringInInteger(cbx_diamMaxLatElevHor.Text)
-             };
+                DiamtroLateralMax = Util.ConvertirStringInInteger(cbx_diamMaxLatElevHor.Text)
+            };
 
             return _Config_EspecialElev;
         }

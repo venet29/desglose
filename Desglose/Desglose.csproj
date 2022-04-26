@@ -91,6 +91,8 @@
     <Compile Include="Barras\Tipo\ParaEstriboElevacion\EstriboVigaTrabaElev.cs" />
     <Compile Include="Barras\Tipo\ParaEstriboElevacion\EstriboVigaLatelaElev.cs" />
     <Compile Include="Barras\Tipo\ParaEstriboElevacion\EstriboVigaElv.cs" />
+    <Compile Include="Borrar\BorrarFamilia.cs" />
+    <Compile Include="Borrar\DefinicionBorrarManejador.cs" />
     <Compile Include="BuscarTipos\TiposFamilyRebar.cs" />
     <Compile Include="BuscarTipos\TiposPathReinTags.cs" />
     <Compile Include="BuscarTipos\TiposPathReinTagsFamilia.cs" />
@@ -116,7 +118,6 @@
     <Compile Include="Ayuda\CrearViewNH.cs" />
     <Compile Include="Buscar\GeometriaBase.cs" />
     <Compile Include="Dimensiones\DimensionesDatosTextoDTO.cs" />
-    <Compile Include="DImensionNh\cmd_Dimension.cs" />
     <Compile Include="DImensionNh\CrearTipoDimension.cs" />
     <Compile Include="DImensionNh\SeleccionarDimensiones.cs" />
     <Compile Include="DTO\ConfiguracionIniciaWPFlBarraVerticalDTO.cs" />

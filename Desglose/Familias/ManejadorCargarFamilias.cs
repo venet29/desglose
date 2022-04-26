@@ -18,17 +18,18 @@ namespace Desglose.Familias
         // public Dictionary<string, string> listaImagenes = new Dictionary<string, string>(20);
         List<Tuple<string, string>> listaRutasFamilias = new List<Tuple<string, string>>();
         public Dictionary<string, string> listaImagenes = new Dictionary<string, string>(20);
-      
+        private  bool IsRecargar;
 
         public Document doc { get; set; }
         #endregion
 
         #region 1)constructor
 
-        public ManejadorCargarFAmilias(UIApplication uidoc)
+        public ManejadorCargarFAmilias(UIApplication uidoc, bool IsRecargar=false)
         {
             this.doc = uidoc.ActiveUIDocument.Document;
             rutaRaiz = rutaRaiz + AgregarVErsion(uidoc.Application.VersionNumber);
+            this.IsRecargar = IsRecargar;
         }
 
         private string AgregarVErsion(string _VerSIon)
@@ -77,6 +78,10 @@ namespace Desglose.Familias
                         // Element elem = FiltroGetFamilySymbolByName.FindElementByName(doc, typeof(Family), NombreFamilia.Key);
                         //si no encuentra familia cargarla
                         if (fam == null && File.Exists(RutaFAmilis))
+                        {
+                            doc.LoadFamily(RutaFAmilis, out fam);
+                        }
+                        else if (IsRecargar && File.Exists(RutaFAmilis))
                         {
                             doc.LoadFamily(RutaFAmilis, out fam);
                         }

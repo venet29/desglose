@@ -1,6 +1,8 @@
-﻿using Autodesk.Revit.UI;
+﻿
+using Autodesk.Revit.UI;
 
 using Desglose.Ayuda;
+using Desglose.Borrar;
 using Desglose.DTO;
 
 namespace Desglose.WPF
@@ -71,16 +73,38 @@ namespace Desglose.WPF
                 _ui.Show();
             }
 
-            else if (tipoPosiicon == "Bton_config")
+            else if (tipoPosiicon == "Bton_Cargarconfig")
             {
                 _ui.Hide();
 
                 ManejadorConfiguracionDesglose.cargar(_uiapp, true);
                 _ui.Show();
             }
-
-
-   
+            else if (tipoPosiicon == "Bton_RecargarFamilias")
+            {
+                _ui.Hide();
+                //recargar familias
+                ManejadorConfiguracionDesglose.RecargarFamilias(_uiapp, true);
+                _ui.Show();
+            }            
+            else if (tipoPosiicon == "Bton_BorrarFamilia")
+            {
+                _ui.Hide();
+                //recargar familias
+                BorrarFamilia _BorrarFamilia = new BorrarFamilia(_uiapp);
+                _BorrarFamilia.BorrarTodasLasFamilias();
+                
+                _ui.Show();
+            }
+            else if (tipoPosiicon == "Bton_BorrarConfi")
+            {
+                _ui.Hide();
+                //recargar familias
+                DefinicionBorrarManejador _DefinicionBorrarManejador = new DefinicionBorrarManejador(_uiapp);
+                _DefinicionBorrarManejador.EjecutarBorrarParametros();
+     
+                _ui.Show();
+            }
             //CargarCambiarPathReinfomenConPto_Wpf
         }
 
