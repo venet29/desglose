@@ -199,9 +199,12 @@ namespace Desglose.WPF
 
         public System.Windows.Visibility IsVisibleDesglose { get; set; }
         public System.Windows.Visibility IsVisibleConfiguracion { get; set; }
+        public System.Windows.Visibility IsVisibleBorrar { get; set; }
         public int AnchoTab { get; set; }
+        public int AnchoTabConfig { get; set; }
         public bool IsTabActivaDesglose { get; set; }
         public bool IsTabActivaCOnfig { get; set; }
+        public bool IsTabActivaBorrar { get; set; }
         //private readonly UIApplication _uiApp;
         //private readonly Autodesk.Revit.ApplicationServices.Application _app;
         private readonly UIDocument _uiDoc;
@@ -243,17 +246,36 @@ namespace Desglose.WPF
             {
                 IsVisibleDesglose = System.Windows.Visibility.Visible;
                 IsVisibleConfiguracion = System.Windows.Visibility.Hidden;
+                IsVisibleBorrar = System.Windows.Visibility.Hidden;
                 IsTabActivaDesglose = true;
                 IsTabActivaCOnfig = false;
+                IsTabActivaBorrar = false;
                 AnchoTab = 100;
             }
             else if (caso == "Configuracion")
             {
                 IsVisibleDesglose = System.Windows.Visibility.Hidden;
                 IsVisibleConfiguracion = System.Windows.Visibility.Visible;
+                IsVisibleBorrar = System.Windows.Visibility.Hidden;
                 AnchoTab = 0;
+                AnchoTabConfig = 100;
                 IsTabActivaDesglose = false;
                 IsTabActivaCOnfig = true;
+                IsTabActivaBorrar=false;
+
+
+            }
+            else if (caso == "Borrar")
+            {
+                IsVisibleDesglose = System.Windows.Visibility.Hidden;
+                IsVisibleConfiguracion = System.Windows.Visibility.Hidden;
+                IsVisibleBorrar = System.Windows.Visibility.Visible;
+                AnchoTab = 0;
+                AnchoTabConfig = 0;
+                IsTabActivaDesglose = false;
+                IsTabActivaCOnfig = false;
+                IsTabActivaBorrar = true;
+
             }
         }
 

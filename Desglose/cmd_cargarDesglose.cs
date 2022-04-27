@@ -9,6 +9,7 @@ using Desglose.Anotacion;
 using Desglose.Ayuda;
 using Autodesk.Revit.DB;
 using Desglose.DImensionNh;
+using Desglose.Seleccionar;
 
 namespace Desglose
 {
@@ -115,8 +116,9 @@ namespace Desglose
     }
 
 
+
     [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
-    public class cmd_CrearAnno : IExternalCommand
+    public class cmd_Borrar: IExternalCommand
     {
 
         /// <summary>
@@ -137,29 +139,9 @@ namespace Desglose
         /// the operation.</returns>
         public Autodesk.Revit.UI.Result Execute(ExternalCommandData commandData, ref string message, Autodesk.Revit.DB.ElementSet elements)
         {
-            Document _doc = commandData.Application.ActiveUIDocument.Document;
-            AnotacionMultipleBarra _AnotacionMultipleBarra = new AnotacionMultipleBarra(commandData.Application, commandData.Application.ActiveUIDocument.ActiveView, -1);
-
-            var lista = CrearListaPtos.M2_ListaPtoSimple(commandData.Application, 2);
-            if (lista.Count == 0) return Result.Cancelled;
-
-            List<ElementId> listat = new List<ElementId>() {
-            new ElementId(493875),new ElementId(493926)  ,new ElementId(493896)
-            };
-
-            AnotacionMultipleBarraDTO _AnotacionMultipleBarraDTO = new AnotacionMultipleBarraDTO()
-            {
-                Origen_ = lista[0],
-                taghead_ = lista[1],
-                nombrefamilia = "MRA Rebar Section"
-            };
-            _AnotacionMultipleBarra.CreateAnnotation(listat, _AnotacionMultipleBarraDTO);
-            return Result.Succeeded;
-
-
+            ManejadorWPFDesglose _ManejadorWPFDesglose = new ManejadorWPFDesglose(commandData.Application, "Borrar");
+            return _ManejadorWPFDesglose.Execute();
+     
         }
-
     }
-
-
 }

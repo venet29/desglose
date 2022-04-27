@@ -4,6 +4,7 @@ using Autodesk.Revit.UI;
 using Desglose.Ayuda;
 using Desglose.Borrar;
 using Desglose.DTO;
+using Desglose.Seleccionar;
 
 namespace Desglose.WPF
 {
@@ -103,6 +104,24 @@ namespace Desglose.WPF
                 DefinicionBorrarManejador _DefinicionBorrarManejador = new DefinicionBorrarManejador(_uiapp);
                 _DefinicionBorrarManejador.EjecutarBorrarParametros();
      
+                _ui.Show();
+            }
+            else if (tipoPosiicon == "Bton_BorrarElev")
+            {
+                _ui.Hide();
+                //recargar familias
+                SeleccionarDetalles _SeleccionarDetalles = new SeleccionarDetalles(_uiapp);
+                _SeleccionarDetalles.SeleccionarElevaciones();
+
+                _ui.Show();
+            }
+            else if (tipoPosiicon == "Bton_BorrarCorte")
+            {
+                _ui.Hide();
+                //recargar familias
+
+                SeleccionarDetallesCorte _SeleccionarDetalles = new SeleccionarDetallesCorte(_uiapp);
+                _SeleccionarDetalles.SeleccionarElevacionCorte();
                 _ui.Show();
             }
             //CargarCambiarPathReinfomenConPto_Wpf

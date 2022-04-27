@@ -93,9 +93,9 @@
                             <TextBox x:Name="dtNombre" Grid.Row="4" Grid.Column="2"  Height="30" Text="A" TextAlignment="Center"  VerticalContentAlignment="Center"
                                      Visibility="{Binding IsVisibleElevVertical, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-                            <Button x:Name="btnGenerar_Elev" Click="BExternalMethod1_Click" Grid.Row="3" Grid.Column="4" Height="25" Width="80" Content="Generar" ToolTip="Crear barras de elevacion"></Button>
+                            <Button x:Name="btnGenerar_Elev" Click="BExternalMethod1_Click" Grid.Row="3" Grid.Column="4" Height="25" Width="80" Content="Generar" ToolTip="Crear barras de elevacion" Background="#FFF9F9F9"></Button>
                             <Button x:Name="btnActualizar" Click="BExternalMethod1_Click" Grid.Row="4" Grid.Column="4" Height="25" Width="80" Content="Actualizar" 
-                                    ToolTip="Actualiza datos de pathReinforment previamente seleccionado" Visibility="{Binding IsVisibleElevVertical, UpdateSourceTrigger=PropertyChanged}"></Button>
+                                    ToolTip="Actualiza datos de pathReinforment previamente seleccionado" Visibility="{Binding IsVisibleElevVertical, UpdateSourceTrigger=PropertyChanged}" Background="#FFF9F9F9"></Button>
 
                             <!-- caso horziotal-->
                             <Label Content="Ø Max Lat " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3"  
@@ -153,7 +153,7 @@
                         </ComboBox>
                         <Label Grid.Row="2" Grid.Column="0">Nombre</Label>
                         <TextBox x:Name="dtnameCorte" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"  Text="Seccion" TextAlignment="Center" Margin="0,1,1,5"  VerticalContentAlignment="Center" ></TextBox>
-                        <Button Name="GenCorteV" Grid.Row="6" Grid.Column="3"   Height="25" Click="BExternalMethod1_Click" Width="100"  HorizontalAlignment="Right" Content="Generar Corte" ></Button>
+                        <Button Name="GenCorteV" Grid.Row="6" Grid.Column="3"   Height="25" Click="BExternalMethod1_Click" Width="100"  HorizontalAlignment="Right" Content="Generar Corte" Background="#FFF9F9F9" ></Button>
 
                         <Label Content="Largo" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" />
                         <ComboBox Name="cbx_TipoLargo" Grid.Row="3"  Grid.Column="1" Height="20" Width="90" HorizontalContentAlignment="Center" DropDownClosed="Cbx_TipoLargo_DropDownClosed" >
@@ -187,7 +187,7 @@
 
 
                         <!-- caso horizontal-->
-                     
+
                         <Label Content="Cuantia Long " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" 
                                ToolTip="Cuantia de barra longitudinal" Visibility="{Binding IsVisibleCorteHorizontal, UpdateSourceTrigger=PropertyChanged}"/>
                         <ComboBox Name="cbx_tipocuantiaLong" Grid.Row="5"  Grid.Column="1" Height="20" Width="90" HorizontalContentAlignment="Center"
@@ -212,8 +212,11 @@
             </TabItem>
 
 
-            <TabItem x:Name="EditPAth" IsSelected="{Binding IsTabActivaCOnfig, UpdateSourceTrigger=PropertyChanged}" 
-                     BorderBrush="{x:Null}" Background="{x:Null}" Visibility="{Binding IsVisibleConfiguracion, UpdateSourceTrigger=PropertyChanged}" Margin="0,-2,-4,-2"    Padding="5,0,5,0">
+            <TabItem x:Name="EditPAth" 
+                     IsSelected="{Binding IsTabActivaCOnfig, UpdateSourceTrigger=PropertyChanged}" 
+                     BorderBrush="{x:Null}" Background="{x:Null}"
+                     Visibility="{Binding IsVisibleConfiguracion, UpdateSourceTrigger=PropertyChanged}" 
+                     Width="{Binding AnchoTabConfig, UpdateSourceTrigger=PropertyChanged}" Margin="0,-2,-4,-2"    Padding="5,0,5,0">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Configuración" />
@@ -235,20 +238,58 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20" />
                             <ColumnDefinition Width="1*" />
-                       
+
 
                             <ColumnDefinition Width="20" />
 
                         </Grid.ColumnDefinitions>
 
-                        <Button Name="Bton_Cargarconfig" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  Height="25" Click="BExternalMethod1_Click" Width="140"  Content="Cargar configuraciones" ></Button>
-                        <Button Name="Bton_RecargarFamilias" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"  Height="25" Click="BExternalMethod1_Click" Width="140"  Content="Recargar Familias" ></Button>
-                        <Button Name="Bton_BorrarFamilia" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center"  Height="25" Click="BExternalMethod1_Click" Width="140"  Content="Borrar Familias" ></Button>
-                        <Button Name="Bton_BorrarConfi" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center"  Height="25" Click="BExternalMethod1_Click" Width="140"  Content="Borrar Configuracion" ></Button>
+                        <Button Name="Bton_Cargarconfig" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  Height="25" Click="BExternalMethod1_Click" Width="140"  Content="Cargar configuraciones" BorderBrush="#FFAEA0A0" Background="#FFF9F9F9" ></Button>
+                        <Button Name="Bton_RecargarFamilias" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"  Height="25" Click="BExternalMethod1_Click" Width="140"  Content="Recargar Familias" Background="#FFF9F9F9" ></Button>
+                        <Button Name="Bton_BorrarFamilia" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center"  Height="25" Click="BExternalMethod1_Click" Width="140"  Content="Borrar Familias" Background="#FFF9F9F9" ></Button>
+                        <Button Name="Bton_BorrarConfi" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center"  Height="25" Click="BExternalMethod1_Click" Width="140"  Content="Borrar Configuracion" Background="#FFF9F9F9" ></Button>
                     </Grid>
                 </GroupBox>
             </TabItem>
 
+            <TabItem x:Name="BorrarPAth"
+                     IsSelected="{Binding IsTabActivaBorrar, UpdateSourceTrigger=PropertyChanged}" 
+                     BorderBrush="{x:Null}" Background="{x:Null}"
+                     Visibility="{Binding IsVisibleBorrar, UpdateSourceTrigger=PropertyChanged}" Margin="0,-2,-4,-2"    Padding="5,0,5,0">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Borrar" />
+                    </StackPanel>
+                </TabItem.Header>
+
+                <GroupBox x:Name="pathBorrar" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Header="Datos"  Margin="10,5,10,5" >
+
+                    <Grid Margin="0,0,0,1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="10" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="1*" />
+
+
+                            <ColumnDefinition Width="20" />
+
+                        </Grid.ColumnDefinitions>
+
+                        <Button Name="Bton_BorrarElev" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  Height="25" Click="BExternalMethod1_Click" Width="140"  Content="Borrar Elevaciones" BorderBrush="#FFAEA0A0" Background="#FFF9F9F9" ></Button>
+
+                        <Button Name="Bton_BorrarCorte" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center"  Height="25" Click="BExternalMethod1_Click" Width="140"  Content="Borrar Cortes" Background="#FFF9F9F9" ></Button>
+                        
+                    </Grid>
+                </GroupBox>
+            </TabItem>
 
 
         </TabControl>

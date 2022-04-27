@@ -35,7 +35,7 @@ namespace Desglose.Borrar
             try
             {
                 var listaRutasFamilias = FactoryCargarFamilias.CrearDiccionarioRutasFamilias("");
-           
+                ObtenerListaFamilias();
                 foreach (var item in listaRutasFamilias)
                 {
                     Family famToDelete = OBtenerFamiliaPorNombre(item.Item1);
