@@ -39,6 +39,9 @@ namespace Desglose
 
         public bool EjecutarDibujarBarrasEnElevacionV(Config_EspecialElev _Config_EspecialElv)
         {
+
+
+
             try
             {
 

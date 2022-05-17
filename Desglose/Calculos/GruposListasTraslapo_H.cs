@@ -16,6 +16,7 @@ namespace Desglose.Calculos
     class GruposListasTraslapo_H
     {
         private UIApplication _uiapp;
+        private View _view;
         private List<RebarDesglose> lista_RebarDesglose;
         private Config_EspecialElev config_EspecialElv;
         private TraslapoBarrasH _newTraslapoBarrasH;
@@ -25,6 +26,7 @@ namespace Desglose.Calculos
         public GruposListasTraslapo_H(UIApplication uiapp, List<RebarDesglose> lista_RebarDesglose, Config_EspecialElev _Config_EspecialElv)
         {
             this._uiapp = uiapp;
+            this._view = uiapp.ActiveUIDocument.ActiveView;
             this.lista_RebarDesglose = lista_RebarDesglose;
             config_EspecialElv = _Config_EspecialElv;
             this.GruposRebarMismaLinea_Colineal = new List<RebarDesglose_GrupoBarras_H>();
@@ -129,6 +131,8 @@ namespace Desglose.Calculos
                 XYZ ptoInicial = Trasform.EjecutarTransformInvertida(ptoInicial_trans);
                 XYZ ptofinal = Trasform.EjecutarTransformInvertida(ptofinal_trans);
 
+                ptoInicial = _view.NH_ObtenerPtoSObreVIew(ptoInicial);
+                ptofinal = _view.NH_ObtenerPtoSObreVIew(ptofinal);
                 TipobarraH tipobarr = barraAnalizada_inf._rebarDesglose.TipobarraH_;
                 double largoTraslapo = ptoInicial.DistanceTo(ptofinal);
 

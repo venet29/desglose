@@ -5,6 +5,7 @@ using System.Diagnostics;
 
 using Desglose.Ayuda;
 using Desglose.Entidades;
+using Desglose.Extension;
 
 namespace Desglose.Entidades
 {
@@ -41,6 +42,9 @@ namespace Desglose.Entidades
         public XYZ ptoFinalSinTrans { get; private set; }
         public XYZ ptoInicialSinTrans { get; private set; }
 
+        //**para corte
+        public double distanciaPtoSeleccion { get; private set; }
+        public double distanciaPtoSeleccion_api { get; private set; }
 
         public WraperRebarLargo()
         { }
@@ -72,7 +76,30 @@ namespace Desglose.Entidades
             //  else
             //   Debug.WriteLine($" Linea   ---->  PInic: {ptoInicial.REdondearString(3)}\n pmedio : {ptoMedio.REdondearString(3)}   pmedio(true)  {_curve.Evaluate(0.5, true)} \npfinal : {ptoFinal.REdondearString(3)}  dire:{direccion} ");
         }
+
+
+
         public void Generar(XYZ puntoSobreBArra)
+        {
+            try
+            {
+                XYZ ptoSobre = ((Line)_curve).ProjectSINExtendida3D(puntoSobreBArra);
+                distanciaPtoSeleccion = ptoSobre.DistanceTo(puntoSobreBArra);
+                distanciaPtoSeleccion_api = _curve.Distance(puntoSobreBArra);
+                if (distanciaPtoSeleccion_api > 0.1) return;
+
+                ReGenerar(puntoSobreBArra);
+            }
+            catch (Exception)
+            {
+
+                IsOK = false;
+            }
+            IsOK = true;
+        }
+
+
+        public void ReGenerar(XYZ puntoSobreBArra)
         {
             try
             {
@@ -142,7 +169,7 @@ namespace Desglose.Entidades
                     alargarFin = alargarFin,
                     IsOK = IsOK,
                     PtoInicialTransformada = AUXTranf_ptoInicial,
-                    PtoFinalTransformada = AUXTranf_ptoMedio,
+                    PtoFinalTransformada =  AUXTranf_ptoMedio,
                     PtoMedioTransformada = AUXTranf_ptoCentroArc,
                 };
             }

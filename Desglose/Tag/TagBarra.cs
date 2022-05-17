@@ -86,7 +86,7 @@ namespace Desglose.Tag
 
         public void DibujarTagrREbarLosa(Element element, Document doc, View viewActual, XYZ desplazamientoPathReinSpanSymbol)
         {
-            if (valorTag != "")
+            if (valorTag == "1")  // para que funcione   !=""
             {
                 // crea los texto de los lados de los estribos desglosado en corte de pilares
                 AyudaCreartexto.M4_CrearTExtoSinTrans(doc, posicion, valorTag, "2.5mm Arial Narrow", 0, TipoCOloresTexto.negro);

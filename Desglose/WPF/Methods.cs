@@ -1,4 +1,5 @@
 ﻿
+using ArmaduraLosaRevit.Model.UpdateGenerar;
 using Autodesk.Revit.UI;
 
 using Desglose.Ayuda;
@@ -21,7 +22,8 @@ namespace Desglose.WPF
 
 
 
-
+            UpdateGeneral _updateGeneral = new UpdateGeneral(_uiapp);
+            _updateGeneral.M3_DesCargarBarras();
 
             string tipoPosiicon = _ui.BotonOprimido;
   
@@ -125,6 +127,9 @@ namespace Desglose.WPF
                 _ui.Show();
             }
             //CargarCambiarPathReinfomenConPto_Wpf
+
+            _updateGeneral.M4_CargarGenerar();
+
         }
 
 

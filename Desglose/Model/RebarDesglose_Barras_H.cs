@@ -220,6 +220,7 @@ namespace Desglose.Model
             }
             return _newRebarElevDTO;
         }
+
         public RebarElevDTO ObtenerRebarCorteDTO(XYZ posicionAUX, XYZ ptocentroHost, UIApplication _uiapp, View _view, View _viewOriginal, Config_EspecialCorte _Config_EspecialCorte)
         {
             var AuxTRans_ListaCurvaBarras = new List<WraperRebarLargo>();

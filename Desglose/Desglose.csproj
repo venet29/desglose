@@ -125,6 +125,7 @@
     <Compile Include="DTO\ConfiguracionTAgEstriboDTo.CS" />
     <Compile Include="DTO\Config_DatosEstriboElevVigas.cs" />
     <Compile Include="DTO\TraslapoBarrasH.cs" />
+    <Compile Include="EditarRebar\CreadorListaWraperRebarLargo.cs" />
     <Compile Include="enumNh\enumDesglose.cs" />
     <Compile Include="enumNh\Enumeracion.cs" />
     <Compile Include="enumNh\EnumeracionBuscador.cs" />
@@ -250,6 +251,10 @@
     <Compile Include="Tag\TipoEstriboElevacion\GeomeTagLateralesVigaElev.cs" />
     <Compile Include="Tag\TipoEstriboElevacion\GeomeTagTrabaVigaElev.cs" />
     <Compile Include="TextoNoteNH\FActoryTipoTextNOte.cs" />
+    <Compile Include="UpdateGenerar\UpdateGeneral.cs" />
+    <Compile Include="UpDate\ManejadorUpdateRebar.cs" />
+    <Compile Include="UpDate\UpdaterBarrasRebar.cs" />
+    <Compile Include="UpDate\Casos\UpdateRebarElevaciones.cs" />
     <Compile Include="Util\CrearTexNote.cs" />
     <Compile Include="Util\DTO\TipoTextoDTO.cs" />
     <Compile Include="Visibilidad\FactoryColores.cs" />

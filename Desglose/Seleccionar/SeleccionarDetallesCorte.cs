@@ -56,7 +56,7 @@ namespace Desglose.Seleccionar
                 return false;
             }
 
-            Util.InfoMsg("Proceso Terminado");
+           // Util.InfoMsg("Proceso Terminado");
             return true;
 
         }

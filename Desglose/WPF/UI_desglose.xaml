@@ -283,9 +283,9 @@
 
                         </Grid.ColumnDefinitions>
 
-                        <Button Name="Bton_BorrarElev" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"  Height="25" Click="BExternalMethod1_Click" Width="140"  Content="Borrar Elevaciones" BorderBrush="#FFAEA0A0" Background="#FFF9F9F9" ></Button>
+                        <Button Name="Bton_BorrarElev" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top"  Height="30" Click="BExternalMethod1_Click" Width="140"  Content="Borrar Elevaciones" BorderBrush="#FFAEA0A0" Background="#FFF9F9F9" ></Button>
 
-                        <Button Name="Bton_BorrarCorte" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center"  Height="25" Click="BExternalMethod1_Click" Width="140"  Content="Borrar Cortes" Background="#FFF9F9F9" ></Button>
+                        <Button Name="Bton_BorrarCorte" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Height="30" Click="BExternalMethod1_Click" Width="140"  Content="Borrar Cortes" Background="#FFF9F9F9" ></Button>
                         
                     </Grid>
                 </GroupBox>

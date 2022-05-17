@@ -34,6 +34,9 @@ namespace Desglose.Familias
 
         private string AgregarVErsion(string _VerSIon)
         {
+            //dejar todo en la misma carpeta
+            return @"\";
+
             if (_VerSIon.Contains("2018")) return @"\18\";
 
             if (_VerSIon.Contains("2019")) return @"\19\";

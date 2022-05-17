@@ -41,6 +41,7 @@ namespace Desglose.Geometria
                 if (sololist.Count == 0) return false;
 
                 var ladoMAsLArgo = sololist[0];
+
                 XYZ _DidreccionZ = new XYZ(0, 0, 1);
                 UbicacionSup_ValorLArgo = Math.Round(Util.FootToCm(ladoMAsLArgo._curve.Length), 0).ToString();
 

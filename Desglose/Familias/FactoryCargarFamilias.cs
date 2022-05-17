@@ -28,6 +28,9 @@ namespace Desglose.Familias
             listaRutasFamilias.Add(new Tuple<string, string>("M_Structural MRA Rebar SectionLAT_", rutaRaiz + @"M_Structural MRA Rebar SectionLat_.rfa"));
             listaRutasFamilias.Add(new Tuple<string, string>("M_Structural MRA Rebar Section_SegunElev_", rutaRaiz + @"M_Structural MRA Rebar Section_SegunElev.rfa"));
 
+            listaRutasFamilias.Add(new Tuple<string, string>("M_Structural MRA Rebar LAncho", rutaRaiz + @"M_Structural MRA Rebar LAncho.rfa"));//_ancho_
+            listaRutasFamilias.Add(new Tuple<string, string>("M_Structural MRA Rebar LALto", rutaRaiz + @"M_Structural MRA Rebar LAlto.rfa"));//_alto_
+
             listaRutasFamilias.Add(new Tuple<string, string>("M_Structural MRA Rebar LT", rutaRaiz + @"M_Structural MRA Rebar LT.rfa"));//_L_
             listaRutasFamilias.Add(new Tuple<string, string>("M_Structural MRA Rebar LP", rutaRaiz + @"M_Structural MRA Rebar LP.rfa"));//_C_ 
             listaRutasFamilias.Add(new Tuple<string, string>("M_Structural MRA Rebar TR", rutaRaiz + @"M_Structural MRA Rebar TR.rfa"));//_TR_ 

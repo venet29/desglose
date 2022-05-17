@@ -10,13 +10,13 @@ namespace Desglose.Tag.TipoEstiboCorte
 {
     public class GeomeTagTrabaVigaCorte : GeomeTagBaseV, IGeometriaTag
     {
-        private Config_EspecialCorte Config_EspecialCorte;
+        private Config_EspecialCorte Config_EspecialCorte_;
 
         public GeomeTagTrabaVigaCorte(UIApplication _uiapp, RebarElevDTO _RebarElevDTO) :
             base(_uiapp, _RebarElevDTO)
         {
 
-            Config_EspecialCorte = _RebarElevDTO.Config_EspecialCorte;
+            Config_EspecialCorte_ = _RebarElevDTO.Config_EspecialCorte;
         }
 
 
@@ -31,7 +31,7 @@ namespace Desglose.Tag.TipoEstiboCorte
                 CentroBarra = _EstribosRectagularesHortogonales.UbicacionDeF;//.AsignarZ(Zrefe);
 
                 string familiaF = "_F_normal";
-                if (Config_EspecialCorte.TipoCOnfigCuantia == TipoCOnfCuantia.SegunPlano)
+                if (Config_EspecialCorte_.TipoCOnfigCuantia == TipoCOnfCuantia.SegunPlano)
                     familiaF = "_F_segun";
 
                 TagP0_F = M1_1_ObtenerTAgBarra(CentroBarra, "FCorte", nombreDefamiliaBase + familiaF , escala);
@@ -40,18 +40,31 @@ namespace Desglose.Tag.TipoEstiboCorte
                 //largo
                 LBarra = _EstribosRectagularesHortogonales.UbicacionDeL;//.AsignarZ(Zrefe);
                 string familiaL = "_L_normal";
-                if (Config_EspecialCorte.TipoCOnfigLargo == TipoCOnfLargo.Aprox5)
+                if (Config_EspecialCorte_.TipoCOnfigLargo == TipoCOnfLargo.Aprox5)
                     familiaL = "_L_normal";//_L_5aprox_
-                else if (Config_EspecialCorte.TipoCOnfigLargo == TipoCOnfLargo.Aprox10)
+                else if (Config_EspecialCorte_.TipoCOnfigLargo == TipoCOnfLargo.Aprox10)
                     familiaL = "_L_normal";//_L_10aprox_
                 TagP0_L = M1_1_ObtenerTAgBarra(LBarra, "LCorte", nombreDefamiliaBase + familiaL , escala);
                 listaTag.Add(TagP0_L);
 
                 //parte
                 XYZ textoSup = _EstribosRectagularesHortogonales.UbicacionSup;
-                TagP0_ancho_ = M1_1_ObtenerTAgBarra(textoSup, "Ancho", nombreDefamiliaBase + "_F_normal" , escala);
+                TagP0_ancho_ = M1_1_ObtenerTAgBarra(textoSup, "LargoAncho", nombreDefamiliaBase + " LAncho", escala);
                 TagP0_ancho_.valorTag = _EstribosRectagularesHortogonales.UbicacionSup_ValorLArgo;
+
+                ParametroShareNhDTO _newParaMe = new ParametroShareNhDTO()
+                {
+                    Isok = true,
+                    NombrePAra = "LargoAncho",
+                    valor = _EstribosRectagularesHortogonales.UbicacionSup_ValorLArgo
+                };
+                Config_EspecialCorte_.ListaPAraShare.Add(_newParaMe);
                 listaTag.Add(TagP0_ancho_);
+
+          
+
+
+
             }
             AsignarPArametros(this);
         }

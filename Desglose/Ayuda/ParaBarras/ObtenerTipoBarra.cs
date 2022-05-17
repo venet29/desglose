@@ -25,6 +25,8 @@ namespace Desglose.UTILES.ParaBarras
             
             try
             {
+              
+
                 _TipoBarra = ParameterUtil.FindParaByName(_rebar, "BarraTipo")?.AsString();
  
                 if (_TipoBarra == "" || _TipoBarra == null)
@@ -58,6 +60,27 @@ namespace Desglose.UTILES.ParaBarras
             return true;
         }
 
+        public bool EjecutarFALSO()
+        {
+            string _TipoBarra = "";
+            if (!(_rebar is Rebar || _rebar is PathReinforcement || _rebar is RebarInSystem)) return false;
 
+            try
+            {
+                TipoBarraGeneral = TipoBarraGeneral.Elevacion;
+                TipoBarra_ = TipoRebar.ELEV_BA_V;
+
+                return  true;
+
+               
+            }
+            catch (Exception ex)
+            {
+                Util.ErrorMsg($"Error 'ObtenerTipoBarra' -> Error al encontro tipo de barra \n Barra id:{_rebar.Id.IntegerValue} \nex:{ex.Message}");
+                return false;
+            }
+
+            return true;
+        }
     }
 }
