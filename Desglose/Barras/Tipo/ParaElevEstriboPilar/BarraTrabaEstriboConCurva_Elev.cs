@@ -32,8 +32,13 @@ namespace Desglose.Calculos.Tipo.ParaElevEstriboPilar
             _Prefijo_F = "F=";
             _puntoInicialReferencia = _RebarInferiorDTO.ptoini;
 
+
+            listaPArametroSharenh = new List<ParametroShareNhDTO>();
+
             if (_RebarInferiorDTO.Config_EspecialCorte.ListaPAraShare != null)
-                listaPArametroSharenh = _RebarInferiorDTO.Config_EspecialCorte.ListaPAraShare;
+                listaPArametroSharenh.AddRange(_RebarInferiorDTO.Config_EspecialCorte.ListaPAraShare);
+
+      
         }
 
 
@@ -102,6 +107,10 @@ namespace Desglose.Calculos.Tipo.ParaElevEstriboPilar
         public bool M1_3_PAthSymbolTAG()
         {
             ObtenerPAthSymbolTAG();
+
+            if (_rebarInferiorDTO.listaPArametroSharenh.Count > 0)
+                listaPArametroSharenh.AddRange(_rebarInferiorDTO.listaPArametroSharenh);
+
             return true;
         }
 

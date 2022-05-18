@@ -29,6 +29,7 @@ namespace Desglose.Ayuda
 
                 PtosCurvaAuxDTO _NewPtosCurvaAuxDTO = new PtosCurvaAuxDTO()
                 {
+                    ParametrosRebar = item.ParametrosRebar,
                     PtoInicial = item.PtoInicialTransformada.AsignarZ(zincial),
                     PtoMedio = item.PtoMedioTransformada.AsignarZ(zincial),
                     PtoFinal = item.PtoFinalTransformada.AsignarZ(zincial),
@@ -72,6 +73,7 @@ namespace Desglose.Ayuda
 
                 PtosCurvaAuxDTO _NewPtosCurvaAuxDTO = new PtosCurvaAuxDTO()
                 {
+                    ParametrosRebar=item.ParametrosRebar,
                     PtoInicial = _view.NH_ObtenerPtoSObreVIew(item.PtoInicialTransformada),
                     PtoMedio = _view.NH_ObtenerPtoSObreVIew(item.PtoMedioTransformada),
                     PtoFinal = _view.NH_ObtenerPtoSObreVIew(item.PtoFinalTransformada),

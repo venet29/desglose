@@ -83,6 +83,9 @@ namespace Desglose.DTO
         {
             uiapp = _uiapp;           
             IsOK = false;
+            listaPArametroSharenh = new List<ParametroShareNhDTO>();
+            ListaCurvaBarrasFinal_conCurva = new List<WraperRebarLargo>();
+            listaCUrvas = new List<WraperRebarLargo>();
         }
     }
 }

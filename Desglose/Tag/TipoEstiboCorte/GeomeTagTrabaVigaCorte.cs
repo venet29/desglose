@@ -58,7 +58,8 @@ namespace Desglose.Tag.TipoEstiboCorte
                     NombrePAra = "LargoAncho",
                     valor = _EstribosRectagularesHortogonales.UbicacionSup_ValorLArgo
                 };
-                Config_EspecialCorte_.ListaPAraShare.Add(_newParaMe);
+                //Config_EspecialCorte_.ListaPAraShare.Add(_newParaMe);
+                _rebarElevDTO.listaPArametroSharenh.Add(_newParaMe);
                 listaTag.Add(TagP0_ancho_);
 
           

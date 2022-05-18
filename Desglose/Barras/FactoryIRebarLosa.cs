@@ -29,7 +29,7 @@ namespace Desglose.Calculos
                     return new BarraPataAmbos(_uiapp, _RebarElevDTO, _newIGeometriaTag);
 
 
-
+                    //para corte los 4 inferiores
                 case TipoRebarElev.Estribo:
                     return new BarraEstriboTransConCurva_Plata(_uiapp, _RebarElevDTO, _newIGeometriaTag);
                 case TipoRebarElev.EstriboTraba:

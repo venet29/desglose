@@ -230,9 +230,9 @@ namespace Desglose.Entidades
                     direccion = (AUXTranf_ptoFinal - AUXTranf_ptoInicial).Normalize(),
                     alargarFin = alargarFin,
                     IsOK = IsOK,
-                    PtoInicialTransformada = PtoInicialTransformada,
-                    PtoFinalTransformada = PtoFinalTransformada,
-                    PtoMedioTransformada = PtoMedioTransformada,
+                    PtoInicialTransformada = AUXTranf_ptoInicial,
+                    PtoFinalTransformada = AUXTranf_ptoFinal,
+                    PtoMedioTransformada = AUXTranf_ptoMedio,
                 };
             }
             catch (Exception)

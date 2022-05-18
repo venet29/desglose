@@ -29,9 +29,14 @@ namespace Desglose.Geometria
 
             try
             {
-                var sololist =rebarElevDTO.ListaCurvaBarrasFinal_conCurva.Where(c => c.TipoCurva == TipoCUrva.linea &&
-                                                                                c.FijacionInicial==FijacionRebar.fijo &&
-                                                                                c.FijacionFinal == FijacionRebar.fijo).ToList();
+                var sololist = rebarElevDTO.ListaCurvaBarrasFinal_conCurva.Where(c => c.TipoCurva == TipoCUrva.linea &&
+                                                                                 c.FijacionInicial == FijacionRebar.fijo &&
+                                                                                 c.FijacionFinal == FijacionRebar.fijo).ToList();
+
+                var sololist_sincurva = rebarElevDTO.listaCUrvas.Where(c => c.TipoCurva == TipoCUrva.linea &&
+                                                                         c.FijacionInicial == FijacionRebar.fijo &&
+                                                                         c.FijacionFinal == FijacionRebar.fijo).ToList();
+
                 double Delta = 0;
                 var cur1 = rebarElevDTO.ListaCurvaBarrasFinal_conCurva.Where(c => c.TipoCurva == TipoCUrva.arco).FirstOrDefault();
 
@@ -41,14 +46,16 @@ namespace Desglose.Geometria
                     Delta = radio * 2 + rebarElevDTO.diametroFoot;
                 }
 
-                List<PtosCurvaAuxDTO> ListaptosTrans = 
+                List<PtosCurvaAuxDTO> ListaptosTrans =
                     AyudaObtenerPtosTransformada.ObtenerPtosSINTransformados(sololist, rebarElevDTO._View);
+                List<PtosCurvaAuxDTO> ListaptosTrans_sincurva =
+                  AyudaObtenerPtosTransformada.ObtenerPtosSINTransformados(sololist_sincurva, rebarElevDTO._View);
 
                 XYZ unitariZ = new XYZ(0, 0, -1);
                 //1) inf
-                var Lisinferior =ListaptosTrans.Where(c => c.PtoInicialTransformada.Z < 0 && c.PtoFinalTransformada.Z < 0).OrderByDescending(c=>c.largoCurve).ToList();
+                var Lisinferior = ListaptosTrans.Where(c => c.PtoInicialTransformada.Z < 0 && c.PtoFinalTransformada.Z < 0).OrderByDescending(c => c.largoCurve).ToList();
 
-                if (Lisinferior.Count== 0)
+                if (Lisinferior.Count == 0)
                     return false;
 
                 XYZ ptomedioMAsBajo = Lisinferior.MinBy(c => c.PtoMedio.Z).PtoMedio;
@@ -64,17 +71,28 @@ namespace Desglose.Geometria
                     return false;
                 XYZ ptoSupMAsAlto = superior.MinBy(c => -c.PtoMedio.Z).PtoMedio;
 
-                UbicacionSup = ptoSupMAsAlto - unitariZ* Util.CmToFoot(5);
-                UbicacionSup_ValorLArgo = Math.Round(Util.FootToCm(superior[0].largoCurve+ Delta), 0).ToString(); //largo no real
+                ////2.1
+                //var superior_sincurva = ListaptosTrans_sincurva.Where(c => c.PtoInicialTransformada.Z > 0 && c.PtoFinalTransformada.Z > 0).OrderByDescending(c => c.largoCurve).ToList();
+                //if (superior_sincurva.Count == 0)
+                //    return false;
+
+
+                UbicacionSup = ptoSupMAsAlto - unitariZ * Util.CmToFoot(5);
+                UbicacionSup_ValorLArgo = Math.Round(Util.FootToCm(superior[0].ParametrosRebar.largo), 0).ToString(); //largo no real
 
                 //3 izq
-                var izq = ListaptosTrans.Where(c => c.PtoInicialTransformada.X < 0 && c.PtoFinalTransformada.X< 0).OrderByDescending(c => c.largoCurve).ToList();
+                var izq = ListaptosTrans.Where(c => c.PtoInicialTransformada.X < 0 && c.PtoFinalTransformada.X < 0).OrderByDescending(c => c.largoCurve).ToList();
 
                 if (izq.Count == 0)
                     return false;
                 UbicacionIZq = izq[0].PtoMedio + rebarElevDTO._View.RightDirection * Util.CmToFoot(5);
-                UbicacionIZq_ValorLArgo = Math.Round(Util.FootToCm(izq[0].largoCurve+ Delta), 0).ToString(); //largo no real
 
+                //var izq_sincurva = ListaptosTrans_sincurva.Where(c => c.PtoInicialTransformada.X < 0 && c.PtoFinalTransformada.X < 0).OrderByDescending(c => c.largoCurve).ToList();
+                //if (superior_sincurva.Count == 0)
+                //    return false;
+                //3.1
+                //UbicacionIZq_ValorLArgo = Math.Round(Util.FootToCm(izq[0].largoCurve+ Delta), 0).ToString(); //largo no real
+                UbicacionIZq_ValorLArgo = Math.Round(Util.FootToCm(izq[0].ParametrosRebar.largo), 0).ToString(); //largo no real
             }
             catch (Exception ex)
             {

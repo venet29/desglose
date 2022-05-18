@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB;
+using Desglose.Entidades;
 
 namespace Desglose.Ayuda
 {
@@ -13,6 +14,6 @@ namespace Desglose.Ayuda
         public XYZ PtoMedioTransformada { get; internal set; }
 
         public double largoCurve { get; set; }
-
+        public parametrosRebar ParametrosRebar { get; internal set; }
     }
 }
