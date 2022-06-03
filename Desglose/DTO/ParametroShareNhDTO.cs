@@ -12,5 +12,12 @@ namespace Desglose.DTO
         public string NombrePAra { get; set; }
         public string valor { get; set; }
       
+
+        public static ParametroShareNhDTO ObtenerCasoBarra(string caso) => new ParametroShareNhDTO()
+        {
+            Isok = true,
+            NombrePAra = "CasoBarra",
+            valor = caso
+        };
     }
 }

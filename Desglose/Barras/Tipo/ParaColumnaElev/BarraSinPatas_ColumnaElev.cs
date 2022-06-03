@@ -6,10 +6,10 @@ using System;
 using Desglose.Ayuda;
 
 
-namespace Desglose.Calculos.Tipo.ParaElevPilar
+namespace Desglose.Calculos.Tipo.ParaColumnaElev
 
 {
-    public class BarraSinPatas : ARebarLosa_desglose, IRebarLosa_Desglose
+    public class BarraSinPatas_ColumnaElev : ARebarLosa_desglose, IRebarLosa_Desglose
     {
         private RebarElevDTO _RebarInferiorDTO;
         //private string _largoTotal;
@@ -17,7 +17,7 @@ namespace Desglose.Calculos.Tipo.ParaElevPilar
 
         public double mayorDistancia { get; set; }
 
-        public BarraSinPatas(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
+        public BarraSinPatas_ColumnaElev(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
         {
     
             this._RebarInferiorDTO = _rebarInferiorDTO;

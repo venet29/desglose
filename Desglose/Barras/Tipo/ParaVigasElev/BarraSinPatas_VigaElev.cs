@@ -6,17 +6,17 @@ using System;
 using Desglose.Ayuda;
 
 
-namespace Desglose.Calculos.Tipo.ParaElevVigas
+namespace Desglose.Calculos.Tipo.ParaVigasElev
 
 {
-    public class BarraSinPatasH : AARebarLosa_desgloseH, IRebarLosa_Desglose
+    public class BarraSinPatas_VigaElev : AARebarLosa_desglose_VigaElev, IRebarLosa_Desglose
     {
         private RebarElevDTO _RebarInferiorDTO;
 
 
         public double mayorDistancia { get; set; }
 
-        public BarraSinPatasH(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
+        public BarraSinPatas_VigaElev(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
         {
     
             this._RebarInferiorDTO = _rebarInferiorDTO;

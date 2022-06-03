@@ -1,45 +1,44 @@
 ﻿using Desglose.DTO;
+using Desglose.Entidades;
 using Desglose.Tag;
+using Desglose.UTILES;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using Desglose.Ayuda;
-using Desglose.Entidades;
 using Desglose.Extension;
+using Desglose.Ayuda;
 
-namespace Desglose.Calculos.Tipo.ParaElevEstriboPilar
+namespace Desglose.Calculos.Tipo.ParaVigasCorte
 
 {
     //CLASE QUE OBTIENE LA  FORMA DE LOS ESTROBOS Y TRABAS PARA DIBUJAR UNA VIEW DE ELEVACION
-    public class BarraEstriboTransConCurva_Elev : ARebarLosa_desglose, IRebarLosa_Desglose
+    public class BarraTrabaEstriboConCurva_VigaCorte : ARebarLosa_desglose, IRebarLosa_Desglose
     {
-        private readonly UIApplication uiapp;
         private RebarElevDTO _RebarInferiorDTO;
         private XYZ _puntoInicialReferencia;
-        private double angleRADNormalHostYEJeZ;
+
         public string _texToLargoParciales { get; private set; }
         public string _largoTotal { get; private set; }
         public double mayorDistancia { get; set; }
+        private double angleRADNormalHostYEJeZ;
 
-        public BarraEstriboTransConCurva_Elev(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
+        public BarraTrabaEstriboConCurva_VigaCorte(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
         {
-            this.uiapp = uiapp;
             this._RebarInferiorDTO = _rebarInferiorDTO;
             _newGeometriaTag = newGeometriaTag;
             _largoPataInclinada = _rebarInferiorDTO.LargoPata;
             _Prefijo_F = "F=";
             _puntoInicialReferencia = _RebarInferiorDTO.ptoini;
+
+
             listaPArametroSharenh = new List<ParametroShareNhDTO>();
 
             if (_RebarInferiorDTO.Config_EspecialCorte.ListaPAraShare != null)
-                listaPArametroSharenh .AddRange(_RebarInferiorDTO.Config_EspecialCorte.ListaPAraShare);
+                listaPArametroSharenh.AddRange(_RebarInferiorDTO.Config_EspecialCorte.ListaPAraShare);
 
-            if (_rebarInferiorDTO.listaPArametroSharenh.Count > 0)
-                listaPArametroSharenh.AddRange(_rebarInferiorDTO.listaPArametroSharenh);
-
-
+      
         }
 
 
@@ -60,28 +59,26 @@ namespace Desglose.Calculos.Tipo.ParaElevEstriboPilar
         {
 
             List<WraperRebarLargo> listaCuvas = _RebarInferiorDTO.ListaCurvaBarrasFinal_conCurva;
+
             mayorDistancia = listaCuvas.Max(c => c._curve.Length);
 
             XYZ centroDeestribo = _RebarInferiorDTO.ptocentroHost;// new XYZ(xprom, yprom, zincial);
             XYZ deltadesplaz = _puntoInicialReferencia - _RebarInferiorDTO.ptocentroHost;
             ObtenerAnguloCaracorte(listaCuvas);
 
-            //CrearTrasformadaSobreVector _Trasform = new CrearTrasformadaSobreVector(centroDeestribo, -angleRADNormalHostYEJeZ, _view.RightDirection);
 
-
-            //mayorDistancia = 0;
             for (int i = 0; i < listaCuvas.Count; i++)
             {
                 WraperRebarLargo item = listaCuvas[i];
-
-                item.PtoInicialTransformada = _view.NH_ObtenerPtoSObreVIew( deltadesplaz + item.ptoInicial);
+                item.PtoInicialTransformada = _view.NH_ObtenerPtoSObreVIew(deltadesplaz + item.ptoInicial);
 
                 item.PtoFinalTransformada = _view.NH_ObtenerPtoSObreVIew(deltadesplaz + item.ptoFinal);
 
                 item.PtoMedioTransformada = _view.NH_ObtenerPtoSObreVIew(deltadesplaz + item.ptoMedio);
-
-
             }
+
+
+
 
             ladoAB_pathSym = Line.CreateBound(listaCuvas[0].PtoInicialTransformada, listaCuvas[0].PtoFinalTransformada);
             ladoBC_pathSym = Arc.Create(listaCuvas[1].PtoInicialTransformada, listaCuvas[1].PtoFinalTransformada, listaCuvas[1].PtoMedioTransformada);
@@ -89,26 +86,11 @@ namespace Desglose.Calculos.Tipo.ParaElevEstriboPilar
             ladoDE_pathSym = Arc.Create(listaCuvas[3].PtoInicialTransformada, listaCuvas[3].PtoFinalTransformada, listaCuvas[3].PtoMedioTransformada);
             ladoEF_pathSym = Line.CreateBound(listaCuvas[4].PtoInicialTransformada, listaCuvas[4].PtoFinalTransformada);
 
-            ladoFG_pathSym = Arc.Create(listaCuvas[5].PtoInicialTransformada, listaCuvas[5].PtoFinalTransformada, listaCuvas[5].PtoMedioTransformada);
-            ladoGH_pathSym = Line.CreateBound(listaCuvas[6].PtoInicialTransformada, listaCuvas[6].PtoFinalTransformada);
-            ladoHI_pathSym = Arc.Create(listaCuvas[7].PtoInicialTransformada, listaCuvas[7].PtoFinalTransformada, listaCuvas[7].PtoMedioTransformada);
-            ladoIJ_pathSym = Line.CreateBound(listaCuvas[8].PtoInicialTransformada, listaCuvas[8].PtoFinalTransformada);
-            ladoJK_pathSym = Arc.Create(listaCuvas[9].PtoInicialTransformada, listaCuvas[9].PtoFinalTransformada, listaCuvas[9].PtoMedioTransformada);
-            ladoKL_pathSym = Line.CreateBound(listaCuvas[10].PtoInicialTransformada, listaCuvas[10].PtoFinalTransformada);
+            _texToLargoParciales = $"({ Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0) }+{ Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0) }+{ Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0) })";
 
+            _largoTotal = (Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0) + Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0) + Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0)).ToString();
 
-
-            _texToLargoParciales = $"({ Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0) }+{ Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0) })";
-
-            _largoTotal = (Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0) 
-                + Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0) 
-                + Math.Round(Util.FootToCm(ladoCD_pathSym.Length), 0)
-                + Math.Round(Util.FootToCm(ladoDE_pathSym.Length), 0)
-                + Math.Round(Util.FootToCm(ladoEF_pathSym.Length), 0)
-                + Math.Round(Util.FootToCm(ladoFG_pathSym.Length), 0)
-                + Math.Round(Util.FootToCm(ladoGH_pathSym.Length), 0)).ToString();
-
-            _ptoTexto = (_puntoInicialReferencia) / 2;//NO APLICA PQ MAL DEFINIDO _RebarInferiorDTO.ptofinal
+            _ptoTexto = (_puntoInicialReferencia) / 2; //NO APLICA PQ MAL DEFINIDO _RebarInferiorDTO.ptofinal
             //if (_RebarInferiorDTO.Id == -1)
             //    _textoBArras = $" {_RebarInferiorDTO.Clasificacion} {_RebarInferiorDTO.cantidadBarras}Ø{_RebarInferiorDTO.diametroMM} L={_largoTotal}\n {_texToLargoParciales} ";
             //else
@@ -119,6 +101,19 @@ namespace Desglose.Calculos.Tipo.ParaElevEstriboPilar
             return true;
 
         }
+        #endregion
+
+
+        public bool M1_3_PAthSymbolTAG()
+        {
+            ObtenerPAthSymbolTAG();
+
+            if (_rebarInferiorDTO.listaPArametroSharenh.Count > 0)
+                listaPArametroSharenh.AddRange(_rebarInferiorDTO.listaPArametroSharenh);
+
+            return true;
+        }
+
 
         private bool ObtenerAnguloCaracorte(List<WraperRebarLargo> listaCuvas)
         {
@@ -145,18 +140,5 @@ namespace Desglose.Calculos.Tipo.ParaElevEstriboPilar
             }
             return true;
         }
-        #endregion
-
-
-        public bool M1_3_PAthSymbolTAG()
-        {
-            ObtenerPAthSymbolTAG();
-            if (_rebarInferiorDTO.listaPArametroSharenh.Count > 0)
-                listaPArametroSharenh.AddRange(_rebarInferiorDTO.listaPArametroSharenh);
-            return true;
-        }
-
-
-
     }
 }

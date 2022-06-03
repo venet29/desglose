@@ -2,9 +2,9 @@
 using Desglose.Ayuda;
 using Desglose.DTO;
 
-namespace Desglose.Calculos.Tipo.ParaElevVigas
+namespace Desglose.Calculos.Tipo.ParaVigasElev
 {
-    public class AARebarLosa_desgloseH : ARebarLosa_desglose
+    public class AARebarLosa_desglose_VigaElev : ARebarLosa_desglose
     {
         protected XYZ PtoIniConDesplazamineto;
         protected XYZ PtoFinConDesplazamineto;
@@ -12,7 +12,7 @@ namespace Desglose.Calculos.Tipo.ParaElevVigas
 
         protected XYZ DesplazamietoPOrLInea { get; set; }
 
-        public AARebarLosa_desgloseH(RebarElevDTO _RebarInferiorDTO) : base(_RebarInferiorDTO)
+        public AARebarLosa_desglose_VigaElev(RebarElevDTO _RebarInferiorDTO) : base(_RebarInferiorDTO)
         {
             cantidadBArras = _RebarInferiorDTO.cantidadBarras;
             _largoTotal = "";

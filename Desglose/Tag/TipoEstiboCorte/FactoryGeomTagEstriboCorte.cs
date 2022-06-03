@@ -22,14 +22,14 @@ namespace Desglose.Tag
             switch (_RebarElevDTO.tipoBarra)
             {
 
-                case TipoRebarElev.Estribo:
+                case TipoRebarElev.Estribo_ColumnaCorte:
                     return new GeomeTagEstriboCorte(_uiapp, _RebarElevDTO);
-                case TipoRebarElev.EstriboTraba:
+                case TipoRebarElev.EstriboTraba_ColumnaCorte:
                     return new GeomeTagTrabaCorte(_uiapp, _RebarElevDTO);
-                case TipoRebarElev.EstriboViga:
-                    return new GeomeTagEstriboVigaCorte(_uiapp, _RebarElevDTO);
-                case TipoRebarElev.EstriboVigaTraba:
-                    return new GeomeTagTrabaVigaCorte(_uiapp, _RebarElevDTO);
+                case TipoRebarElev.Estribo_VigaCorte:
+                    return new GeomeTagEstriboVigaCorte_H(_uiapp, _RebarElevDTO);
+                case TipoRebarElev.EstriboTraba_VigaCorte:
+                    return new GeomeTagTrabaVigaCorte_H(_uiapp, _RebarElevDTO);
 
 
                 default:

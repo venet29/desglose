@@ -2,16 +2,16 @@
 using Desglose.DTO;
 using Desglose.Extension;
 
-namespace Desglose.Calculos
+namespace Desglose.Calculos.Tipo.ParaVigasElev
 {
-    public class ARebarLosa_Estribo : ARebarLosa_desglose
+    public class ARebarLosa_desgloseEstribo_VigaElev : ARebarLosa_desglose
     {
 
         protected string CantidadEstriboCONF { get; set; }
         protected string CantidadEstriboLAT { get; set; }
         protected int CantidadEstriboTRABA { get; set; }
         public Config_DatosEstriboElevVigas _config_DatosEstriboElevVigas { get; set; }
-        public ARebarLosa_Estribo(RebarElevDTO _RebarInferiorDTO) : base(_RebarInferiorDTO)
+        public ARebarLosa_desgloseEstribo_VigaElev(RebarElevDTO _RebarInferiorDTO) : base(_RebarInferiorDTO)
         {
 
 

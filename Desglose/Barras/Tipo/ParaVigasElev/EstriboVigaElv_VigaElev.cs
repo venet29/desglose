@@ -6,16 +6,16 @@ using System;
 using Desglose.Ayuda;
 
 
-namespace Desglose.Calculos.Tipo
+namespace Desglose.Calculos.Tipo.ParaVigasElev
 
 {
-    public class EstriboVigaTrabaElev : ARebarLosa_Estribo, IRebarLosa_Desglose
+    public class EstriboVigaElv_VigaElev : ARebarLosa_desgloseEstribo_VigaElev, IRebarLosa_Desglose
     {
 
        public double mayorDistancia { get; set; }
      
 
-        public EstriboVigaTrabaElev(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
+        public EstriboVigaElv_VigaElev(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
         {
             _newGeometriaTag = newGeometriaTag;
 
@@ -24,6 +24,7 @@ namespace Desglose.Calculos.Tipo
         public bool M1A_IsTodoOK()
         {
             CargarPAratrosSHAR_Estribo();
+
 
             ObtenerPAthSymbolTAG();
 

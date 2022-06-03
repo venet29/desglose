@@ -13,7 +13,7 @@ using Desglose.Tag;
 namespace Desglose.Calculos.Tipo.ParaPlanta
 
 {
-    public class BarraEstriboTrans_Plata : ARebarLosa_desglose, IRebarLosa_Desglose
+    public class BarraEstriboCorte_H : ARebarLosa_desglose, IRebarLosa_Desglose
     {
         private readonly UIApplication uiapp;
         private RebarElevDTO _RebarInferiorDTO;
@@ -21,7 +21,7 @@ namespace Desglose.Calculos.Tipo.ParaPlanta
         public string _largoTotal { get; private set; }
         public double mayorDistancia { get;  set; }
 
-        public BarraEstriboTrans_Plata(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
+        public BarraEstriboCorte_H(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
         {
             this.uiapp = uiapp;
             this._RebarInferiorDTO = _rebarInferiorDTO;

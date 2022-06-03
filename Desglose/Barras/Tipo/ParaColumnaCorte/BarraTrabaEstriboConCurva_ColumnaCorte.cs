@@ -10,10 +10,10 @@ using System.Collections.Generic;
 using Desglose.Extension;
 using Desglose.Ayuda;
 
-namespace Desglose.Calculos.Tipo.ParaPlanta
+namespace Desglose.Calculos.Tipo.ParaColumnaCorte
 
 {
-    public class BarraTrabaEstriboConCurva_Plata : ARebarLosa_desglose, IRebarLosa_Desglose
+    public class BarraTrabaEstriboConCurva_ColumnaCorte : ARebarLosa_desglose, IRebarLosa_Desglose
     {
         private RebarElevDTO _RebarInferiorDTO;
         private XYZ _puntoInicialReferencia;
@@ -24,7 +24,7 @@ namespace Desglose.Calculos.Tipo.ParaPlanta
         public double mayorDistancia { get; set; }  /// lo mejor es solo obtener los largo de las linea de barra que siguen la direccion de dibujoo (_view.rigthdirecio)
 
 
-        public BarraTrabaEstriboConCurva_Plata(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
+        public BarraTrabaEstriboConCurva_ColumnaCorte(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
         {
             this._RebarInferiorDTO = _rebarInferiorDTO;
             _newGeometriaTag = newGeometriaTag;

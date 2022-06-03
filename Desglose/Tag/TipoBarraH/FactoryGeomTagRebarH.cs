@@ -33,7 +33,7 @@ namespace Desglose.Tag.TipoBarraH
                     return new GeomeTagEstriboVigaElev(_uiapp, _RebarElevDTO);
                 case TipoRebarElev.EstriboVigaLatelaElev:
                     return new GeomeTagLateralesVigaElev(_uiapp, _RebarElevDTO);
-                case TipoRebarElev.EstriboVigaTraba:
+                case TipoRebarElev.EstriboTraba_VigaCorte:
                     return new GeomeTagTrabaVigaElev(_uiapp, _RebarElevDTO);
                 default:
                     return new GeomeTagNull();

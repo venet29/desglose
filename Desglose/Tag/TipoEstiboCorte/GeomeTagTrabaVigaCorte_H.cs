@@ -8,11 +8,11 @@ using System;
 
 namespace Desglose.Tag.TipoEstiboCorte
 {
-    public class GeomeTagTrabaVigaCorte : GeomeTagBaseV, IGeometriaTag
+    public class GeomeTagTrabaVigaCorte_H : GeomeTagBaseV, IGeometriaTag
     {
         private Config_EspecialCorte Config_EspecialCorte_;
 
-        public GeomeTagTrabaVigaCorte(UIApplication _uiapp, RebarElevDTO _RebarElevDTO) :
+        public GeomeTagTrabaVigaCorte_H(UIApplication _uiapp, RebarElevDTO _RebarElevDTO) :
             base(_uiapp, _RebarElevDTO)
         {
 
@@ -71,7 +71,7 @@ namespace Desglose.Tag.TipoEstiboCorte
         }
 
         public bool M4_IsFAmiliaValida() => true;
-        public void M5_DefinirRebarShapeAhorro(Action<GeomeTagTrabaVigaCorte> rutina)
+        public void M5_DefinirRebarShapeAhorro(Action<GeomeTagTrabaVigaCorte_H> rutina)
         {
             rutina(this);
         }

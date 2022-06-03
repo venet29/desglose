@@ -9,21 +9,21 @@ using Desglose.Ayuda;
 using Desglose.Entidades;
 using Desglose.Extension;
 
-namespace Desglose.Calculos.Tipo.ParaPlanta
+namespace Desglose.Calculos.Tipo.ParaVigasCorte
 
 {
-    public class BarraEstriboTransConCurva_Plata : ARebarLosa_desglose, IRebarLosa_Desglose
+    //CLASE QUE OBTIENE LA  FORMA DE LOS ESTROBOS Y TRABAS PARA DIBUJAR UNA VIEW DE ELEVACION
+    public class BarraEstriboConCurva_VigaCorte : ARebarLosa_desglose, IRebarLosa_Desglose
     {
         private readonly UIApplication uiapp;
         private RebarElevDTO _RebarInferiorDTO;
         private XYZ _puntoInicialReferencia;
-      
-
+        private double angleRADNormalHostYEJeZ;
         public string _texToLargoParciales { get; private set; }
         public string _largoTotal { get; private set; }
         public double mayorDistancia { get; set; }
 
-        public BarraEstriboTransConCurva_Plata(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
+        public BarraEstriboConCurva_VigaCorte(UIApplication uiapp, RebarElevDTO _rebarInferiorDTO, IGeometriaTag newGeometriaTag) : base(_rebarInferiorDTO)
         {
             this.uiapp = uiapp;
             this._RebarInferiorDTO = _rebarInferiorDTO;
@@ -31,12 +31,17 @@ namespace Desglose.Calculos.Tipo.ParaPlanta
             _largoPataInclinada = _rebarInferiorDTO.LargoPata;
             _Prefijo_F = "F=";
             _puntoInicialReferencia = _RebarInferiorDTO.ptoini;
+            listaPArametroSharenh = new List<ParametroShareNhDTO>();
 
             if (_RebarInferiorDTO.Config_EspecialCorte.ListaPAraShare != null)
-                listaPArametroSharenh = _RebarInferiorDTO.Config_EspecialCorte.ListaPAraShare;
+                listaPArametroSharenh .AddRange(_RebarInferiorDTO.Config_EspecialCorte.ListaPAraShare);
 
-          //  _configLargo = _RebarInferiorDTO.Config_EspecialCorte.TipoCOnfigLargo;
-          //  _tolerancia = _RebarInferiorDTO.Config_EspecialCorte.tolerancia;
+            if (_rebarInferiorDTO.listaPArametroSharenh.Count > 0)
+                listaPArametroSharenh.AddRange(_rebarInferiorDTO.listaPArametroSharenh);
+
+
+            listaPArametroSharenh.Add(ParametroShareNhDTO.ObtenerCasoBarra("EstriboH"));
+          
         }
 
 
@@ -58,25 +63,25 @@ namespace Desglose.Calculos.Tipo.ParaPlanta
 
             List<WraperRebarLargo> listaCuvas = _RebarInferiorDTO.ListaCurvaBarrasFinal_conCurva;
             mayorDistancia = listaCuvas.Max(c => c._curve.Length);
-            //double pataSuperior = listaCuvas.Find(c=> !c.IsBarraPrincipal)._curve.Length;
-            double zincial = listaCuvas[0].ptoInicial.Z;
-            //var xprom = listaCuvas.Average(c => c.ptoMedio.X);
-            //var yprom = listaCuvas.Average(c => c.ptoMedio.Y);
 
             XYZ centroDeestribo = _RebarInferiorDTO.ptocentroHost;// new XYZ(xprom, yprom, zincial);
-
-          //  CrearTrasformadaSobreVector _Trasform = new CrearTrasformadaSobreVector(centroDeestribo, -90, _view.RightDirection);
-
             XYZ deltadesplaz = _puntoInicialReferencia - _RebarInferiorDTO.ptocentroHost;
-            // mayorDistancia = 0;
+            ObtenerAnguloCaracorte(listaCuvas);
+
+            //CrearTrasformadaSobreVector _Trasform = new CrearTrasformadaSobreVector(centroDeestribo, -angleRADNormalHostYEJeZ, _view.RightDirection);
+
+
+            //mayorDistancia = 0;
             for (int i = 0; i < listaCuvas.Count; i++)
             {
                 WraperRebarLargo item = listaCuvas[i];
 
-                item.PtoInicialTransformada = (deltadesplaz + item.ptoInicial).AsignarZ(_puntoInicialReferencia.Z);
-                item.PtoFinalTransformada = (deltadesplaz + item.ptoFinal).AsignarZ(_puntoInicialReferencia.Z);
-                //if (item.TipoCurva == Ayuda.TipoCUrva.arco)
-                item.PtoMedioTransformada = (deltadesplaz + item.ptoMedio).AsignarZ(_puntoInicialReferencia.Z);
+                item.PtoInicialTransformada = _view.NH_ObtenerPtoSObreVIew( deltadesplaz + item.ptoInicial);
+
+                item.PtoFinalTransformada = _view.NH_ObtenerPtoSObreVIew(deltadesplaz + item.ptoFinal);
+
+                item.PtoMedioTransformada = _view.NH_ObtenerPtoSObreVIew(deltadesplaz + item.ptoMedio);
+
 
             }
 
@@ -97,19 +102,13 @@ namespace Desglose.Calculos.Tipo.ParaPlanta
 
             _texToLargoParciales = $"({ Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0) }+{ Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0) })";
 
-            _largoTotal = (Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0)
-                            + Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0)
-                            + Math.Round(Util.FootToCm(ladoCD_pathSym.Length), 0)
-                            + Math.Round(Util.FootToCm(ladoDE_pathSym.Length), 0)
-                            + Math.Round(Util.FootToCm(ladoEF_pathSym.Length), 0)
-                            + Math.Round(Util.FootToCm(ladoFG_pathSym.Length), 0)
-                            + Math.Round(Util.FootToCm(ladoGH_pathSym.Length), 0)).ToString();
-
-            if (_configLargo == TipoCOnfLargo.Aprox5)
-                redonderar_5();
-            else if (_configLargo == TipoCOnfLargo.Aprox10)
-                redonderar_10();
-
+            _largoTotal = (Math.Round(Util.FootToCm(ladoAB_pathSym.Length), 0) 
+                + Math.Round(Util.FootToCm(ladoBC_pathSym.Length), 0) 
+                + Math.Round(Util.FootToCm(ladoCD_pathSym.Length), 0)
+                + Math.Round(Util.FootToCm(ladoDE_pathSym.Length), 0)
+                + Math.Round(Util.FootToCm(ladoEF_pathSym.Length), 0)
+                + Math.Round(Util.FootToCm(ladoFG_pathSym.Length), 0)
+                + Math.Round(Util.FootToCm(ladoGH_pathSym.Length), 0)).ToString();
 
             _ptoTexto = (_puntoInicialReferencia) / 2;//NO APLICA PQ MAL DEFINIDO _RebarInferiorDTO.ptofinal
             //if (_RebarInferiorDTO.Id == -1)
@@ -122,12 +121,40 @@ namespace Desglose.Calculos.Tipo.ParaPlanta
             return true;
 
         }
+
+        private bool ObtenerAnguloCaracorte(List<WraperRebarLargo> listaCuvas)
+        {
+            try
+            {
+
+                angleRADNormalHostYEJeZ = 0;
+                return true;
+                //revisar si viga tiene angulo posito o negatico
+                WraperRebarLargo curvaPrinciplar = listaCuvas.Find(c => c.IsBarraPrincipal);
+                if (curvaPrinciplar == null)
+                {
+                    UtilDesglose.ErrorMsg($"No se puedo obtener de coordenadas planos de host");
+                    return false;
+                }
+
+                angleRADNormalHostYEJeZ = Math.PI / 2 - curvaPrinciplar.direccion.GetAngleEnZ_respectoPlanoXY(false);
+
+            }
+            catch (Exception ex)
+            {
+                UtilDesglose.ErrorMsg($"Error al obtener angulo del plano de corte  ex:{ex.Message}");
+                return false;
+            }
+            return true;
+        }
         #endregion
 
 
         public bool M1_3_PAthSymbolTAG()
         {
             ObtenerPAthSymbolTAG();
+            if (_rebarInferiorDTO.listaPArametroSharenh.Count > 0)
+                listaPArametroSharenh.AddRange(_rebarInferiorDTO.listaPArametroSharenh);
             return true;
         }
 

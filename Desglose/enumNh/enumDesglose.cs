@@ -48,12 +48,24 @@ namespace Desglose.Ayuda
     {
         Sinpata,PataInferior,PataSuperior, AmbasPata,
         SinpataH, PataInferiorH, PataSuperiorH, AmbasPataH,// para vigS en elevacion
-        Estribo,EstriboTraba,
+        Estribo_ColumnaCorte,EstriboTraba_ColumnaCorte,
         NONE,
-        EstriboViga, EstriboVigaLatelaElev, EstriboVigaTraba,
+        Estribo_VigaCorte, EstriboVigaLatelaElev, EstriboTraba_VigaCorte,
         EstriboVigaElv,
         EstriboVigaTrabaElev
     }
+
+    //v : significa 90 grados
+    //H : significa entre  entre 89 y -89
+    public enum CasoRebar
+    {
+        SinpataV, PataInferiorV, PataSuperiorV, AmbasPataV,
+        SinpataH, PataInferiorH, PataSuperiorH, AmbasPataH,// para vigS en elevacion
+        EstriboV, EstriboLateralV, EstriboTrabaV, 
+        EstriboH, EstriboLateralH, EstriboTrabaH,
+        NONE
+    }
+
     public enum TipoCUrva
     {
         linea,arco

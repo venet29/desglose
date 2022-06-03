@@ -539,17 +539,17 @@ namespace Desglose.Model
         public TipoRebarElev C_obtenerTipoEstribo_H()
         {
             if (ListaCurvaBarrasFinal_Estribo.Count == 3)
-                return TipoRebarElev.EstriboVigaTraba;
+                return TipoRebarElev.EstriboTraba_VigaCorte;
             else
-                return TipoRebarElev.EstriboViga;
+                return TipoRebarElev.Estribo_VigaCorte;
         }
 
         public TipoRebarElev C_obtenerTipoEstribo_V()
         {
             if (ListaCurvaBarrasFinal_Estribo.Count == 3)
-                return TipoRebarElev.EstriboTraba;
+                return TipoRebarElev.EstriboTraba_ColumnaCorte;
             else
-                return TipoRebarElev.Estribo;
+                return TipoRebarElev.Estribo_ColumnaCorte;
         }
     }
 }
